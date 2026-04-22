@@ -9,21 +9,97 @@ import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 <html lang="en">
 <head>
 	<BaseHead title="Alfie Ralls" description="My portfolio website" />
+	<title>Alfie</title>
 </head>
 		<body>
 			<Header />
 			<main>
-				<h1>Alfie Ralls</h1>
-					<h5>Computer science student, photographer of various things, Wikipedia contributor</h5>
-				<div>
-					<p>
-						This site is inspired by the design principles outlined in <a href="https://www.nordtheme.com/" target="_blank">Nord Theme</a>.
-					</p>
-					<p>
-						Welcome to my website!
-					</p>
+				<h1>Alfie</h1>
+				<div class="terminal-box">
+					<div class="terminal-bar">
+						<span class="terminal-dot red"></span>
+						<span class="terminal-dot yellow"></span>
+						<span class="terminal-dot green"></span>
+						<span class="terminal-title">alfie@portfolio ~ </span>
+					</div>
+					<div class="terminal-body">
+						<p class="terminal-line" id="line1"></p>
+						<p class="terminal-line" id="line2"></p>
+						<p class="terminal-line" id="line3"></p>
+						<p class="terminal-line" id="line4"></p>
+						<p class="terminal-line" id="line5"></p>
+						<p class="terminal-line" id="line6"></p>
+						<p class="terminal-line" id="line7"></p>
+						<p class="terminal-line" id="line8"></p>
+						<p class="terminal-line" id="line9"></p>
+						<p class="terminal-line" id="line10"></p>
+						<p class="terminal-line" id="line11"></p>
+					</div>
 				</div>
 			</main>
 		<Footer />
 		</body>
 </html>
+
+<script>
+	const lines = [
+		{ prompt: "$ ", text: "whoami", type: "command" },
+		{ text: "CS student and hiker", type: "output" },
+		{ prompt: "$ ", text: "ls interests/", type: "command" },
+		{ text: "railways/FOSS/hiking/cybersecurity", type: "output" },
+		{ prompt: "$ ", text: "git log --oneline", type: "command" },
+		{ text: "a3f9c2 started homelab build", type: "output" },
+		{ text:	"b7e1d4 switched daily driver to Fedora KDE", type: "output" },
+		{ text:	"c2a8f1 went for a 2 day hike", type: "output" },
+		{ prompt: "$ ", text: "logout", type: "command" },
+		{ text: "Thank you for visiting my website :)", type: "output" },
+		{ text: " ", type: "output" },
+	];
+
+	const delays = [500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500];
+
+		function typeText(el: Element, text: string, speed: number): Promise<void> {
+			return new Promise((resolve) => {
+				let i = 0;
+				const interval = setInterval(() => {
+					el.textContent += text[i];
+					i++;
+					if (i >= text.length) {
+						clearInterval(interval);
+						resolve();
+					}
+				}, speed);
+			});
+		}
+
+	async function runTerminal() {
+		for (let i = 0; i < lines.length; i++) {
+			const line = lines[i];
+			await new Promise(r => setTimeout(r, i === 0 ? delays[0] : delays[i] - delays[i - 1]));
+
+			const el = document.getElementById(`line${i + 1}`);
+			if (!el) continue;
+
+			if (line.type === 'command') {
+				el.innerHTML = `<span class="prompt">${line.prompt}</span>`;
+				await typeText(el, line.text, 10);
+			} else if (line.type === 'html-output') {
+				el.innerHTML = `<span class="output">${line.text}</span>`;
+			} else {
+				el.innerHTML = `<span class="output"></span>`;
+				await typeText(el.querySelector('.output')!, line.text, 10);
+			}
+		}
+
+		// Append cursor to the last line
+		const lastLine = document.getElementById(`line${lines.length}`);
+		if (lastLine) {
+			const cursor = document.createElement('span');
+			cursor.className = 'cursor';
+			cursor.textContent = '▋';
+			lastLine.appendChild(cursor);
+		}
+	}
+
+	runTerminal();
+</script>

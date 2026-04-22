@@ -1,7 +1,7 @@
 export const projects = [
     {
         title: "This Website",
-        updated: new Date("2026-03-11"),
+        updated: new Date("2026-04-10"),
         summary: "A personal portfolio and photography site built with Astro and hosted using Cloudflare Pages. Learning CSS layout and the basics of deploying a website.",
         tag: "Web",
         status: "active",
@@ -30,5 +30,13 @@ export const projects = [
         tag: "Java",
         status: "inactive",
         tech: "Java · IntelliJ Idea",
+    },
+    {
+        title: "Railway timeline",
+        updated: new Date("2026-04-10"),
+        summary: "Creating a website which allows the user to view the expansion and contraction of the UK railway network in map form, using an interactive timeline to navigate time periods.",
+        tag: "Web",
+        status: "planned",
+        tech: "CSS · IntelliJ Idea · Cloudflare",
     },
 ];

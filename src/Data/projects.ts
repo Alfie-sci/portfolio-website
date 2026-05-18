@@ -33,10 +33,10 @@ export const projects = [
     },
     {
         title: "Railway timeline",
-        updated: new Date("2026-04-10"),
+        updated: new Date("2026-05-18"),
         summary: "Creating a website which allows the user to view the expansion and contraction of the UK railway network in map form, using an interactive timeline to navigate time periods.",
         tag: "Web",
-        status: "planned",
+        status: "active",
         tech: "CSS · IntelliJ Idea · Cloudflare",
     },
 ];

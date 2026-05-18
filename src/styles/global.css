@@ -173,24 +173,32 @@ footer {
 }
 
 /* Gallery */
+/* Gallery */
+/* Gallery */
 .gallery {
-	columns: 3 400px;
-	column-gap: 0.6rem;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr); /* Forces exactly 3 equal columns */
+	gap: 1rem;
 	padding: 0.5rem;
+	margin-bottom: 2rem;
 }
 
 .gallery img {
 	width: 100%;
+	height: 100%;
+	object-fit: cover; /* Ensures images fill the grid cell cleanly without squishing */
 	display: block;
-	margin-bottom: 0.5rem;
 	border-radius: 8px;
 	box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 	transition: transform 0.3s ease, box-shadow 0.3s ease;
+	position: relative;
+	z-index: 1;
 }
 
 .gallery img:hover {
 	transform: scale(1.02);
 	box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+	z-index: 2; /* Ensures the expanded photo pops out OVER the others */
 }
 
 /* Projects */
@@ -311,7 +319,7 @@ footer {
 }
 
 .terminal-bar {
-	background: #2e2e2e;
+	background: #222;
 	padding: 0.6rem 1rem;
 	display: flex;
 	align-items: center;
@@ -332,12 +340,12 @@ footer {
 .terminal-title {
 	font-family: 'Inconsolata', monospace;
 	font-size: 0.8rem;
-	color: #aaa;
+	color: #bbb;
 	margin-left: 0.5rem;
 }
 
 .terminal-body {
-	background: rgba(30, 30, 30, 0.85);
+	background: #161616;
 	backdrop-filter: blur(6px);
 	padding: 1rem;
 	min-height: 200px;

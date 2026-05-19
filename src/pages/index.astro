@@ -1,105 +1,297 @@
----
-import BaseHead from '../components/BaseHead.astro';
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
----
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-	<BaseHead title="Alfie Ralls" description="My portfolio website" />
-	<title>Alfie</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Portfolio // Single-Page Spec</title>
+	<style>
+		/* Global Reset & Strict Structural Constraints */
+		* { box-sizing: border-box; border-radius: 0 !important; }
+
+		:root {
+			--blueprint-blue: #0033cc;
+			--stark-black: #111111;
+			--bg-light: #ffffff;
+			--grid-line: #e0e6ed;
+		}
+
+		body {
+			background-color: var(--bg-light);
+			/* Subtle CSS grid background to mimic drafting/blueprint paper layout */
+			background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+			background-size: 20px 20px;
+			color: var(--stark-black);
+			font-family: "Georgia", "Times New Roman", serif;
+			line-height: 1.6;
+			margin: 0;
+			padding: 2rem 1rem;
+		}
+
+		.spec-container {
+			max-width: 850px;
+			margin: 0 auto;
+			background: var(--bg-light);
+			border: 2px solid var(--blueprint-blue);
+			padding: 2rem;
+			box-shadow: 8px 8px 0px var(--blueprint-blue);
+		}
+
+		/* Typography */
+		h1, h2, h3 {
+			font-family: monospace;
+			color: var(--blueprint-blue);
+			margin-top: 0;
+		}
+
+		.mono { font-family: monospace; font-size: 0.9rem; }
+
+		/* Structural Components */
+		header {
+			border-bottom: 2px double var(--blueprint-blue);
+			padding-bottom: 1.5rem;
+			margin-bottom: 2rem;
+		}
+
+		nav {
+			font-family: monospace;
+			margin: 1rem 0 0 0;
+			padding: 0.5rem 0;
+			border-top: 1px dashed var(--blueprint-blue);
+		}
+
+		nav a {
+			margin-right: 1rem;
+			text-decoration: none;
+			font-weight: bold;
+		}
+
+		section {
+			margin-bottom: 3.5rem;
+			scroll-margin-top: 2rem; /* Smooth alignment when jumping to anchors */
+		}
+
+		fieldset {
+			border: 1px solid var(--blueprint-blue);
+			padding: 1.5rem;
+			margin-bottom: 2rem;
+		}
+
+		legend {
+			font-family: monospace;
+			color: var(--blueprint-blue);
+			font-weight: bold;
+			padding: 0 0.5rem;
+		}
+
+		/* Data Tables */
+		table {
+			width: 100%;
+			border-collapse: collapse;
+			font-family: monospace;
+			margin-top: 1rem;
+		}
+
+		th, td {
+			border: 1px solid var(--blueprint-blue);
+			padding: 0.75rem;
+			text-align: left;
+		}
+
+		th {
+			background: var(--blueprint-blue);
+			color: var(--bg-light);
+		}
+
+		/* Interactive Links */
+		/* Interactive Links (Ordered by LVHA rule) */
+		a {
+			color: var(--blueprint-blue);
+			text-decoration: underline;
+		}
+
+		a:visited {
+			color: #551a8b;
+		}
+
+		a:hover {
+			background: var(--blueprint-blue);
+			color: #ffffff;
+			text-decoration: none;
+		}
+
+		a:active {
+			background: #ff5500; /* Optional: A quick flash of a different color when actually clicked */
+			color: #ffffff;
+		}
+
+		/* Photography Matrix */
+		.photo-grid {
+			display: grid;
+			/* Adjusts columns automatically. Minimum 300px wide, max 1 fraction of the space */
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 1.5rem;
+			margin-top: 1rem;
+		}
+
+		.photo-card {
+			border: 1px solid var(--blueprint-blue);
+			background: var(--bg-light);
+			display: flex;
+			flex-direction: column;
+		}
+
+		.photo-img {
+			width: 100%;           /* Constrains the image to the card's width */
+			aspect-ratio: 3 / 2;   /* Forces a perfect uniform 3:2 rectangle for all photos */
+			object-fit: cover;     /* Crops neatly to fit the ratio without distortion */
+			display: block;        /* Removes default inline spacing bugs */
+			border-bottom: 1px solid var(--blueprint-blue);
+		}
+
+		.photo-meta {
+			padding: 0.75rem;
+			font-family: monospace;
+			font-size: 0.8rem;
+			background: #fafafa;
+			margin-top: auto;      /* Pushes metadata to the very bottom if cards are different heights */
+		}
+	</style>
 </head>
-		<body>
-			<Header />
-			<main>
-				<h1>Alfie</h1>
-				<div class="terminal-box">
-					<div class="terminal-bar">
-						<span class="terminal-dot red"></span>
-						<span class="terminal-dot yellow"></span>
-						<span class="terminal-dot green"></span>
-						<span class="terminal-title">alfie@portfolio ~ </span>
-					</div>
-					<div class="terminal-body">
-						<p class="terminal-line" id="line1"></p>
-						<p class="terminal-line" id="line2"></p>
-						<p class="terminal-line" id="line3"></p>
-						<p class="terminal-line" id="line4"></p>
-						<p class="terminal-line" id="line5"></p>
-						<p class="terminal-line" id="line6"></p>
-						<p class="terminal-line" id="line7"></p>
-						<p class="terminal-line" id="line8"></p>
-						<p class="terminal-line" id="line9"></p>
-						<p class="terminal-line" id="line10"></p>
-						<p class="terminal-line" id="line11"></p>
-					</div>
+<body>
+
+<div class="spec-container">
+
+	<header>
+		<h1 style="font-size: 2rem; ">SYSTEM_SPECIFICATION_v2.0</h1>
+		<div class="mono" style="color: var(--blueprint-blue);">
+			HOST: LANCASTER_UNI_SCC // COORD: 54.0104° N, 2.7877° W
+		</div>
+
+		<nav>
+			<a href="#manifest">// 01_MANIFEST</a>
+			<a href="#now">// 01.5_NOW_LOG</a>
+			<a href="#projects">// 02_PROJECTS</a>
+			<a href="#exhibit">// 03_EXHIBIT</a>
+			<a href="#handshake">// 04_CONTACT</a>
+		</nav>
+	</header>
+
+	<!-- SECTION 1: MANIFEST -->
+	<section id="manifest">
+		<h2>01_MANIFEST</h2>
+		<fieldset>
+			<legend>OPERATOR_MANIFEST.md</legend>
+			<p style="margin: 0;">
+				I am a Computer Science student at Lancaster University, with a specific interest in software engineering and cybersecurity. I am currently gaining proficiency in Python, Java, C and C++. Outside of academics, I make an effort to work on and contribute to open source software.
+			</p>
+			<p style="margin: 0;">
+				I am passionate for free open source software and Linux! Both of which I actively use and experiment with on my own devices. I also contribute to Wikipedia, primarily writing and improving articles related to the British railway network.
+
+			</p>
+		</fieldset>
+	</section>
+
+	<!-- SECTION 1.5: NOW -->
+	<section id="now">
+		<fieldset class="mono">
+			<legend>> tail -f /var/log/now</legend>
+			<div style="line-height: 1.8;">
+				<span style="color: var(--blueprint-blue);">[TIMESTAMP: 2026-05-19]</span><br><br>
+				> <strong>[LOAD]</strong> Revising for end-of-year CS exams (Algorithms & Data Structures).<br>
+				> <strong>[BUILD]</strong> Compiling this zero-JS Astro portfolio.<br>
+				> <strong>[READ]</strong> "Designing Data-Intensive Applications" by Martin Kleppmann.<br>
+				> <strong>[GEAR]</strong> Recently picked up a vintage 35mm lens, testing it around Lancaster.
+			</div>
+		</fieldset>
+	</section>
+
+	<!-- SECTION 2: PROJECTS -->
+	<section id="projects">
+		<h2>02_ENGINEERING_LOGS</h2>
+		<p class="mono">Below is an indexed ledger of active code deployments and technical tools.</p>
+
+		<table>
+			<thead>
+			<tr>
+				<th>INDEX</th>
+				<th>PROJECT_NAME</th>
+				<th>ARCHITECTURE_STACK</th>
+				<th>SOURCE</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr>
+				<td>[01]</td>
+				<td><strong>Bakewell Railway Timeline</strong></td>
+				<td>WebStorm / Vite / WebGL</td>
+				<td><a href="#">[DOES_NOT_EXIST]</a></td>
+			</tr>
+			<tr>
+				<td>[02]</td>
+				<td><strong>Raspberry Pi Departures Board</strong></td>
+				<td>Raspberry Pi / Electronics</td>
+				<td><a href="#">[DOES_NOT_EXIST]</a></td>
+			</tr>
+			<tr>
+				<td>[03]</td>
+				<td><strong>Homelab server</strong></td>
+				<td>Docker / Linux</td>
+				<td><a href="#">[DOES_NOT_EXIST]</a></td>
+			</tr>
+			<tr>
+				<td>[04]</td>
+				<td><strong>This website</strong></td>
+				<td>Astro / HTML/ CSS</td>
+				<td><a href="https://github.com/Alfie-sci/portfolio-website">[REPO]</a></td>
+			</tr>
+			</tbody>
+		</table>
+	</section>
+
+	<!-- SECTION 3: PHOTOGRAPHY EXHIBIT -->
+	<section id="exhibit">
+		<h2>03_VISUAL_EXHIBIT_LOG</h2>
+		<p class="mono">Raw capture extractions. Geometric composition, physical architecture, and raw framing.</p>
+
+		<div class="photo-grid">
+			<div class="photo-card">
+				<img class="photo-img" src="/gallery/photo5.jpeg" alt="Lancaster University's wind turbine">
+				<div class="photo-meta">
+					<strong>REF:</strong> TURBINE_01.JPG<br>
+					<strong>SPEC:</strong> 26mm // ISO 50 // f/1.6
 				</div>
-			</main>
-		<Footer />
-		</body>
+			</div>
+
+			<div class="photo-card">
+				<img class="photo-img" src="/gallery/photo6.jpeg" alt="Colour light signals at Preston railway station">
+				<div class="photo-meta">
+					<strong>REF:</strong> COLOUR_LIGHT_SIGNALS_08.JPG<br>
+					<strong>SPEC:</strong> 26mm // ISO 100 // f/1.6
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="handshake">
+		<h2>04_INITIATE_HANDSHAKE</h2>
+		<p class="mono">Open to backend engineering internships and infrastructure roles. Direct data transfers accepted via standard protocols.</p>
+
+		<fieldset class="mono">
+			<legend>NETWORK_ENDPOINTS.cfg</legend>
+			<div style="line-height: 1.8;">
+				> ENDPOINT: <a href="mailto:scroll_cosy_2v@icloud.com">scroll_cosy_2v@icloud.com</a><br>
+				> GITHUB: <a href="https://github.com/Alfie-Sci">github.com/Alfie-Sci</a><br>
+				> LINKEDIN: <a href="#">linkedin.com/in/yourname</a>
+			</div>
+		</fieldset>
+	</section>
+
+	<footer style="margin-top: 5rem; border-top: 1px solid var(--blueprint-blue); padding-top: 1rem;" class="mono">
+		EOF // END OF FILE. Built with semantic HTML/CSS.
+	</footer>
+
+</div>
+
+</body>
 </html>
-
-<script>
-	const lines = [
-		{ prompt: "$ ", text: "whoami", type: "command" },
-		{ text: "Alfie Ralls", type: "output" },
-		{ prompt: "$ ", text: "ls interests/", type: "command" },
-		{ text: "railways/FOSS/hiking/cybersecurity", type: "output" },
-		{ prompt: "$ ", text: "git log --oneline", type: "command" },
-		{ text: "a3f9c2 started homelab build", type: "output" },
-		{ text:	"b7e1d4 switched daily driver to Fedora KDE", type: "output" },
-		{ text:	"c2a8f1 went for a 2 day hike", type: "output" },
-		{ prompt: "$ ", text: "logout", type: "command" },
-		{ text: "Thank you for visiting my website :)", type: "output" },
-		{ text: " ", type: "output" },
-	];
-
-	const delays = [500, 600, 700, 800, 900, 1000, 1100, 1200, 1300, 1400, 1500];
-
-		function typeText(el: Element, text: string, speed: number): Promise<void> {
-			return new Promise((resolve) => {
-				let i = 0;
-				const interval = setInterval(() => {
-					el.textContent += text[i];
-					i++;
-					if (i >= text.length) {
-						clearInterval(interval);
-						resolve();
-					}
-				}, speed);
-			});
-		}
-
-	async function runTerminal() {
-		for (let i = 0; i < lines.length; i++) {
-			const line = lines[i];
-			await new Promise(r => setTimeout(r, i === 0 ? delays[0] : delays[i] - delays[i - 1]));
-
-			const el = document.getElementById(`line${i + 1}`);
-			if (!el) continue;
-
-			if (line.type === 'command') {
-				el.innerHTML = `<span class="prompt">${line.prompt}</span>`;
-				await typeText(el, line.text, 10);
-			} else if (line.type === 'html-output') {
-				el.innerHTML = `<span class="output">${line.text}</span>`;
-			} else {
-				el.innerHTML = `<span class="output"></span>`;
-				await typeText(el.querySelector('.output')!, line.text, 10);
-			}
-		}
-
-		// Append cursor to the last line
-		const lastLine = document.getElementById(`line${lines.length}`);
-		if (lastLine) {
-			const cursor = document.createElement('span');
-			cursor.className = 'cursor';
-			cursor.textContent = '▋';
-			lastLine.appendChild(cursor);
-		}
-	}
-
-	runTerminal();
-</script>

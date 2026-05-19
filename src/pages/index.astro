@@ -6,7 +6,7 @@ import { Image } from 'astro:assets';
 import photo3 from '../assets/gallery/photo3.jpeg';
 import photo4 from '../assets/gallery/photo4.jpeg';
 import photo5 from '../assets/gallery/photo5.jpeg';
-import photo6 from '../assets/gallery/photo6.jpeg'; // Assuming you added more for the loop!
+import photo6 from '../assets/gallery/photo6.jpeg';
 
 // Create a highly structured data array with unique specs for each photo
 const contactSheetPhotos = [
@@ -193,13 +193,13 @@ const contactSheetPhotos = [
 			color: #ffffff;
 		}
 
-		/* Photography Matrix */
+		/* --- Photography Matrix (Static Grid) --- */
 		.photo-grid {
 			display: grid;
-			/* Adjusts columns automatically. Minimum 300px wide, max 1 fraction of the space */
+			/* Automatically creates as many columns as will fit, minimum 300px wide */
 			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
 			gap: 1.5rem;
-			margin-top: 1rem;
+			margin-top: 1.5rem;
 		}
 
 		.photo-card {
@@ -207,22 +207,24 @@ const contactSheetPhotos = [
 			background: var(--bg-color);
 			display: flex;
 			flex-direction: column;
+			box-shadow: 4px 4px 0 var(--blueprint-blue); /* Brutalist hardware shadow */
 		}
 
 		.photo-meta {
 			padding: 0.75rem;
 			font-family: monospace;
 			font-size: 0.8rem;
-			background: var(--card-bg); /* Dynamic card background color */
+			background: var(--card-bg); /* Uses your light/dark mode card variable */
+			border-top: 1px solid var(--blueprint-blue);
 			margin-top: auto;
 		}
 
 		.photo-img {
-			width: 100%;           /* Constrains the image to the card's width */
-			aspect-ratio: 3 / 2;   /* Forces a perfect uniform 3:2 rectangle for all photos */
-			object-fit: cover;     /* Crops neatly to fit the ratio without distortion */
-			display: block;        /* Removes default inline spacing bugs */
-			border-bottom: 1px solid var(--blueprint-blue);
+			width: 100%;
+			aspect-ratio: 3 / 2;
+			object-fit: cover;
+			display: block;
+			filter: grayscale(10%); /* Keeps that slightly raw, analog look */
 		}
 
 		/* UK CIS Departure Board System */
@@ -569,30 +571,27 @@ const contactSheetPhotos = [
 	<section id="exhibit">
 		<h2>03_VISUAL_EXHIBIT_LOG</h2>
 		<p class="mono">Analog capture extraction ledger. Geometric composition, physical architecture, and raw framing.</p>
-		<p class="mono">[INTERFACE: USE_HORIZONTAL_SWIPE_OR_DRAG_WITH_MOUSE]</p>
 
-		<div class="contact-sheet-wrapper">
-			<div class="film-strip">
-				{contactSheetPhotos.map((photo, index) => (
-					<div class="film-frame">
-						<Image
-							src={photo.asset}
-							alt={`Photo log frame: ${photo.ref}`}
-							class="photo-img"
-							width={600}
-							quality={90}
-							loading={index === 0 ? "eager" : "lazy"}
-						/>
+		<div class="photo-grid">
+			{contactSheetPhotos.map((photo, index) => (
+				<div class="photo-card">
+					<Image
+						src={photo.asset}
+						alt={`Photo log frame: ${photo.ref}`}
+						class="photo-img"
+						width={600}
+						quality={90}
+					loading={index < 2 ? "eager" : "lazy"}
+					/>
 
-						<div class="frame-meta">
-							[{String(index + 1).padStart(2, '0')}A] {photo.ref}<br />
-							{photo.spec}
-						</div>
+					<div class="photo-meta">
+						<strong>[{String(index + 1).padStart(2, '0')}A] {photo.ref}</strong><br />
+						<span style="color: var(--blueprint-blue);">{photo.spec}</span>
 					</div>
+				</div>
 				))}
-			</div>
-		</div>
-	</section>
+				</div>
+				</section>
 
 	<section id="handshake">
 		<h2>04_INITIATE_HANDSHAKE</h2>
@@ -619,44 +618,5 @@ const contactSheetPhotos = [
 	</footer>
 
 </div>
-<script>
-	// Target the film strip container
-	const slider = document.querySelector('.film-strip');
-
-	// Set up our state variables
-	let isDown = false;
-	let startX;
-	let scrollLeft;
-
-	// 1. When the user clicks down
-	slider.addEventListener('mousedown', (e) => {
-		isDown = true;
-		// Calculate exact click position relative to the container
-		startX = e.pageX - slider.offsetLeft;
-		// Record where the scrollbar currently is
-		scrollLeft = slider.scrollLeft;
-	});
-
-	// 2. If the user drags their mouse entirely out of the container
-	slider.addEventListener('mouseleave', () => {
-		isDown = false;
-	});
-
-	// 3. When the user lets go of the click
-	slider.addEventListener('mouseup', () => {
-		isDown = false;
-	});
-
-	// 4. The actual movement logic
-	slider.addEventListener('mousemove', (e) => {
-		if (!isDown) return; // Stop the function from running if they aren't clicking
-		e.preventDefault(); // Stop default browser behaviors
-
-		const x = e.pageX - slider.offsetLeft;
-		const walk = (x - startX) * 1.5; // Multiply by 1.5 to scroll slightly faster than the mouse moves
-
-		slider.scrollLeft = scrollLeft - walk;
-	});
-</script>
 </body>
 </html>

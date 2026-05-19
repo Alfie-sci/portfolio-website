@@ -9,19 +9,44 @@
 		* { box-sizing: border-box; border-radius: 0 !important; }
 
 		:root {
-			--blueprint-blue: #0033cc;
-			--stark-black: #111111;
+			/* 1. Define the Light and Dark versions of your accent blue */
+			--blue-light: #0033cc;
+			--blue-dark:  #3366ff; /* A brighter, more luminous blueprint/electric blue */
+
+			/* 2. Let the system choose which one to use */
+			--blueprint-blue: light-dark(var(--blue-light), var(--blue-dark));
+
+			/* LIGHT MODE PALETTE */
 			--bg-light: #ffffff;
-			--grid-line: #e0e6ed;
+			--text-light: #111111;
+			--grid-light: #e0e6ed;
+			--card-bg-light: #fafafa;
+
+			/* DARK MODE PALETTE (Stark Terminal Graphite) */
+			--bg-dark: #050505;
+			--text-dark: #f0f0f0;
+			--grid-dark: #1a1a1a;
+			--card-bg-dark: #111111;
+
+			/* The System Switchers */
+			--bg-color: light-dark(var(--bg-light), var(--bg-dark));
+			--text-color: light-dark(var(--text-light), var(--text-dark));
+			--grid-color: light-dark(var(--grid-light), var(--grid-dark));
+			--card-bg: light-dark(var(--card-bg-light), var(--card-bg-dark));
+		}
+
+		/* Explicitly tell the browser that this website supports both light and dark system settings */
+		html {
+			color-scheme: light dark;
 		}
 
 		body {
-			background-color: var(--bg-light);
-			/* Subtle CSS grid background to mimic drafting/blueprint paper layout */
-			background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
-			linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+			background-color: var(--bg-color);
+			/* The blueprint grid line color changes dynamically now */
+			background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+			linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
 			background-size: 20px 20px;
-			color: var(--stark-black);
+			color: var(--text-color);
 			font-family: "Georgia", "Times New Roman", serif;
 			line-height: 1.6;
 			margin: 0;
@@ -31,7 +56,7 @@
 		.spec-container {
 			max-width: 850px;
 			margin: 0 auto;
-			background: var(--bg-light);
+			background: var(--bg-color); /* <-- Make sure this says --bg-color, not --bg-light! */
 			border: 2px solid var(--blueprint-blue);
 			padding: 2rem;
 			box-shadow: 8px 8px 0px var(--blueprint-blue);
@@ -110,8 +135,9 @@
 			text-decoration: underline;
 		}
 
+		/* Visited link color update for readability in dark mode */
 		a:visited {
-			color: #551a8b;
+			color: light-dark(#551a8b, #b085db);
 		}
 
 		a:hover {
@@ -136,9 +162,17 @@
 
 		.photo-card {
 			border: 1px solid var(--blueprint-blue);
-			background: var(--bg-light);
+			background: var(--bg-color);
 			display: flex;
 			flex-direction: column;
+		}
+
+		.photo-meta {
+			padding: 0.75rem;
+			font-family: monospace;
+			font-size: 0.8rem;
+			background: var(--card-bg); /* Dynamic card background color */
+			margin-top: auto;
 		}
 
 		.photo-img {
@@ -149,13 +183,6 @@
 			border-bottom: 1px solid var(--blueprint-blue);
 		}
 
-		.photo-meta {
-			padding: 0.75rem;
-			font-family: monospace;
-			font-size: 0.8rem;
-			background: #fafafa;
-			margin-top: auto;      /* Pushes metadata to the very bottom if cards are different heights */
-		}
 	</style>
 </head>
 <body>

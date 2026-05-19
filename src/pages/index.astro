@@ -59,7 +59,7 @@
 			background: var(--bg-color); /* <-- Make sure this says --bg-color, not --bg-light! */
 			border: 2px solid var(--blueprint-blue);
 			padding: 2rem;
-			box-shadow: 8px 8px 0px var(--blueprint-blue);
+			box-shadow: 8px 8px 0 var(--blueprint-blue);
 		}
 
 		/* Typography */
@@ -67,6 +67,13 @@
 			font-family: monospace;
 			color: var(--blueprint-blue);
 			margin-top: 0;
+		}
+
+		h1 {
+			/* clamp(minimum_size, preferred_size, maximum_size) */
+			font-size: clamp(1.2rem, 5vw, 2rem) !important;
+			overflow-wrap: break-word;  /* Allows long unbroken words to snap to the next line */
+			word-break: break-word;     /* Failsafe for older mobile browsers */
 		}
 
 		.mono { font-family: monospace; font-size: 0.9rem; }
@@ -115,6 +122,9 @@
 			border-collapse: collapse;
 			font-family: monospace;
 			margin-top: 1rem;
+			display: block;        /* Forces the table to act like a standard block element */
+			overflow-x: auto;      /* Creates a horizontal scrollbar ONLY inside the table */
+			white-space: nowrap;   /* Stops the text inside cells from awkwardly stacking */
 		}
 
 		th, td {
@@ -183,6 +193,32 @@
 			border-bottom: 1px solid var(--blueprint-blue);
 		}
 
+		/* Mobile Optimization Constraints */
+		@media (max-width: 768px) {
+			body {
+				padding: 1rem 0.5rem; /* Shrinks the outer margins */
+			}
+
+			.spec-container {
+				padding: 1.25rem; /* Tightens the inner box padding */
+				box-shadow: 4px 4px 0px var(--blueprint-blue); /* Scales down the heavy block shadow */
+			}
+
+			fieldset {
+				padding: 1rem; /* Gives text a bit more breathing room on tiny screens */
+			}
+
+			nav {
+				display: flex;
+				flex-wrap: wrap; /* Allows links to stack cleanly instead of running off-screen */
+				gap: 0.5rem;
+			}
+
+			nav a {
+				margin-right: 0.5rem;
+			}
+		}
+
 	</style>
 </head>
 <body>
@@ -190,7 +226,7 @@
 <div class="spec-container">
 
 	<header>
-		<h1 style="font-size: 2rem; ">SYSTEM_SPECIFICATION_v2.0</h1>
+		<h1 style="margin: 0;">SYSTEM_SPECIFICATION_v2.0</h1>
 		<div class="mono" style="color: var(--blueprint-blue);">
 			HOST: LANCASTER_UNI_SCC // COORD: 54.0104° N, 2.7877° W
 		</div>

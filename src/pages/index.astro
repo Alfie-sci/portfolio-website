@@ -3,6 +3,8 @@
 import { Image } from 'astro:assets';
 
 // Import your images from src/assets/gallery/
+import photo1 from '../assets/gallery/photo1.jpeg';
+import photo2 from '../assets/gallery/photo2.jpeg';
 import photo3 from '../assets/gallery/photo3.jpeg';
 import photo4 from '../assets/gallery/photo4.jpeg';
 import photo5 from '../assets/gallery/photo5.jpeg';
@@ -10,10 +12,12 @@ import photo6 from '../assets/gallery/photo6.jpeg';
 
 // Create a highly structured data array with unique specs for each photo
 const contactSheetPhotos = [
+	{ ref: "ENGINEERING_ONE.JPG", spec: "26mm | ISO 400 | f/1.8", asset: photo1 },
+	{ ref: "AUTO_TRAIN.JPG", spec: "26mm | ISO 400 | f/1.8", asset: photo2 },
+	{ ref: "GLASSON_DOCK_9.JPG", spec: "26mm | ISO 40 | f/1.6", asset: photo3 },
+	{ ref: "EVENING_STAR_92220.JPG", spec: "26mm | ISO 400 | f/1.8", asset: photo4 },
 	{ ref: "TURBINE_01.JPG", spec: "26mm // ISO 50 // f/1.6", asset: photo5 },
-	{ ref: "COLOUR_LIGHT_SIGNALS_08.JPG", spec: "26mm // ISO 100 // f/1.6", asset: photo6 },
-	{ ref: "EVENING_STAR.JPG", spec: "26mm | ISO 400 | f/1.8", asset: photo4 },
-	{ ref: "GLASSON_DOCK.JPG", spec: "26mm | ISO 40 | f/1.6", asset: photo3 },
+	{ ref: "COLOUR_SIGNALS_08.JPG", spec: "26mm // ISO 100 // f/1.6", asset: photo6 },
 ];
 ---
 
@@ -28,11 +32,11 @@ const contactSheetPhotos = [
 		* { box-sizing: border-box; border-radius: 0 !important; }
 
 		:root {
-			/* 1. Define the Light and Dark versions of your accent blue */
+			/* Define the Light and Dark versions of your accent blue */
 			--blue-light: #0033cc;
-			--blue-dark:  #3366ff; /* A brighter, more luminous blueprint/electric blue */
+			--blue-dark:  #3366ff;
 
-			/* 2. Let the system choose which one to use */
+			/* Let the system choose which one to use */
 			--blueprint-blue: light-dark(var(--blue-light), var(--blue-dark));
 
 			/* LIGHT MODE PALETTE */
@@ -54,14 +58,13 @@ const contactSheetPhotos = [
 			--card-bg: light-dark(var(--card-bg-light), var(--card-bg-dark));
 		}
 
-		/* Explicitly tell the browser that this website supports both light and dark system settings */
+		/* Explicitly tell the browser that this website supports both modes */
 		html {
 			color-scheme: light dark;
 		}
 
 		body {
 			background-color: var(--bg-color);
-			/* The blueprint grid line color changes dynamically now */
 			background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
 			linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
 			background-size: 20px 20px;
@@ -75,13 +78,13 @@ const contactSheetPhotos = [
 		.spec-container {
 			max-width: 850px;
 			margin: 0 auto;
-			background: var(--bg-color); /* <-- Make sure this says --bg-color, not --bg-light! */
+			background: var(--bg-color);
 			border: 2px solid var(--blueprint-blue);
 			padding: 2rem;
 			box-shadow: 8px 8px 0 var(--blueprint-blue);
 		}
 
-		/* Typography */
+		/* --- Typography --- */
 		h1, h2, h3 {
 			font-family: monospace;
 			color: var(--blueprint-blue);
@@ -89,19 +92,17 @@ const contactSheetPhotos = [
 		}
 
 		h1 {
-			/* clamp(minimum_size, preferred_size, maximum_size) */
 			font-size: clamp(1.2rem, 5vw, 2rem) !important;
-			overflow-wrap: break-word;  /* Allows long unbroken words to snap to the next line */
-			word-break: break-word;     /* Failsafe for older mobile browsers */
+			overflow-wrap: break-word;
+			word-break: break-word;
 		}
 
-		h2 {
-			/*border-bottom: 1px dashed var(--blueprint-blue);*/
+		.mono {
+			font-family: monospace;
+			font-size: 0.9rem;
 		}
 
-		.mono { font-family: monospace; font-size: 0.9rem; }
-
-		/* Structural Components */
+		/* --- Structural Components --- */
 		header {
 			border-bottom: 1px dashed var(--blueprint-blue);
 			padding-bottom: 0.1rem;
@@ -123,7 +124,7 @@ const contactSheetPhotos = [
 
 		section {
 			margin-bottom: 3.5rem;
-			scroll-margin-top: 2rem; /* Smooth alignment when jumping to anchors */
+			scroll-margin-top: 2rem;
 		}
 
 		fieldset {
@@ -132,8 +133,6 @@ const contactSheetPhotos = [
 			margin-bottom: 2rem;
 		}
 
-		/* This targets whatever element comes immediately after the legend
-   and forces its top margin to 0, killing any hidden spacing. */
 		fieldset > legend + * {
 			margin-top: 0;
 		}
@@ -145,15 +144,15 @@ const contactSheetPhotos = [
 			padding: 0 0.5rem;
 		}
 
-		/* Data Tables */
+		/* --- Data Tables --- */
 		table {
 			width: 100%;
 			border-collapse: collapse;
 			font-family: monospace;
 			margin-top: 1rem;
-			display: block;        /* Forces the table to act like a standard block element */
-			overflow-x: auto;      /* Creates a horizontal scrollbar ONLY inside the table */
-			white-space: nowrap;   /* Stops the text inside cells from awkwardly stacking */
+			display: block;
+			overflow-x: auto;
+			white-space: nowrap;
 		}
 
 		th, td {
@@ -164,16 +163,14 @@ const contactSheetPhotos = [
 
 		th {
 			background: var(--bg-color);
-			color: var(--bg-light);
 		}
 
-		/* Interactive Links */
+		/* --- Interactive Links --- */
 		a {
 			color: var(--blueprint-blue);
 			text-decoration: underline;
 		}
 
-		/* Visited link color update for readability in dark mode */
 		a:visited {
 			color: light-dark(#551a8b, #b085db);
 		}
@@ -185,59 +182,138 @@ const contactSheetPhotos = [
 		}
 
 		a:active {
-			background: #ff5500; /* Optional: A quick flash of a different color when actually clicked */
+			background: #ff5500;
 			color: #ffffff;
 		}
 
-		/* --- Photography Matrix (Static Grid) --- */
+		/* --- Photography Matrix (Polaroids) --- */
 		.photo-grid {
 			display: grid;
-			/* Automatically creates as many columns as will fit, minimum 300px wide */
-			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
 			gap: 1.5rem;
-			margin-top: 1.5rem;
+			margin-top: 2rem;
 		}
 
 		.photo-card {
-			border: 1px solid var(--blueprint-blue);
 			background: var(--bg-color);
+			border: 1px solid var(--blueprint-blue);
+			padding: 0.75rem 0.75rem 0 0.75rem;
 			display: flex;
 			flex-direction: column;
-			box-shadow: 4px 4px 0 var(--blueprint-blue); /* Brutalist hardware shadow */
+			box-shadow: 4px 4px 0 var(--blueprint-blue);
+			transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+
+			position: relative;
+			/* THE FIX: We deleted 'overflow: hidden;' so the tape can break out! */
 		}
 
-		.photo-meta {
-			padding: 0.75rem;
-			font-family: monospace;
-			font-size: 0.8rem;
-			background: var(--card-bg); /* Uses your light/dark mode card variable */
-			border-top: 1px solid var(--blueprint-blue);
-			margin-top: auto;
+		/* --- 1. The Corner Drafting Tape --- */
+		.photo-card::before {
+			content: "";
+			position: absolute;
+			/* Negative values physically pull the tape outside the boundaries of the card */
+			top: -12px;
+			left: -16px;
+			width: 45px;
+			height: 25px;
+
+			/* Sharp corner angle */
+			transform: rotate(-35deg);
+
+			/* Frosted masking tape chemistry */
+			background-color: light-dark(rgba(0, 0, 0, 0.08), rgba(255, 255, 255, 0.2));
+			backdrop-filter: blur(4px);
+			border: 1px solid light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
+
+			z-index: 20;
+			transition: transform 0.2s ease-out;
+		}
+
+		/* The Tape Tension (Hover) */
+		.photo-card:hover::before {
+			/* Simulates physical tension. As the card lifts, the tape stretches and twists slightly */
+			transform: translateY(2px) rotate(-32deg) scaleX(1.05);
+		}
+
+		/* The Upgraded Glossy Shine --- */
+		/* Because we removed overflow: hidden, we must use a background-gradient sweep
+		   instead of a physically moving element, otherwise the light spills everywhere! */
+		.photo-card::after {
+			content: "";
+			position: absolute;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+
+			/* The gradient is now mathematically angled, no skew transform required */
+			background: linear-gradient(
+				105deg,
+				transparent 35%,
+				rgba(255, 255, 255, 0.3) 50%,
+				transparent 65%
+			);
+
+			/* We make the gradient 3x wider than the card */
+			background-size: 300% 100%;
+			/* Anchors the invisible part of the gradient over the card */
+			background-position: 100% 0;
+
+			z-index: 5;
+			pointer-events: none;
+			transition: background-position 0.2s ease-in; /* Fast snap back */
+		}
+
+		.photo-card:hover::after {
+			/* Sweeps the gradient across the card to the other invisible side */
+			background-position: 0% 0;
+			transition: background-position 0.3s ease-out; /* Slow sweep forward */
+		}
+
+		/* The Hover States (Consolidated) */
+		.photo-card:hover {
+			transform: translateY(-5px) rotate(-0.5deg);
+			box-shadow: 10px 10px 0 var(--blueprint-blue);
+			z-index: 10;
 		}
 
 		.photo-img {
-			width: 100%;
-			aspect-ratio: 3 / 2;
-			object-fit: cover;
+			width: 100% !important;
+			height: auto !important;
+			aspect-ratio: 1 / 1 !important;
+			object-fit: cover !important;
 			display: block;
-			filter: grayscale(10%); /* Keeps that slightly raw, analog look */
+			border: 1px solid var(--blueprint-blue);
+			filter: grayscale(10%) contrast(110%);
 		}
 
-		/* UK CIS Departure Board System */
+		.photo-meta {
+			padding: 1rem 0.25rem 0.75rem 0.25rem;
+			font-family: monospace;
+			font-size: 0.75rem;
+			text-align: center;
+			background: transparent;
+			border-top: none;
+			margin-top: auto;
+			position: relative;
+			z-index: 10;
+		}
+
+		/* --- UK CIS Departure Board System --- */
 		.cis-board {
-			background-color: #050505; /* Deep terminal black */
-			border: 4px solid #1a1a1a; /* Thick, dark hardware bezel */
+			background-color: #050505;
+			border: 4px solid #1a1a1a;
 			padding: 1rem;
-			color: #ffaa00; /* National Rail LED Amber */
-			font-family: "Courier New", Courier, monospace; /* Forces strict character width */
+			color: #ffaa00;
+			font-family: "Courier New", Courier, monospace;
 			text-transform: uppercase;
 			margin-bottom: 2rem;
 			overflow: hidden;
 		}
 
 		.cis-on-time {
-			color: #00ff00; /* Bright LED Terminal Green */
-			text-shadow: 0 0 5px rgba(0, 255, 0, 0.4); /* Optional: Adds a tiny glow effect */
+			color: #00ff00;
+			text-shadow: 0 0 5px rgba(0, 255, 0, 0.4);
 		}
 
 		.cis-row {
@@ -248,7 +324,6 @@ const contactSheetPhotos = [
 			margin-bottom: 0.25rem;
 		}
 
-		/* Rigid column widths to perfectly mimic the physical display */
 		.cis-rank { width: 50px; }
 		.cis-time { width: 70px; }
 		.cis-plat { width: 50px; text-align: center; }
@@ -260,10 +335,9 @@ const contactSheetPhotos = [
 			font-size: 0.85rem;
 			margin-bottom: 1.5rem;
 			padding-bottom: 1rem;
-			border-bottom: 1px dotted #333; /* Faint separator line */
+			border-bottom: 1px dotted #333;
 		}
 
-		/* Removes the separator from the bottom train */
 		.cis-board > div:last-child {
 			border-bottom: none;
 			margin-bottom: 0;
@@ -273,7 +347,7 @@ const contactSheetPhotos = [
 		.cis-calling-label {
 			white-space: nowrap;
 			margin-right: 1rem;
-			color: #cc8800; /* Slightly dimmer amber for the static label */
+			color: #cc8800;
 		}
 
 		.cis-scroll-container {
@@ -285,13 +359,10 @@ const contactSheetPhotos = [
 		.cis-scroll-text {
 			display: inline-block;
 			white-space: nowrap;
-			/* Adjust the 'XXs' to make the scroll faster or slower */
 			animation: cis-scroll 30s linear infinite;
-
-			/* --- THE MEMORY LEAK FIX --- */
-			will-change: transform;       /* Warns the browser an animation is happening */
-			transform: translateZ(0);     /* Forces the element into a hardware-accelerated 3D layer */
-			backface-visibility: hidden;  /* Prevents rendering glitches on WebKit browsers */
+			will-change: transform;
+			transform: translateZ(0);
+			backface-visibility: hidden;
 		}
 
 		@keyframes cis-scroll {
@@ -299,7 +370,6 @@ const contactSheetPhotos = [
 			100% { transform: translate3d(-100%, 0, 0); }
 		}
 
-		/* The iconic blinking "On time" indicator */
 		.cis-blink {
 			animation: cis-blinker 2s step-start infinite;
 		}
@@ -308,138 +378,34 @@ const contactSheetPhotos = [
 			50% { opacity: 0; }
 		}
 
-		/* Mobile adjustments to prevent columns from crushing */
+		/* --- Media Queries (Mobile Optimization) --- */
+		@media (max-width: 768px) {
+			body {
+				padding: 1rem 0.5rem;
+			}
+			.spec-container {
+				padding: 1.25rem;
+				box-shadow: 4px 4px 0 var(--blueprint-blue);
+			}
+			fieldset {
+				padding: 1rem;
+			}
+			nav {
+				display: flex;
+				flex-wrap: wrap;
+				gap: 0.5rem;
+			}
+			nav a {
+				margin-right: 0.5rem;
+			}
+		}
+
 		@media (max-width: 600px) {
 			.cis-time { width: 55px; }
 			.cis-plat { width: 30px; }
 			.cis-status { width: 75px; }
 			.cis-dest { padding-left: 0.5rem; }
 		}
-
-		/* Mobile Optimization Constraints */
-		@media (max-width: 768px) {
-			body {
-				padding: 1rem 0.5rem; /* Shrinks the outer margins */
-			}
-
-			.spec-container {
-				padding: 1.25rem; /* Tightens the inner box padding */
-				box-shadow: 4px 4px 0 var(--blueprint-blue); /* Scales down the heavy block shadow */
-			}
-
-			fieldset {
-				padding: 1rem; /* Gives text a bit more breathing room on tiny screens */
-			}
-
-			nav {
-				display: flex;
-				flex-wrap: wrap; /* Allows links to stack cleanly instead of running off-screen */
-				gap: 0.5rem;
-			}
-
-			nav a {
-				margin-right: 0.5rem;
-			}
-		}
-
-		/* --- Visual Exhibit: 35mm Contact Sheet --- */
-
-		/* --- 1. The Stripped Wrapper --- */
-		.contact-sheet-wrapper {
-			margin-top: 1.5rem;
-			margin-bottom: 2rem;
-		}
-
-		/* --- 2. The Physical Film Strip (The Scrolling Reel) --- */
-		.film-strip {
-			/* THE FIX: Dynamic film stock color */
-			--film-base: light-dark(#111111, #333333);
-
-			display: flex;
-			justify-content: flex-start;
-			gap: 1.5rem;
-			padding: 2.5rem 1.5rem;
-
-			background-color: var(--film-base);
-
-			/* The gradient now injects our dynamic film base color */
-			background-image:
-				repeating-linear-gradient(90deg, var(--film-base) 0px, var(--film-base) 16px, var(--bg-color) 16px, var(--bg-color) 24px),
-				repeating-linear-gradient(90deg, var(--film-base) 0px, var(--film-base) 16px, var(--bg-color) 16px, var(--bg-color) 24px);
-			background-position: top 12px left 0, bottom 12px left 0;
-			background-size: auto 12px;
-			background-repeat: repeat-x;
-			background-attachment: local;
-
-			/* Gives the film a physical cut edge in dark mode only */
-			border-top: 1px solid light-dark(transparent, #333333);
-			border-bottom: 1px solid light-dark(transparent, #333333);
-
-			/* Swipe Mechanics */
-			overflow-x: auto;
-			-webkit-overflow-scrolling: touch;
-			scroll-snap-type: x mandatory;
-			scrollbar-width: none;
-			-ms-overflow-style: none;
-
-			/* Physical Drag UI */
-			cursor: grab;
-			user-select: none; /* Prevents accidentally highlighting text while dragging */
-		}
-
-		/* Changes cursor to a closed hand while actively clicking */
-		.film-strip:active {
-			cursor: grabbing;
-		}
-
-		/* Hides the system scrollbar */
-		.film-strip::-webkit-scrollbar {
-			display: none;
-		}
-
-		/* Hides the system scrollbar */
-		.film-strip::-webkit-scrollbar {
-			display: none;
-		}
-
-		/* Hides the system scrollbar */
-		.film-strip::-webkit-scrollbar {
-			display: none;
-		}
-
-		/* --- 3. The Individual Exposures --- */
-		.film-frame {
-			flex: 0 0 280px; /* Locks image width */
-			display: flex;
-			flex-direction: column;
-			background: transparent; /* Removes old backgrounds so the film stock shows */
-			scroll-snap-align: center; /* Snaps the photo to the center of the screen when swiping */
-		}
-
-		.photo-img {
-			width: 100% !important;
-			height: 186px !important; /* 280px width at a 3:2 ratio */
-			object-fit: cover !important; /* Forces the image to fill the horizontal box without squishing */
-			display: block;
-			filter: grayscale(10%);
-
-			border: none !important;
-			outline: none !important;
-			box-shadow: none !important;
-			text-decoration: none !important;
-		}
-
-		/* --- 4. Edge Markings (Kodak/Ilford Amber Data) --- */
-		.frame-meta {
-			font-family: monospace;
-			font-size: 0.75rem;
-			color: #ffffff; /* National Rail LED Amber */
-			text-align: left;
-			margin-top: 0.5rem;
-			text-transform: uppercase;
-			letter-spacing: 1px;
-		}
-
 	</style>
 </head>
 <body>

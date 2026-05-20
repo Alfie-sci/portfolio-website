@@ -185,6 +185,145 @@ const contactSheetPhotos = [
 			background: #ff5500;
 			color: #ffffff;
 		}
+		/* --- SECTION: Geolocation Radar (Hardware Casing) --- */
+
+		:root {
+			--radar-green: #00ff41;
+		}
+
+		.coord-trigger {
+			position: relative;
+			display: inline-block;
+			padding: 0 4px;
+			cursor: crosshair;
+			transition: background 0.2s ease-out, color 0.2s ease-out;
+		}
+
+		/* 1. The Shrunk Hardware Box */
+		.coord-trigger::before {
+			content: "";
+			position: absolute;
+			/* THE FIX: Drops the box 30px below the text so it never clips the top of the screen */
+			top: 30px;
+			left: 50%;
+
+			/* Shrunk dimensions */
+			width: 200px;
+			height: 200px;
+
+			background-color: #050505;
+			border: 3px solid #1a1a1a;
+			box-shadow: 8px 8px 0 rgba(0, 0, 0, 0.8);
+			border-radius: 8px;
+
+			background-image:
+				linear-gradient(rgba(0, 255, 65, 0.15) 1px, transparent 1px),
+				linear-gradient(90deg, rgba(0, 255, 65, 0.15) 1px, transparent 1px);
+			background-size: 20px 20px;
+			background-position: center;
+
+			/* Anchors the center horizontally, but keeps the top anchor */
+			transform: translateX(-50%) scale(0.95);
+			transform-origin: top center;
+			opacity: 0;
+			pointer-events: none;
+			z-index: 90;
+			transition: opacity 0.2s ease-out, transform 0.2s ease-out;
+		}
+
+		/* 2. The Shrunk Radar Sweep */
+		.coord-trigger::after {
+			content: "";
+			position: absolute;
+			/* Anchored to perfectly fit inside the new 200px box */
+			top: 40px;
+			left: 50%;
+
+			width: 180px;
+			height: 180px;
+			border-radius: 50%;
+			border: 1px solid rgba(0, 255, 65, 0.3);
+
+			background-image: conic-gradient(
+				from 0deg at 50% 50%,
+				transparent 0deg,
+				rgba(0, 255, 65, 0.1) 60deg,
+				rgba(0, 255, 65, 0.8) 90deg,
+				transparent 90deg
+			);
+
+			transform-origin: 50% 50%;
+			transform: translateX(-50%) rotate(0deg);
+			opacity: 0;
+			pointer-events: none;
+			z-index: 100;
+			transition: opacity 0.2s ease-out;
+		}
+
+		/* --- 3. The Radar Contacts (Blips) --- */
+		.blip {
+			position: absolute;
+			width: 6px;
+			height: 6px;
+			background-color: var(--radar-green);
+			border-radius: 50%;
+			box-shadow: 0 0 8px var(--radar-green);
+			opacity: 0;
+			pointer-events: none;
+			z-index: 110; /* Sits above the sweeping line */
+		}
+
+		/* Plotting the coordinates on the screen based on the math center (top: 130px) */
+		.blip-1 { top: 100px; left: calc(50% + 52px); } /* Approx 60 degrees (Top Right) */
+		.blip-2 { top: 195px; left: calc(50% + 24px); } /* Approx 160 degrees (Bottom Right) */
+		.blip-3 { top: 122px; left: calc(50% - 49px); } /* Approx 280 degrees (Top Left) */
+
+		/* --- THE ACTIVATION --- */
+
+		.coord-trigger:hover {
+			background-color: light-dark(rgba(0, 51, 204, 0.05), rgba(51, 102, 255, 0.15));
+		}
+
+		.coord-trigger:active {
+			background-color: rgba(0, 255, 65, 0.15);
+			color: var(--radar-green);
+		}
+
+		.coord-trigger:active::before {
+			opacity: 1;
+			transform: translateX(-50%) scale(1);
+		}
+
+		/* Triggers the 1.5s sweep loop */
+		.coord-trigger:active::after {
+			opacity: 1;
+			animation: tactical-radar-sweep 1.5s linear infinite;
+		}
+
+		/* Triggers the blip flashes simultaneously */
+		.coord-trigger:active .blip {
+			animation: blip-flash 1.5s infinite;
+		}
+
+		/* The Mathematical Sync:
+		   Calculated to perfectly intercept the bright edge of the beam (which starts at 90 degrees) */
+		.coord-trigger:active .blip-1 { animation-delay: 1.37s; } /* Top Right */
+		.coord-trigger:active .blip-2 { animation-delay: 0.29s; } /* Bottom Right */
+		.coord-trigger:active .blip-3 { animation-delay: 0.79s; } /* Top Left */
+
+		/* --- ANIMATION PHYSICS --- */
+		@keyframes tactical-radar-sweep {
+			to { transform: translateX(-50%) rotate(360deg); }
+		}
+
+		@keyframes blip-flash {
+			0%, 100% { opacity: 0; transform: scale(0.5); }
+			/* Hits maximum brightness the exact moment the beam touches it */
+			1%  { opacity: 1; transform: scale(1.5); }
+			/* Fades out slowly, mimicking the phosphor afterglow */
+			25% { opacity: 0.4; transform: scale(1); }
+			50% { opacity: 0; }
+		}
 
 		/* --- Photography Matrix (Polaroids) --- */
 		.photo-grid {
@@ -297,6 +436,106 @@ const contactSheetPhotos = [
 			margin-top: auto;
 			position: relative;
 			z-index: 10;
+		}
+
+		/* --- SECTION: Terminal-Grade Accessibility (a11y) --- */
+
+		/* 1. Remove the ugly default browser outline for all elements */
+		*:focus {
+			outline: none;
+		}
+
+		/* 2. Create the brutalist keyboard targeting reticle */
+		:focus-visible {
+			/* A thick, dashed border that matches your blueprint aesthetic */
+			outline: 2px dashed var(--blueprint-blue) !important;
+			/* Pushes the outline slightly away from the element so it doesn't crush the text */
+			outline-offset: 4px !important;
+
+			/* Adds a faint highlight box behind the focused element */
+			background-color: light-dark(rgba(0, 51, 204, 0.1), rgba(51, 102, 255, 0.15)) !important;
+			border-radius: 0 !important;
+		}
+
+		/* 3. Specific fix for the photo cards so the outline encompasses the whole Polaroid */
+		.photo-card:focus-visible {
+			box-shadow: 8px 8px 0 var(--blueprint-blue);
+			transform: translateY(-2px); /* Slight physical lift when tabbed to */
+		}
+
+		/* --- SECTION: The Print Stylesheet --- */
+		@media print {
+			/* 1. Force high-contrast, ink-saving paper mode */
+			body {
+				background-color: #ffffff !important;
+				color: #000000 !important;
+				/* Faint grid for physical paper */
+				background-image: linear-gradient(#eaeaea 1px, transparent 1px),
+				linear-gradient(90deg, #eaeaea 1px, transparent 1px) !important;
+			}
+
+			/* 2. Flatten the layout and remove heavy screen shadows */
+			.spec-container {
+				border: 1px solid #000000 !important;
+				box-shadow: none !important;
+				padding: 0 !important;
+				max-width: 100% !important;
+			}
+
+			h1, h2, h3, a, legend {
+				color: #000000 !important;
+				text-decoration: none !important; /* Removes link underlines on paper */
+			}
+
+			/* 3. Hide all interactive screen-only elements */
+			.coord-trigger::before,
+			.coord-trigger::after,
+			.photo-card::before,
+			.photo-card::after {
+				display: none !important;
+			}
+
+			/* 4. Format the Polaroids for A4 Paper */
+			.photo-grid {
+				display: grid;
+				/* Forces 3 neat columns on a piece of paper */
+				grid-template-columns: repeat(3, 1fr) !important;
+				gap: 1rem !important;
+			}
+
+			.photo-card {
+				/* CRITICAL: Prevents the printer from slicing a photo across two pages */
+				break-inside: avoid;
+				page-break-inside: avoid;
+
+				border: 1px solid #000000 !important;
+				box-shadow: none !important;
+				transform: none !important; /* Kills the tilt */
+			}
+
+			.photo-img {
+				/* Forces pure Black & White for professional printing */
+				filter: grayscale(100%) contrast(120%) !important;
+			}
+
+			/* 5. Tame the CIS Departure Board */
+			.cis-board {
+				background-color: #ffffff !important;
+				border: 2px solid #000000 !important;
+				color: #000000 !important;
+			}
+
+			.cis-on-time {
+				color: #000000 !important;
+				text-shadow: none !important;
+			}
+
+			.cis-scroll-text {
+				/* Kills the animation and forces the text to wrap instead of scrolling off the page */
+				animation: none !important;
+				transform: none !important;
+				white-space: normal !important;
+			}
 		}
 
 		/* --- UK CIS Departure Board System --- */
@@ -415,7 +654,13 @@ const contactSheetPhotos = [
 	<header>
 		<h1 style="margin: 0;">SYSTEM_SPECIFICATION_v2.0</h1>
 		<div class="mono" style="color: var(--blueprint-blue);">
-			NAME: ALFIE_RALLS // HOST: LANCASTER_UNI_SCC // COORD: 54.0104° N, 2.7877° W
+			NAME: ALFIE_RALLS // HOST: LANCASTER_UNI_SCC //
+			<span class="coord-trigger" title="POWER_USER: Click and hold to activate radar scan">
+			COORD: 54.0104° N, 2.7877° W
+				<span class="blip blip-1"></span>
+				<span class="blip blip-2"></span>
+				<span class="blip blip-3"></span>
+			</span>
 		</div>
 
 		<nav>

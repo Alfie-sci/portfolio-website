@@ -46,18 +46,21 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 			/* Let the system choose which one to use */
 			--blueprint-blue: light-dark(var(--blue-light), var(--blue-dark));
+			--hover-bg: light-dark(var(--hover-bg-light), var(--hover-bg-dark));
 
 			/* LIGHT MODE PALETTE */
 			--bg-light: #ffffff;
 			--text-light: #111111;
 			--grid-light: #e0e6ed;
 			--card-bg-light: #ffffff;
+			--hover-bg-light: #e0e6ed; /* Subtle grey-blue for light mode */
 
 			/* DARK MODE PALETTE (Classic Cyanotype) */
 			--bg-dark: #0a1428;       /* Deep architectural navy */
 			--text-dark: #e0eaf5;     /* Soft ice-blue white for contrast without glare */
 			--grid-dark: #1c2e4a;     /* Pronounced dark cyan-blue for gridlines */
 			--card-bg-dark: #112240;  /* Slightly elevated navy for floating panels */
+			--hover-bg-dark: #1d3557;  /* Deep navy for dark mode (contrast for white text) */
 
 			/* The System Switchers */
 			--bg-color: light-dark(var(--bg-light), var(--bg-dark));
@@ -178,6 +181,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		a {
 			color: var(--blueprint-blue);
 			text-decoration: underline;
+			transition: all 0.2s ease; /* Smooths both color and background change */
 		}
 
 		a:visited {
@@ -185,9 +189,10 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		}
 
 		a:hover {
-			background: var(--blueprint-blue);
-			color: #ffffff;
+			background: var(--hover-bg);
+			color: var(--text-color); /* Respects current mode text color */
 			text-decoration: none;
+			border-radius: 2px;       /* Adds a modern, 'technical' feel */
 		}
 
 		a:active {

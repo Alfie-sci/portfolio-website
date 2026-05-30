@@ -2,7 +2,6 @@
 // index.astro Frontmatter
 import { Image } from 'astro:assets';
 
-// Import your images from src/assets/gallery/
 import photo1 from '../assets/gallery/photo1.jpeg';
 import photo2 from '../assets/gallery/photo2.jpeg';
 import photo3 from '../assets/gallery/photo3.jpeg';
@@ -10,7 +9,6 @@ import photo4 from '../assets/gallery/photo4.jpeg';
 import photo5 from '../assets/gallery/photo5.jpeg';
 import photo6 from '../assets/gallery/photo6.jpeg';
 
-// Create a highly structured data array with unique specs for each photo
 const contactSheetPhotos = [
 	{ ref: "ENGINEERING_ONE.JPG", spec: "26mm | ISO 400 | f/1.8", asset: photo1 },
 	{ ref: "AUTO_TRAIN.JPG", spec: "26mm | ISO 400 | f/1.8", asset: photo2 },
@@ -36,15 +34,12 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	<link rel="icon" type="image/png" href="/favicon.png" />
 	<link rel="apple-touch-icon" href="/favicon.png" />
 	<style>
-		/* Global Reset & Strict Structural Constraints */
 		* { box-sizing: border-box; border-radius: 0 !important; }
 
 		:root {
-			/* Define the Light and Dark versions of your accent blue */
 			--blue-light: #0033cc;
 			--blue-dark:  #e0eaf5;
 
-			/* Let the system choose which one to use */
 			--blueprint-blue: light-dark(var(--blue-light), var(--blue-dark));
 			--hover-bg: light-dark(var(--hover-bg-light), var(--hover-bg-dark));
 
@@ -53,23 +48,21 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			--text-light: #111111;
 			--grid-light: #e0e6ed;
 			--card-bg-light: #ffffff;
-			--hover-bg-light: #e0e6ed; /* Subtle grey-blue for light mode */
+			--hover-bg-light: #e0e6ed;
 
-			/* DARK MODE PALETTE (Classic Cyanotype) */
-			--bg-dark: #0a1428;       /* Deep architectural navy */
-			--text-dark: #e0eaf5;     /* Soft ice-blue white for contrast without glare */
-			--grid-dark: #1c2e4a;     /* Pronounced dark cyan-blue for gridlines */
-			--card-bg-dark: #112240;  /* Slightly elevated navy for floating panels */
-			--hover-bg-dark: #1d3557;  /* Deep navy for dark mode (contrast for white text) */
+			/* DARK MODE PALETTE */
+			--bg-dark: #0a1428;
+			--text-dark: #e0eaf5;
+			--grid-dark: #1c2e4a;
+			--card-bg-dark: #112240;
+			--hover-bg-dark: #1d3557;
 
-			/* The System Switchers */
 			--bg-color: light-dark(var(--bg-light), var(--bg-dark));
 			--text-color: light-dark(var(--text-light), var(--text-dark));
 			--grid-color: light-dark(var(--grid-light), var(--grid-dark));
 			--card-bg: light-dark(var(--card-bg-light), var(--card-bg-dark));
 		}
 
-		/* Explicitly tell the browser that this website supports both modes */
 		html {
 			color-scheme: light dark;
 		}
@@ -181,7 +174,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		a {
 			color: var(--blueprint-blue);
 			text-decoration: underline;
-			transition: all 0.2s ease; /* Smooths both color and background change */
+			transition: all 0.2s ease;
 		}
 
 		a:visited {
@@ -192,7 +185,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			background: var(--hover-bg);
 			color: var(--text-color); /* Respects current mode text color */
 			text-decoration: none;
-			border-radius: 2px;       /* Adds a modern, 'technical' feel */
+			border-radius: 2px;
 		}
 
 		a:active {
@@ -353,7 +346,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
 			position: relative;
 
-			/* FIX: Prevents WebKit borders from flashing/jumping during transform */
 			backface-visibility: hidden;
 			-webkit-backface-visibility: hidden;
 			transform: translateZ(0);
@@ -383,7 +375,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		.photo-card::after {
 			content: "";
 			position: absolute;
-			/* FIX: Inset the gradient so it never overlaps or spills onto the actual border */
 			top: 1px;
 			left: 1px;
 			width: calc(100% - 2px);
@@ -468,29 +459,26 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		.hex-dump {
 			background: var(--card-bg);
 			border: 1px solid var(--blueprint-blue);
-			padding: 0; /* Reduced padding slightly for better edge alignment */
+			padding: 0;
 			font-size: 0.85rem;
-			overflow-x: hidden; /* Prevent global scrollbar; individual summaries handle overflow if needed */
+			overflow-x: hidden;
 =		}
 
 		.hex-row {
 			display: block;
-			margin-bottom: 0; /* REMOVED: No more gap between elements */
+			margin-bottom: 0;
 			border-bottom: 1px dashed light-dark(rgba(0, 51, 204, 0.15), rgba(51, 102, 255, 0.15));
 
-			/* ADDED: Slightly increased top/bottom padding to preserve that spacious, comfortable layout */
 			padding: 0.75rem 0.5rem;
 
 			transition: background 0.2s ease, border-left 0.2s ease;
 			border-left: 3px solid transparent;
 		}
 
-		/* Hover highlights the entire unified block, active or collapsed */
 		.hex-row:hover {
 			background: light-dark(rgba(0, 51, 204, 0.04), rgba(51, 102, 255, 0.08));
 		}
 
-		/* When expanded, lock the card in with a solid blueprint border accent */
 		details[open] {
 			background: light-dark(rgba(0, 51, 204, 0.02), rgba(255, 255, 255, 0.02));
 			border-left: 3px solid var(--blueprint-blue);
@@ -510,7 +498,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			display: none;
 		}
 
-		/* The summary bytes should remain single-line, but handle overflow on narrow displays */
 		.hex-bytes {
 			color: light-dark(#888, #666);
 			flex-grow: 1;
@@ -535,7 +522,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			content: " [-]";
 		}
 
-		/* The Inspect Panel - FIXED wrapping so text never goes offscreen */
 		.project-details {
 			margin: 0.75rem 0 0.25rem 0.5rem;
 			padding: 0.75rem;
@@ -543,7 +529,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			font-size: 0.8rem;
 			line-height: 1.5;
 
-			/* THE WRAP FIX: Force normal wrap, breaking variables only if they are extremely long */
 			white-space: normal;
 			word-wrap: break-word;
 			word-break: break-word;

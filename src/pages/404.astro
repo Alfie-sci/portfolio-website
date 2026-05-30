@@ -1,0 +1,137 @@
+---
+// src/pages/404.astro
+---
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>404 // SIGNAL_FAILURE</title>
+    <style>
+        :root {
+            /* MAIN SITE MASTER PALETTE */
+            --blue-light: #0033cc;
+            --blue-dark:  #e0eaf5;
+
+            /* LIGHT MODE PALETTE */
+            --bg-light: #ffffff;
+            --text-light: #111111;
+            --grid-light: #e0e6ed;
+            --card-bg-light: #ffffff;
+            --hover-bg-light: #e0e6ed;
+
+            /* DARK MODE PALETTE */
+            --bg-dark: #0a1428;
+            --text-dark: #e0eaf5;
+            --grid-dark: #1c2e4a;
+            --card-bg-dark: #112240;
+            --hover-bg-dark: #1d3557;
+
+            /* DYNAMIC LIGHT-DARK VARIABLES */
+            --blueprint-blue: light-dark(var(--blue-light), var(--blue-dark));
+            --bg-color: light-dark(var(--bg-light), var(--bg-dark));
+            --text-color: light-dark(var(--text-light), var(--text-dark));
+            --grid-color: light-dark(var(--grid-light), var(--grid-dark));
+            --card-bg: light-dark(var(--card-bg-light), var(--card-bg-dark));
+            --hover-bg: light-dark(var(--hover-bg-light), var(--hover-bg-dark));
+        }
+
+        /* Explicitly tell the browser that this website supports both modes */
+        html {
+            color-scheme: light dark;
+        }
+
+        body {
+            /* Base colors and the architectural grid */
+            background-color: var(--bg-color);
+            background-image:
+                    linear-gradient(var(--grid-color) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 20px 20px;
+            color: var(--text-color);
+
+            /* Layout mechanics for centering the console */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+            box-sizing: border-box;
+            overflow: hidden;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* The Hardware Error Container */
+        .error-console {
+            /* Forces the terminal aesthetic just for this box */
+            font-family: 'Courier New', Courier, monospace;
+
+            border: 2px solid var(--blueprint-blue);
+            padding: 2rem;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 8px 8px 0 var(--blueprint-blue);
+            background-color: var(--card-bg);
+            transition: background-color 0.3s ease;
+        }
+
+        .system-header {
+            border-bottom: 1px dashed var(--blueprint-blue);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+            font-weight: bold;
+        }
+
+        .error-code {
+            font-size: 4rem;
+            font-weight: 900;
+            margin: 0 0 1rem 0;
+            color: var(--blueprint-blue);
+        }
+
+        .error-message {
+            line-height: 1.6;
+        }
+
+        /* The Brutalist Return Button */
+        .return-btn {
+            display: inline-block;
+            margin-top: 2rem;
+            padding: 0.75rem 1.5rem;
+            background-color: transparent;
+            color: var(--blueprint-blue);
+            text-decoration: none;
+            border: 2px solid var(--blueprint-blue);
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.2s ease-out;
+        }
+
+        .return-btn:hover {
+            background-color: var(--blueprint-blue);
+            color: var(--bg-color);
+            transform: translate(-2px, -2px);
+            /* Uses your dynamic text color for the hover shadow to ensure perfect contrast */
+            box-shadow: 4px 4px 0 var(--text-color);
+        }
+    </style>
+</head>
+<body>
+
+<div class="error-console">
+    <div class="system-header">
+        STATUS: FATAL_ROUTING_ERROR // COORD: UNKNOWN
+    </div>
+
+    <h1 class="error-code">404</h1>
+
+    <p class="error-message">
+        > SIGNAL LOST.<br><br>
+        > The line you requested was likely closed by the Branch Line Committee (despite objections heard by the Transport User's Consultative Committee), and subsequently razed, sold off, and built over.<br><br>
+    </p>
+
+    <a href="/" class="return-btn">Return</a>
+</div>
+
+</body>
+</html>

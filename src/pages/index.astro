@@ -34,6 +34,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	<link rel="icon" type="image/png" href="/favicon.png" />
 	<link rel="apple-touch-icon" href="/favicon.png" />
 	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Doto:wght@300;400;500;700&display=swap');
 		* { box-sizing: border-box; border-radius: 0 !important; }
 
 		:root {
@@ -589,32 +590,21 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			.photo-img {
 				filter: grayscale(100%) contrast(120%) !important;
 			}
-			.cis-board {
-				background-color: #ffffff !important;
-				border: 2px solid #000000 !important;
-				color: #000000 !important;
 			}
-			.cis-on-time {
-				color: #000000 !important;
-				text-shadow: none !important;
-			}
-			.cis-scroll-text {
-				animation: none !important;
-				transform: none !important;
-				white-space: normal !important;
-			}
-			.title-block { border: 1px solid #000000 !important; }
-			.tb-section { border-right: 1px solid #000000 !important; }
-		}
-
 		/* --- UK CIS Departure Board System --- */
 		.cis-board {
 			background-color: #050505;
 			border: 4px solid #1a1a1a;
 			padding: 1rem;
 			color: #ffaa00;
-			font-family: "Courier New", Courier, monospace;
-			text-transform: uppercase;
+			font-family: 'Doto', monospace;
+
+			font-variation-settings: "ROND" 100;
+
+			/* Lowering the weight shrinks the dots */
+			font-weight: 500;
+
+			letter-spacing: 0.05em;
 			margin-bottom: 2rem;
 			overflow: hidden;
 		}
@@ -625,9 +615,30 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		.cis-row {
 			display: flex;
 			justify-content: flex-start;
-			font-size: clamp(0.9rem, 2vw, 1.1rem);
-			font-weight: bold;
-			margin-bottom: 0.25rem;
+
+			font-size: clamp(1.1rem, 1vw, 1.3rem);
+
+			text-shadow: 0 0 1px rgba(255, 170, 0, 0.5);
+			margin-bottom: 0;
+		}
+		.cis-colon {
+			color: transparent;
+			text-shadow: none;
+			position: relative;
+			display: inline-block;
+			width: 0.5em;
+		}
+
+		.cis-colon::after {
+			content: "";
+			position: absolute;
+			left: 40%;
+			top: 35%;
+			transform: translateX(-50%);
+			width: 2px;
+			height: 2px;
+			background-color: #ffaa00;
+			box-shadow: 0 8px 0 #ffaa00;
 		}
 		.cis-rank { width: 50px; }
 		.cis-time { width: 70px; }
@@ -636,13 +647,19 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		.cis-status { width: 90px; text-align: right; }
 		.cis-scroll-row {
 			display: flex;
-			font-size: 0.85rem;
-			margin-bottom: 1.5rem;
-			padding-bottom: 1rem;
-			border-bottom: 1px dotted #333;
+			font-size: 1.15rem;
+			margin-bottom: 0;
+			padding-bottom: 0;
+			border-bottom: none;
+
+			background-image: linear-gradient(to right, #cc8800 1px, transparent 1px);
+			background-size: 2px 1px;
+			background-position: bottom left;
+			background-repeat: repeat-x;
 		}
 		.cis-board > div:last-child {
 			border-bottom: none;
+			background-image: none; /* Hides the new LED dots on the final row */
 			margin-bottom: 0;
 			padding-bottom: 0;
 		}
@@ -655,17 +672,25 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			flex-grow: 1;
 			overflow: hidden;
 			position: relative;
+
+			container-type: inline-size;
 		}
 		.cis-scroll-text {
 			display: inline-block;
 			white-space: nowrap;
-			animation: cis-scroll 30s linear infinite;
+
+			/* Removed the 30s from here */
+			animation: cis-scroll linear infinite;
+
 			will-change: transform;
 			transform: translateZ(0);
 			backface-visibility: hidden;
 		}
 		@keyframes cis-scroll {
-			0% { transform: translate3d(100%, 0, 0); }
+			/* Starts exactly at the right edge of the physical board */
+			0% { transform: translate3d(100cqi, 0, 0); }
+
+			/* Ends exactly when the tail end of the text clears the left edge */
 			100% { transform: translate3d(-100%, 0, 0); }
 		}
 		.cis-blink {
@@ -729,7 +754,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			.cis-status { width: 70px; }
 			.cis-dest { padding-left: 0.5rem; }
 			.cis-row { font-size: 0.85rem; }
-			.cis-scroll-row { font-size: 0.75rem; }
+			.cis-scroll-row { font-size: 0.95rem; }
 
 			/* Polaroid Stack Tuning */
 			.photo-grid {
@@ -799,29 +824,31 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		<div class="cis-board">
 			<div class="cis-row">
 				<span class="cis-rank">1st</span>
-				<span class="cis-time">11:16</span>
+				<span class="cis-time">11<span class="cis-colon">:</span>16</span>
 				<span class="cis-plat">4</span>
 				<span class="cis-dest">BSc Computer Science</span>
 				<span class="cis-status cis-blink cis-on-time">On time</span>
 			</div>
+
 			<div class="cis-scroll-row">
 				<span class="cis-calling-label">Calling at</span>
 				<div class="cis-scroll-container">
-					<span class="cis-scroll-text">Software Development, Fundamentals of Computer Science, Digital Systems, Professionalism in Practice, Group Projects, Internet Applications, Data Engineering, Networks and Systems, HCI: Designing for People, Sustainable Computing, Secure Data and Systems, and Applied Security Methods</span>
+					<span class="cis-scroll-text" style="animation-duration: 30s;">Software Development, Fundamentals of Computer Science, Digital Systems, Professionalism in Practice, Group Projects, Internet Applications, Data Engineering, Networks and Systems, HCI: Designing for People, Sustainable Computing, Secure Data and Systems, and Applied Security Methods</span>
 				</div>
 			</div>
 
 			<div class="cis-row">
 				<span class="cis-rank">2nd</span>
-				<span class="cis-time">06:00</span>
+				<span class="cis-time">O6<span class="cis-colon">:</span>OO</span>
 				<span class="cis-plat">1</span>
 				<span class="cis-dest">Cairngorms Nat. Park</span>
 				<span class="cis-status">Expected</span>
 			</div>
+
 			<div class="cis-scroll-row">
 				<span class="cis-calling-label">Calling at</span>
 				<div class="cis-scroll-container">
-					<span class="cis-scroll-text">65L Backpack, OS Maps, Jetboil, Phoxx II V2, Sleeping Bag, Lantern, Hiking Poles, Food Packets, Raincoat, Walking Boots, Dry Socks, Plenty of Water, Food Packets, and Wild Camping</span>
+					<span class="cis-scroll-text" style="animation-duration: 18s;">65L Backpack, OS Maps, Jetboil, Phoxx II V2, Sleeping Bag, Lantern, Hiking Poles, Food Packets, Raincoat, Walking Boots, Dry Socks, Water, and Food Packets</span>
 				</div>
 			</div>
 		</div>

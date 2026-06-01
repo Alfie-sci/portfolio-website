@@ -750,6 +750,24 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				gap: 1rem;
 			}
 		}
+		/* --- SECTION: Web Ring / External Links --- */
+		.web-ring-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		.web-ring-list li {
+			margin-bottom: 0.75rem;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
+		.web-ring-list li:last-child {
+			margin-bottom: 0;
+		}
+		.web-ring-desc {
+			color: var(--text-color);
+		}
 	</style>
 </head>
 <body>
@@ -776,9 +794,10 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		<nav>
 			<a href="#manifest">// 01_MANIFEST</a>
 			<a href="#status-board">// 01.5_CIS_DISPLAY</a>
-			<a href="#projects">// 02_PROJECTS</a>
-			<a href="#exhibit">// 03_EXHIBIT</a>
-			<a href="#handshake">// 04_CONTACT</a>
+			<a href="#projects">// 02_ENGINEERING_LOGS</a>
+			<a href="#exhibit">// 03_EXHIBIT_LOG</a>
+			<a href="#network">// 04_WEB_RING</a>
+			<a href="#handshake">// 05_CONTACT</a>
 		</nav>
 	</header>
 
@@ -790,9 +809,9 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				Hi! I'm Alfie, a Computer Science student at Lancaster University. My technical foundation is built on Python, Java, and C/C++, with a strong interest in software engineering and cybersecurity.</p>
 			I try to be an active contributor to open-source software. I enjoy contributing to the software I enjoy using, and apply what I learn in order to write maintainable and well documented code.<br>
 			I contribute to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, closed regional branch line network.<br>
-			I am currently developing a web-based open-source interactive map of the UK rail network, starting in Lancashire, (React/deck.gl), exploring how best to visualise the network, and to use the incredible resource of OpenStreetMap to increase the quality of available railway maps.<br>
+			I am currently developing a web-based open-source interactive map of the UK rail network, starting in Lancashire, using React and deck.gl, exploring how best to visualise the network, and to use the incredible resource of OpenStreetMap to increase the quality of available railway maps.<br>
 			<p>
-				I believe in the power of open information. Whether it's through code or historical articles, I aim to build tools and documentation that help preserve the history of the UK's railway infrastructure.</p>
+				I believe in the sheer utility and benefit of open information. Whether it's through open source code or Wikipedia articles, I aim to build and expand the tools and documentation that support and propagate this tenet.</p>
 		</fieldset>
 		<fieldset class="mono">
 			<legend>> tail -f /var/log/now</legend>
@@ -857,22 +876,23 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 					<div class="module-tech">STACK // Astro, CSS Variables, System Light-Dark Mode</div>
 				</header>
 				<div class="module-body">
-					<p>My portfolio website that I use to publicly track my projects and experiment with cool concepts (see CIS display above), and to attempt to teach myself HTML and CSS.</p>
-					<p>A stark, blueprint-esque personal portfolio built entirely with semantic HTML and CSS. It avoids client-side JavaScript to ensure immediate load times and backwards compatibility.</p>
+					<p>This is my portfolio website that I use to track my projects and to teach myself HTML and CSS.</p>
+					<p>It uses a stark, blueprint-esque aesthetic. This personal portfolio is built entirely with semantic HTML and CSS. It avoids client-side JavaScript to ensure immediate load times and backwards compatibility.</p>
 				</div>
 			</article>
 
 			<article class="project-module">
 				<header class="module-header mono">
 					<div class="module-title-row">
-						<h3>[ADDR_0x10]: RAILGRAPH_UK</h3>
-						<span class="status-indicator status-offline">[IN_DEVELOPMENT]</span>
+						<h3><a href="https://github.com/Alfie-sci/RailGraph">[ADDR_0x10]: RAILGRAPH_UK</a></h3>
+						<span class="status-indicator status-online">[ONLINE]</span>
 					</div>
 					<div class="module-tech">STACK // React, deck.gl, OpenStreetMap, Git</div>
 				</header>
 				<div class="module-body">
 					<p>An open-source interactive mapping project designed to visualise the historical shifts in the United Kingdom's railway network. Utilising React and deck.gl, the map features a timeline scroller allowing users to view the exact state of the infrastructure at specific points in time.</p>
 					<p>Currently focusing on the Lancashire region, including detailed archival data for closed regional branch lines such as the Glasson Dock branch. The architecture leverages OpenStreetMap and Wikipedia data to increase the quality and precision of available historical railway maps.</p>
+					<p>Very much a work in progress.<p/>
 				</div>
 			</article>
 
@@ -939,9 +959,46 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		</div>
 	</section>
 
+	<section id="network">
+		<h2>04_WEB_RING</h2>
+		<p class="mono">External network nodes and corners of the old web.</p>
+
+		<fieldset class="mono">
+			<legend>EXTERNAL_ROUTING_TABLE.txt</legend>
+			<div style="line-height: 1.8;">
+				<ul class="web-ring-list">
+					<li>
+						<strong>> <a href="http://disused-stations.org.uk/" target="_blank">DisusedStations.org</a></strong>
+						<span class="web-ring-desc">// A brilliant archive of photographs and information.</span>
+					</li>
+					<li>
+						<strong>> <a href="https://www.railmaponline.com" target="_blank">RailMapOnline</a></strong>
+						<span class="web-ring-desc">// A collection of maps of railways in the UK.</span>
+					</li>
+					<li>
+						<strong>> <a href="https://maps.nls.uk/os/" target="_blank">NLS Historic Maps</a></strong>
+						<span class="web-ring-desc">// The gold standard for viewing old maps.</span>
+					</li>
+					<li>
+						<strong>> <a href="https://www.shadertoy.com/" target="_blank">ShaderToy</a></strong>
+						<span class="web-ring-desc">// A really really cool way to thrash your GPU.</span>
+					</li>
+					<li>
+						<strong>> <a href="https://www.makingsoftware.com/" target="_blank">Making Software</a></strong>
+						<span class="web-ring-desc">// All about how computers work.</span>
+					</li>
+					<li>
+						<strong>> <a href="https://based.cooking/" target="_blank">Based.Cooking</a></strong>
+						<span class="web-ring-desc">// A bloat-free, simple recipe repository.</span>
+					</li>
+				</ul>
+			</div>
+		</fieldset>
+	</section>
+
 	<section id="handshake">
-		<h2>04_INITIATE_HANDSHAKE</h2>
-		<p class="mono">Direct data transfers accepted via standard protocols.</p>
+		<h2>05_INITIATE_HANDSHAKE</h2>
+		<p class="mono">Direct data gratefully transfers accepted via standard protocols.</p>
 
 		<fieldset class="mono">
 			<legend>NETWORK_ENDPOINTS.cfg</legend>

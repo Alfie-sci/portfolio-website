@@ -462,94 +462,82 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			transform: translateY(-2px);
 		}
 
-		/* --- Interactive Hex Inspector (Polished & Dynamic) --- */
-		.hex-dump {
-			background: var(--card-bg);
-			border: 1px solid var(--blueprint-blue);
-			padding: 0;
-			font-size: 0.85rem;
-			overflow-x: hidden;
+		/* --- Project Dossiers (Refactored from Hex Dump) --- */
+		.project-dossier-list {
+			display: flex;
+			flex-direction: column;
+			gap: 2rem;
 			margin-bottom: 2rem;
 		}
 
-		.hex-row {
-			display: block;
-			margin-bottom: 0;
-			border-bottom: 1px dashed light-dark(rgba(0, 51, 204, 0.15), rgba(51, 102, 255, 0.15));
-			padding: 0.75rem 0.5rem;
-			transition: background 0.2s ease, border-left 0.2s ease;
-			border-left: 3px solid transparent;
+		.project-module {
+			background: var(--card-bg);
+			border: 2px solid var(--blueprint-blue);
+			box-shadow: 6px 6px 0 var(--blueprint-blue);
+			transition: transform 0.2s ease, box-shadow 0.2s ease;
 		}
 
-		.hex-row:hover {
-			background: light-dark(rgba(0, 51, 204, 0.04), rgba(51, 102, 255, 0.08));
+		.project-module:hover {
+			transform: translate(-2px, -2px);
+			box-shadow: 8px 8px 0 var(--blueprint-blue);
 		}
 
-		details[open] {
-			background: light-dark(rgba(0, 51, 204, 0.02), rgba(255, 255, 255, 0.02));
-			border-left: 3px solid var(--blueprint-blue);
-			border-bottom: 1px dashed var(--blueprint-blue);
+		.module-header {
+			border-bottom: 2px dashed var(--blueprint-blue);
+			padding: 1rem 1.5rem 0.25rem 1.5rem;
+			background: light-dark(rgba(0, 51, 204, 0.03), rgba(51, 102, 255, 0.05));
 		}
-
-		.hex-summary {
+		.module-title-row {
 			display: flex;
+			justify-content: space-between;
 			align-items: center;
-			cursor: pointer;
-			list-style: none;
-			user-select: none;
-			width: 100%;
+			margin-bottom: 0.5rem;
+			flex-wrap: wrap;
+			gap: 1rem;
 		}
 
-		.hex-summary::-webkit-details-marker {
-			display: none;
+		.module-title-row h3 {
+			margin: 0;
+			font-size: 1.25rem;
 		}
 
-		.hex-bytes {
-			color: light-dark(#888, #666);
-			flex-grow: 1;
-			letter-spacing: 2px;
-			margin: 0 1rem;
-			font-family: "Courier New", Courier, monospace;
-			overflow: hidden;
-			text-overflow: ellipsis;
-			white-space: nowrap;
-		}
-
-		/* Interactive [+] indicator */
-		.hex-summary::after {
-			content: " [+]";
-			color: var(--blueprint-blue);
-			font-weight: bold;
-			margin-left: auto;
-			font-family: monospace;
-			white-space: nowrap;
-		}
-		details[open] .hex-summary::after {
-			content: " [-]";
-		}
-
-		.project-details {
-			margin: 0.75rem 0 0.25rem 0.5rem;
-			padding: 0.75rem;
-			border-top: 1px dashed light-dark(rgba(0, 51, 204, 0.15), rgba(51, 102, 255, 0.15));
+		.module-tech {
 			font-size: 0.8rem;
-			line-height: 1.5;
-			white-space: normal;
-			word-wrap: break-word;
-			word-break: break-word;
+			color: light-dark(#555, #aaa);
+			letter-spacing: 1px;
 		}
 
-		.project-details strong {
-			color: var(--blueprint-blue);
+		.module-body {
+			/* ZERO structural padding at the top */
+			padding: 0 1.5rem 1.5rem 1.5rem;
 		}
 
-		.hex-row:last-child { border-bottom: none;}
-		.hex-row:hover { background: light-dark(rgba(0, 51, 204, 0.05), rgba(51, 102, 255, 0.15)); }
-		.hex-addr { color: var(--blueprint-blue); width: 65px; opacity: 0.8; }
-		.hex-ascii { width: 140px; }
-		.hex-status { width: 90px; text-align: right; }
+		.module-body p:first-child {
+			margin-top: -1.3rem !important;
+			padding-top: 0;
+		}
+		.module-body p {
+			margin-top: 0;
+			margin-bottom: 1.25rem;
+		}
+
+		.module-body p:last-child {
+			margin-bottom: 0;
+		}
+
+		.status-indicator {
+			font-weight: bold;
+			font-family: "Courier New", Courier, monospace;
+		}
+
+		.status-online { color: var(--radar-green); }
 		.status-offline { color: light-dark(#888, #666); }
-		.status-active { color: var(--radar-green); font-weight: bold; }
+
+		/* Mobile adjustment for dossiers */
+		@media (max-width: 600px) {
+			.module-header { padding: 1rem; }
+			.module-body { padding: 1rem; }
+		}
 
 		/* --- SECTION: The Print Stylesheet --- */
 		@media print {
@@ -856,64 +844,66 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 	<section id="projects">
 		<h2>02_ENGINEERING_LOGS</h2>
-		<p class="mono">An indexed memory dump of active code deployments.</p>
+		<p class="mono">Project dossiers.</p>
 
-		<div class="hex-dump mono">
-			<details class="hex-row">
-				<summary class="hex-summary">
-					<span class="hex-addr">0x0030</span>
-					<span class="hex-bytes">50 6f 72 74 66 6f 6c 69</span>
-					<span class="hex-ascii"><a href="https://github.com/Alfie-sci/portfolio-website">Portfolio_v2</a></span>
-					<span class="hex-status status-active">[ONLINE]</span>
-				</summary>
-				<div class="project-details">
-					<strong>[ADDR_SECTOR_0x0000: BLUEPRINT_ACTIVE_PORTFOLIO]</strong><br>
-					&gt; DESC: Stark blueprint-esque portfolio utilising semantic, high-performance static rendering.<br>
-					&gt; REPO: <a href="https://github.com/Alfie-sci/portfolio-website">github.com/Alfie-sci/portfolio-website</a><br>
-					&gt; STACK: Astro // CSS Variables (System Light-Dark Mode) // Responsive CSS Grid.
+		<div class="project-dossier-list">
+
+			<article class="project-module">
+				<header class="module-header mono">
+					<div class="module-title-row">
+						<h3><a href="https://github.com/Alfie-sci/portfolio-website">[ADDR_0x00]: PORTFOLIO_V2</a></h3>
+						<span class="status-indicator status-online">[ONLINE]</span>
+					</div>
+					<div class="module-tech">STACK // Astro, CSS Variables, System Light-Dark Mode</div>
+				</header>
+				<div class="module-body">
+					<p>My portfolio website that I use to publicly track my projects and experiment with cool concepts (see CIS display above), and to attempt to teach myself HTML and CSS.</p>
+					<p>A stark, blueprint-esque personal portfolio built entirely with semantic HTML and CSS. It avoids client-side JavaScript to ensure immediate load times and backwards compatibility.</p>
 				</div>
-			</details>
-			<details class="hex-row">
-				<summary class="hex-summary">
-					<span class="hex-addr">0x0010</span>
-					<span class="hex-bytes">48 6f 6d 65 6c 61 62 00</span>
-					<span class="hex-ascii">Homelab</span>
-					<span class="hex-status status-active">[ONLINE]</span>
-				</summary>
-				<div class="project-details">
-					<strong>[ADDR_SECTOR_0x0020: OPTIPLEX_HOMELAB_NODE]</strong><br>
-					&gt; DESC: Self-hosting pipeline repurposed from a legacy Dell Optiplex system to run local, secure, isolated network storage for my important university work and iCloud photos.<br>
-					&gt; INFRA: Proxmox VE hypervisor // Samba File Storage // Docker containerisation.<br>
+			</article>
+
+			<article class="project-module">
+				<header class="module-header mono">
+					<div class="module-title-row">
+						<h3>[ADDR_0x10]: RAILGRAPH_UK</h3>
+						<span class="status-indicator status-offline">[IN_DEVELOPMENT]</span>
+					</div>
+					<div class="module-tech">STACK // React, deck.gl, OpenStreetMap, Git</div>
+				</header>
+				<div class="module-body">
+					<p>An open-source interactive mapping project designed to visualise the historical shifts in the United Kingdom's railway network. Utilising React and deck.gl, the map features a timeline scroller allowing users to view the exact state of the infrastructure at specific points in time.</p>
+					<p>Currently focusing on the Lancashire region, including detailed archival data for closed regional branch lines such as the Glasson Dock branch. The architecture leverages OpenStreetMap and Wikipedia data to increase the quality and precision of available historical railway maps.</p>
 				</div>
-			</details>
-			<details class="hex-row">
-				<summary class="hex-summary">
-					<span class="hex-addr">0x0020</span>
-					<span class="hex-bytes">42 61 6b 65 77 65 6c 6c</span>
-					<span class="hex-ascii">RailGraph</span>
-					<span class="hex-status status-offline">[OFFLINE]</span>
-				</summary>
-				<div class="project-details">
-					<strong>[ADDR_SECTOR_0x0000: RAILGRAPH_]</strong><br>
-					&gt; DESC: Creating a British railway map with a timeline scroller so that users may view the changes to the railway network over time.<br>
-					&gt; SOURCE: Wikipedia article contributions & British Railway archive references.<br>
-					&gt; STACK: Markdown // Git // Open-Source Archival Map Database.
+			</article>
+
+			<article class="project-module">
+				<header class="module-header mono">
+					<div class="module-title-row">
+						<h3>[ADDR_0x20]: PI_DEPARTURE_BOARD</h3>
+						<span class="status-indicator status-offline">[HARDWARE_PROTOTYPE]</span>
+					</div>
+					<div class="module-tech">STACK // Raspberry Pi Zero W, Python, Bash, Realtime Trains API</div>
+				</header>
+				<div class="module-body">
+					<p>A physical hardware monitor running a custom Linux environment configured to fetch live train movements from the network. It pings the Realtime Trains API for trains passing a specific geographic coordinate on the British rail network and outputs those exact details directly to a dedicated screen.</p>
+					<p>The logic handles edge-cases in data fetching via Python, utilising cron scheduling and bash scripts to keep the continuous display running autonomously on lightweight breadboard hardware.</p>
 				</div>
-			</details>
-			<details class="hex-row">
-				<summary class="hex-summary">
-					<span class="hex-addr">0x0030</span>
-					<span class="hex-bytes">52 61 73 70 62 65 72 72</span>
-					<span class="hex-ascii">Raspberry Pi</span>
-					<span class="hex-status status-offline">[OFFLINE]</span>
-				</summary>
-				<div class="project-details">
-					<strong>[ADDR_SECTOR_0x0010: RASPBERRY_PI_SYS]</strong><br>
-					&gt; DESC: Custom Linux configuration pulling from Network Rail APIs to display train times and movements.<br>
-					&gt; HARDWARE: Raspberry Pi Zero W // Breadboard.<br>
-					&gt; STACK: Python (Sensors) // Bash scripts // Cron Scheduling.
+			</article>
+
+			<article class="project-module">
+				<header class="module-header mono">
+					<div class="module-title-row">
+						<h3>[ADDR_0x30]: OPTIPLEX_HOMELAB</h3>
+						<span class="status-indicator status-online">[ONLINE]</span>
+					</div>
+					<div class="module-tech">STACK // Proxmox VE, Samba, Docker</div>
+				</header>
+				<div class="module-body">
+					<p>My homelab serves as a personal storage space using Nextcloud for files and Immich for my photos.</p>
+					<p>It is a legacy Dell Optiplex running a Proxmox hypervisor, an Ubuntu VM manages containerised Docker applications and a Samba file storage system to safely back up heavy university computer science coursework and important documents.</p>
 				</div>
-			</details>
+			</article>
+
 		</div>
 	</section>
 

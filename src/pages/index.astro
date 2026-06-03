@@ -23,6 +23,33 @@ const now = new Date();
 const buildDate = now.toISOString().split('T')[0];
 const buildTime = now.toTimeString().split(' ')[0].slice(0, 5);
 const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
+
+const dylanThomasPoem = `DO NOT GO GENTLE INTO THAT GOOD NIGHT,
+OLD AGE SHOULD BURN AND RAVE AT CLOSE OF DAY;
+RAGE, RAGE AGAINST THE DYING OF THE LIGHT.
+
+THOUGH WISE MEN AT THEIR END KNOW DARK IS RIGHT,
+BECAUSE THEIR WORDS HAD FORKED NO LIGHTNING THEY
+DO NOT GO GENTLE INTO THAT GOOD NIGHT.
+
+GOOD MEN, THE LAST WAVE BY, CRYING HOW BRIGHT
+THEIR FRAIL DEEDS MIGHT HAVE DANCED IN A GREEN BAY,
+RAGE, RAGE AGAINST THE DYING OF THE LIGHT.
+
+WILD MEN WHO CAUGHT AND SANG THE SUN IN FLIGHT,
+AND LEARN, TOO LATE, THEY GRIEVED IT ON ITS WAY,
+DO NOT GO GENTLE INTO THAT GOOD NIGHT.
+
+GRAVE MEN, NEAR DEATH, WHO SEE WITH BLINDING SIGHT
+BLIND EYES COULD BLAZE LIKE METEORS AND BE GAY,
+RAGE, RAGE AGAINST THE DYING OF THE LIGHT.
+
+AND YOU, MY FATHER, THERE ON THE SAD HEIGHT,
+CURSE, BLESS, ME NOW WITH YOUR FIERCE TEARS, I PRAY.
+DO NOT GO GENTLE INTO THAT GOOD NIGHT.
+RAGE, RAGE AGAINST THE DYING OF THE LIGHT.`;
+
+const poemGridChars = dylanThomasPoem.replace(/\n/g, '  ').split('');
 ---
 
 <!DOCTYPE html>
@@ -508,7 +535,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		}
 
 		.module-body {
-			/* ZERO structural padding at the top */
 			padding: 0 1.5rem 1.5rem 1.5rem;
 		}
 
@@ -647,7 +673,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		}
 		.cis-board > div:last-child {
 			border-bottom: none;
-			background-image: none; /* Hides the new LED dots on the final row */
+			background-image: none;
 			margin-bottom: 0;
 			padding-bottom: 0;
 		}
@@ -667,7 +693,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			display: inline-block;
 			white-space: nowrap;
 
-			/* Removed the 30s from here */
 			animation: cis-scroll linear infinite;
 
 			will-change: transform;
@@ -675,10 +700,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			backface-visibility: hidden;
 		}
 		@keyframes cis-scroll {
-			/* Starts exactly at the right edge of the physical board */
 			0% { transform: translate3d(100cqi, 0, 0); }
-
-			/* Ends exactly when the tail end of the text clears the left edge */
 			100% { transform: translate3d(-100%, 0, 0); }
 		}
 		.cis-blink {
@@ -703,7 +725,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			nav {
 				display: flex;
 				flex-wrap: wrap;
-				gap: 0.75rem; /* Increased touch targets */
+				gap: 0.75rem;
 			}
 			nav a {
 				margin-right: 0;
@@ -716,27 +738,23 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		}
 
 		@media (max-width: 600px) {
-			/* Fluid Typography & Spacing */
 			body { font-size: 0.95rem; line-height: 1.5; }
 			h1 { font-size: 1.3rem !important; }
 			h2 { font-size: 1.2rem; }
 			nav { font-size: 0.85rem; }
 			.mono { font-size: 0.8rem; }
 
-			/* Tucked-in Crosshairs to prevent edge clipping */
 			.ch-tl { top: 5px; left: 5px; }
 			.ch-tr { top: 5px; right: 5px; }
 			.ch-bl { bottom: 5px; left: 5px; }
 			.ch-br { bottom: 5px; right: 5px; }
 
-			/* Hex Dump Mobile Fixes */
 			.hex-bytes { display: none; }
 			.hex-ascii { width: 100px; overflow: hidden; text-overflow: ellipsis; }
 			.hex-addr { width: 50px; }
 			.hex-status { width: 70px; }
-			.hex-row { padding: 1rem 0.5rem; } /* Expanded for easier tapping */
+			.hex-row { padding: 1rem 0.5rem; }
 
-			/* CIS Board Tighter Geometry */
 			.cis-time { width: 50px; }
 			.cis-plat { width: 25px; }
 			.cis-status { width: 70px; }
@@ -744,7 +762,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			.cis-row { font-size: 0.85rem; }
 			.cis-scroll-row { font-size: 0.95rem; }
 
-			/* Polaroid Stack Tuning */
 			.photo-grid {
 				grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 				gap: 1rem;
@@ -768,14 +785,140 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		.web-ring-desc {
 			color: var(--text-color);
 		}
+
+		.poem-grid {
+			position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+			pointer-events: none; z-index: 999;
+			font-family: 'Doto', monospace; font-size: 20px;
+			color: var(--blueprint-blue); opacity: 0;
+			padding: 20px; line-height: 20px;
+			white-space: pre-wrap;
+		}
+
+		#easter-egg-trigger:checked ~ .poem-grid {
+			opacity: 1;
+			animation: type-poem 20s steps(150, end) forwards;
+		}
+
+		@keyframes type-poem {
+			0% { content: "........................................"; }
+			10% { content: "X8J!K2L9 Q0Z-M5V P1R#T6Y B3N?W7Q"; }
+			20% { content: "DO NOT GO GENTLE INTO THAT GOOD NIGHT"; }
+			30% { content: "OLD AGE SHOULD BURN AND RAVE AT CLOSE OF DAY"; }
+			100% { content: "DO NOT GO GENTLE INTO THAT GOOD NIGHT.\nRAGE, RAGE AGAINST THE DYING OF THE LIGHT."; }
+		}
+		/* --- SECTION: Matrix Grid --- */
+		.secret-trigger {
+			pointer-events: auto !important;
+			cursor: crosshair;
+		}
+
+		/* Optional: A microscopic flash when hovered so YOU know it's there */
+		.secret-trigger:hover::before,
+		.secret-trigger:hover::after {
+			background-color: var(--radar-green);
+			transition: background-color 0.2s ease;
+		}
+
+		.poem-overlay {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 75vw;
+			height: 100vh;
+			pointer-events: none;
+			z-index: 300;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.poem-grid {
+			display: grid;
+			grid-template-columns: repeat(25, 20px);
+			grid-auto-rows: 20px;
+			opacity: 0;
+			transition: opacity 0.5s ease;
+		}
+
+		.matrix-space {
+			width: 20px;
+			height: 20px;
+		}
+
+		.matrix-char {
+			position: relative;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 20px;
+			height: 20px;
+			font-family: monospace;
+			font-weight: 700;
+			font-size: 14px;
+			color: transparent;
+		}
+
+		@keyframes decode-cycle {
+			0%  { content: "0"; }   4%  { content: "A"; }   8%  { content: "!"; }
+			12% { content: "X"; }   16% { content: "$"; }   20% { content: "7"; }
+			24% { content: "]"; }   28% { content: "&"; }   32% { content: "9"; }
+			36% { content: "?"; }   40% { content: "M"; }   44% { content: "#"; }
+			48% { content: "Q"; }   52% { content: ">"; }   56% { content: "2"; }
+			60% { content: "*"; }   64% { content: "F"; }   68% { content: "W"; }
+			72% { content: "+"; }   76% { content: "8"; }   80% { content: "@"; }
+			84% { content: "Z"; }   88% { content: "<"; }   92% { content: "%"; }
+			96% { content: "4"; }   100%{ content: "1"; }
+		}
+
+		.matrix-char::before {
+			content: "";
+			position: absolute;
+			color: transparent;
+		}
+
+		#easter-egg-trigger:checked ~ .poem-overlay .poem-grid {
+			opacity: 1;
+		}
+
+		#easter-egg-trigger:checked ~ .poem-overlay .matrix-char::before {
+			color: var(--blueprint-blue);
+			animation:
+				decode-cycle 1.5s steps(1) infinite var(--offset),
+				hide-junk 0s forwards var(--delay);
+		}
+
+		#easter-egg-trigger:checked ~ .poem-overlay .matrix-char {
+			animation: reveal-real 0s forwards var(--delay);
+		}
+
+		@keyframes hide-junk {
+			to { opacity: 0; visibility: hidden; }
+		}
+
+		@keyframes reveal-real {
+			to { color: var(--text-color); }
+		}
 	</style>
 </head>
 <body>
+<input type="checkbox" id="easter-egg-trigger" style="display:none;" />
+<div class="poem-overlay">
+	<div class="poem-grid">
+		{poemGridChars.map((char, index) => {
+			const randomOffset = -(Math.random() * 1.5).toFixed(2);
+
+			return char === ' '
+				? <span class="matrix-space"></span>
+				: <span class="matrix-char" style={`--delay: ${index * 0.04}s; --offset: ${randomOffset}s;`}>{char}</span>
+		})}
+	</div>
+</div>
 
 <div class="spec-container">
 
 	<div class="crosshair ch-tl"></div>
-	<div class="crosshair ch-tr"></div>
+	<label for="easter-egg-trigger" class="crosshair ch-tr secret-trigger" title="SYS_OVERRIDE"></label>
 	<div class="crosshair ch-bl"></div>
 	<div class="crosshair ch-br"></div>
 

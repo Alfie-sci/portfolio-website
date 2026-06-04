@@ -23,33 +23,6 @@ const now = new Date();
 const buildDate = now.toISOString().split('T')[0];
 const buildTime = now.toTimeString().split(' ')[0].slice(0, 5);
 const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
-
-const dylanThomasPoem = `DO NOT GO GENTLE INTO THAT GOOD NIGHT,
-OLD AGE SHOULD BURN AND RAVE AT CLOSE OF DAY;
-RAGE, RAGE AGAINST THE DYING OF THE LIGHT.
-
-THOUGH WISE MEN AT THEIR END KNOW DARK IS RIGHT,
-BECAUSE THEIR WORDS HAD FORKED NO LIGHTNING THEY
-DO NOT GO GENTLE INTO THAT GOOD NIGHT.
-
-GOOD MEN, THE LAST WAVE BY, CRYING HOW BRIGHT
-THEIR FRAIL DEEDS MIGHT HAVE DANCED IN A GREEN BAY,
-RAGE, RAGE AGAINST THE DYING OF THE LIGHT.
-
-WILD MEN WHO CAUGHT AND SANG THE SUN IN FLIGHT,
-AND LEARN, TOO LATE, THEY GRIEVED IT ON ITS WAY,
-DO NOT GO GENTLE INTO THAT GOOD NIGHT.
-
-GRAVE MEN, NEAR DEATH, WHO SEE WITH BLINDING SIGHT
-BLIND EYES COULD BLAZE LIKE METEORS AND BE GAY,
-RAGE, RAGE AGAINST THE DYING OF THE LIGHT.
-
-AND YOU, MY FATHER, THERE ON THE SAD HEIGHT,
-CURSE, BLESS, ME NOW WITH YOUR FIERCE TEARS, I PRAY.
-DO NOT GO GENTLE INTO THAT GOOD NIGHT.
-RAGE, RAGE AGAINST THE DYING OF THE LIGHT.`;
-
-const poemGridChars = dylanThomasPoem.replace(/\n/g, '  ').split('');
 ---
 
 <!DOCTYPE html>
@@ -785,140 +758,13 @@ const poemGridChars = dylanThomasPoem.replace(/\n/g, '  ').split('');
 		.web-ring-desc {
 			color: var(--text-color);
 		}
-
-		.poem-grid {
-			position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-			pointer-events: none; z-index: 999;
-			font-family: 'Doto', monospace; font-size: 20px;
-			color: var(--blueprint-blue); opacity: 0;
-			padding: 20px; line-height: 20px;
-			white-space: pre-wrap;
-		}
-
-		#easter-egg-trigger:checked ~ .poem-grid {
-			opacity: 1;
-			animation: type-poem 20s steps(150, end) forwards;
-		}
-
-		@keyframes type-poem {
-			0% { content: "........................................"; }
-			10% { content: "X8J!K2L9 Q0Z-M5V P1R#T6Y B3N?W7Q"; }
-			20% { content: "DO NOT GO GENTLE INTO THAT GOOD NIGHT"; }
-			30% { content: "OLD AGE SHOULD BURN AND RAVE AT CLOSE OF DAY"; }
-			100% { content: "DO NOT GO GENTLE INTO THAT GOOD NIGHT.\nRAGE, RAGE AGAINST THE DYING OF THE LIGHT."; }
-		}
-		/* --- SECTION: Matrix Grid --- */
-		.secret-trigger {
-			pointer-events: auto !important;
-			cursor: crosshair;
-		}
-
-		/* Optional: A microscopic flash when hovered so YOU know it's there */
-		.secret-trigger:hover::before,
-		.secret-trigger:hover::after {
-			background-color: var(--radar-green);
-			transition: background-color 0.2s ease;
-		}
-
-		.poem-overlay {
-			position: fixed;
-			top: 0;
-			left: 0;
-			width: 75vw;
-			height: 100vh;
-			pointer-events: none;
-			z-index: 300;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-		}
-
-		.poem-grid {
-			display: grid;
-			grid-template-columns: repeat(25, 20px);
-			grid-auto-rows: 20px;
-			opacity: 0;
-			transition: opacity 0.5s ease;
-		}
-
-		.matrix-space {
-			width: 20px;
-			height: 20px;
-		}
-
-		.matrix-char {
-			position: relative;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 20px;
-			height: 20px;
-			font-family: monospace;
-			font-weight: 700;
-			font-size: 14px;
-			color: transparent;
-		}
-
-		@keyframes decode-cycle {
-			0%  { content: "0"; }   4%  { content: "A"; }   8%  { content: "!"; }
-			12% { content: "X"; }   16% { content: "$"; }   20% { content: "7"; }
-			24% { content: "]"; }   28% { content: "&"; }   32% { content: "9"; }
-			36% { content: "?"; }   40% { content: "M"; }   44% { content: "#"; }
-			48% { content: "Q"; }   52% { content: ">"; }   56% { content: "2"; }
-			60% { content: "*"; }   64% { content: "F"; }   68% { content: "W"; }
-			72% { content: "+"; }   76% { content: "8"; }   80% { content: "@"; }
-			84% { content: "Z"; }   88% { content: "<"; }   92% { content: "%"; }
-			96% { content: "4"; }   100%{ content: "1"; }
-		}
-
-		.matrix-char::before {
-			content: "";
-			position: absolute;
-			color: transparent;
-		}
-
-		#easter-egg-trigger:checked ~ .poem-overlay .poem-grid {
-			opacity: 1;
-		}
-
-		#easter-egg-trigger:checked ~ .poem-overlay .matrix-char::before {
-			color: var(--blueprint-blue);
-			animation:
-				decode-cycle 1.5s steps(1) infinite var(--offset),
-				hide-junk 0s forwards var(--delay);
-		}
-
-		#easter-egg-trigger:checked ~ .poem-overlay .matrix-char {
-			animation: reveal-real 0s forwards var(--delay);
-		}
-
-		@keyframes hide-junk {
-			to { opacity: 0; visibility: hidden; }
-		}
-
-		@keyframes reveal-real {
-			to { color: var(--text-color); }
-		}
 	</style>
 </head>
 <body>
-<input type="checkbox" id="easter-egg-trigger" style="display:none;" />
-<div class="poem-overlay">
-	<div class="poem-grid">
-		{poemGridChars.map((char, index) => {
-			const randomOffset = -(Math.random() * 1.5).toFixed(2);
-
-			return char === ' '
-				? <span class="matrix-space"></span>
-				: <span class="matrix-char" style={`--delay: ${index * 0.04}s; --offset: ${randomOffset}s;`}>{char}</span>
-		})}
-	</div>
-</div>
-
 <div class="spec-container">
 
 	<div class="crosshair ch-tl"></div>
-	<label for="easter-egg-trigger" class="crosshair ch-tr secret-trigger" title="SYS_OVERRIDE"></label>
+	<div class="crosshair ch-tr"></div>
 	<div class="crosshair ch-bl"></div>
 	<div class="crosshair ch-br"></div>
 
@@ -953,6 +799,7 @@ const poemGridChars = dylanThomasPoem.replace(/\n/g, '  ').split('');
 			I try to be an active contributor to open-source software. I enjoy contributing to the software I enjoy using, and apply what I learn in order to write maintainable and well documented code.<br>
 			I contribute to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, closed regional branch line network.<br>
 			I am currently developing a web-based open-source interactive map of the UK rail network, starting in Lancashire, using React and deck.gl, exploring how best to visualise the network, and to use the incredible resource of OpenStreetMap to increase the quality of available railway maps.<br>
+			I am currently the Engineering Manager for the student radio station at Lancaster: <a href="https://www.bailriggfm.co.uk" target="_blank">95.3 Bailrigg FM</a>. I manage, maintain, and upgrade the servers and technical equipment that the station uses to operate, and help out where I can.
 			<p>
 				I believe in the sheer utility and benefit of open information. Whether it's through open source code or Wikipedia articles, I aim to build and expand the tools and documentation that support and propagate this tenet.</p>
 		</fieldset>

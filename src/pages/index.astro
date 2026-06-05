@@ -18,7 +18,7 @@ const contactSheetPhotos = [
 	{ ref: "COLOUR_SIGNALS_08.JPG", spec: "26mm // ISO 100 // f/1.6", asset: photo6 },
 ];
 
-// Generate a dynamic timestamp at build time
+// Generate a timestamp at build time
 const now = new Date();
 const buildDate = now.toISOString().split('T')[0];
 const buildTime = now.toTimeString().split(' ')[0].slice(0, 5);
@@ -50,6 +50,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			--grid-light: #e0e6ed;
 			--card-bg-light: #ffffff;
 			--hover-bg-light: #e0e6ed;
+			--link-light: #0033cc;
 
 			/* DARK MODE PALETTE */
 			--bg-dark: #0a1428;
@@ -57,11 +58,13 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			--grid-dark: #1c2e4a;
 			--card-bg-dark: #112240;
 			--hover-bg-dark: #1d3557;
+			--link-dark: #50c8ff;
 
 			--bg-color: light-dark(var(--bg-light), var(--bg-dark));
 			--text-color: light-dark(var(--text-light), var(--text-dark));
 			--grid-color: light-dark(var(--grid-light), var(--grid-dark));
 			--card-bg: light-dark(var(--card-bg-light), var(--card-bg-dark));
+			--link-colour: light-dark(var(--link-light), var(--link-dark));
 		}
 
 		html {
@@ -145,7 +148,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		}
 
 		nav a {
-			margin-right: 1rem;
+			margin-right: 0.8rem;
 			text-decoration: none;
 			font-weight: bold;
 		}
@@ -174,7 +177,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 		/* --- Interactive Links --- */
 		a {
-			color: var(--blueprint-blue);
+			color: var(--link-colour);
 			text-decoration: underline;
 			transition: all 0.2s ease;
 		}
@@ -795,7 +798,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		<fieldset>
 			<legend>OPERATOR_MANIFEST.md</legend>
 			<p>
-				Hi! I'm Alfie, a Computer Science student at Lancaster University. My technical foundation is built on Python, Java, and C/C++, with a strong interest in software engineering and cybersecurity.</p>
+				Hi! I'm Alfie, a Computer Science student at Lancaster University. My technical foundation is built on Python, Java, and C/C++, and personally I like to focus specifically on software engineering.</p>
 			I try to be an active contributor to open-source software. I enjoy contributing to the software I enjoy using, and apply what I learn in order to write maintainable and well documented code.<br>
 			I contribute to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, closed regional branch line network.<br>
 			I am currently developing a web-based open-source interactive map of the UK rail network, starting in Lancashire, using React and deck.gl, exploring how best to visualise the network, and to use the incredible resource of OpenStreetMap to increase the quality of available railway maps.<br>

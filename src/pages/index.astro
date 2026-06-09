@@ -580,7 +580,8 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			.photo-img {
 				filter: grayscale(100%) contrast(120%) !important;
 			}
-			}
+		}
+
 		/* --- UK CIS Departure Board System --- */
 		.cis-board {
 			background-color: #050505;
@@ -686,6 +687,94 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			50% { opacity: 0; }
 		}
 
+		/* --- SECTION: Web Ring / External Links --- */
+		.web-ring-list {
+			list-style: none;
+			padding: 0;
+			margin: 0;
+		}
+		.web-ring-list li {
+			margin-bottom: 0.75rem;
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+		}
+		.web-ring-list li:last-child {
+			margin-bottom: 0;
+		}
+		.web-ring-desc {
+			color: var(--text-color);
+		}
+
+		/* --- SECTION: TX Array Interactivity (Zero-JS) --- */
+		.tx-mast {
+			cursor: crosshair;
+			transition: color 0.3s ease, text-shadow 0.3s ease;
+		}
+
+		.tx-mast:hover {
+			color: var(--radar-green) !important;
+			text-shadow: 0 0 8px rgba(0, 255, 65, 0.4);
+		}
+
+		.tx-waves {
+			display: inline-block;
+			transition: opacity 0.3s ease;
+		}
+
+		.tx-mast:hover .tx-waves {
+			animation: rf-radiate 0.8s ease-in-out infinite alternate;
+		}
+
+		@keyframes rf-radiate {
+			0% { opacity: 0.2; transform: scale(0.95); text-shadow: none; }
+			100% { opacity: 1; transform: scale(1.05); text-shadow: 0 0 10px var(--radar-green); }
+		}
+
+		.tx-element {
+			transition: color 0.2s ease;
+		}
+
+		.tx-mast:hover .tx-element-1 { color: #ffffff; transition-delay: 0.1s; }
+		.tx-mast:hover .tx-element-2 { color: #ffffff; transition-delay: 0.2s; }
+
+		/* --- SECTION: TX Radio Wave Emissions --- */
+		.tx-wave-left {
+			position: absolute;
+			color: var(--radar-green);
+			font-weight: bold;
+			letter-spacing: 2px;
+			pointer-events: none;
+			opacity: 0;
+			text-shadow: 0 0 5px var(--radar-green);
+			z-index: -1;
+		}
+
+		.tx-mast:hover .tx-wave-left {
+			/* 2-second linear animation, looping infinitely while hovered */
+			animation: tx-propagate 2s linear infinite;
+		}
+
+		/* Stagger the bottom dipole emission */
+		.tx-mast:hover .w2 {
+			animation-delay: 1s;
+		}
+
+		@keyframes tx-propagate {
+			0% { transform: translateX(10px); opacity: 0; }
+			15% { opacity: 1; }
+			100% { transform: translateX(-180px); opacity: 0; }
+		}
+
+		/* --- DATA GRID CLASS (Replaces inline styles for better media queries) --- */
+		.tx-data-grid {
+			display: grid;
+			grid-template-columns: auto 1fr auto 1fr;
+			gap: 0.5rem 1.5rem;
+			line-height: 1.6;
+			font-size: 0.9rem;
+		}
+
 		/* --- Media Queries --- */
 		@media (max-width: 768px) {
 			body {
@@ -711,6 +800,11 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			.tb-section:last-child { border-bottom: none; }
 
 			.photo-grid-wrapper { padding: 1rem; }
+
+			/* Collapse the new TX Data Grid on tablets and smaller */
+			.tx-data-grid {
+				grid-template-columns: auto 1fr;
+			}
 		}
 
 		@media (max-width: 600px) {
@@ -731,35 +825,32 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			.hex-status { width: 70px; }
 			.hex-row { padding: 1rem 0.5rem; }
 
-			.cis-time { width: 50px; }
-			.cis-plat { width: 25px; }
-			.cis-status { width: 70px; }
-			.cis-dest { padding-left: 0.5rem; }
-			.cis-row { font-size: 0.85rem; }
-			.cis-scroll-row { font-size: 0.95rem; }
+			/* Shrink the CIS Board comprehensively */
+			.cis-board { padding: 0.5rem; }
+			.cis-time { width: 40px; }
+			.cis-plat { width: 20px; }
+			.cis-status { width: 60px; }
+			.cis-rank { width: 30px; }
+			.cis-dest {
+				padding-left: 0.5rem;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+			}
+			.cis-row { font-size: 0.75rem; }
+			.cis-scroll-row { font-size: 0.8rem; }
+			.cis-calling-label { margin-right: 0.5rem; }
+
+			/* Ensure the antenna doesn't bleed out of the viewport on tiny screens */
+			.tx-mast {
+				font-size: 0.65rem !important;
+				right: 0.5rem !important;
+			}
 
 			.photo-grid {
 				grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
 				gap: 1rem;
 			}
-		}
-		/* --- SECTION: Web Ring / External Links --- */
-		.web-ring-list {
-			list-style: none;
-			padding: 0;
-			margin: 0;
-		}
-		.web-ring-list li {
-			margin-bottom: 0.75rem;
-			display: flex;
-			flex-wrap: wrap;
-			gap: 0.5rem;
-		}
-		.web-ring-list li:last-child {
-			margin-bottom: 0;
-		}
-		.web-ring-desc {
-			color: var(--text-color);
 		}
 	</style>
 </head>
@@ -787,9 +878,10 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			<a href="#manifest">// 01_MANIFEST</a>
 			<a href="#status-board">// 01.5_CIS_DISPLAY</a>
 			<a href="#projects">// 02_ENGINEERING_LOGS</a>
-			<a href="#exhibit">// 03_EXHIBIT_LOG</a>
-			<a href="#network">// 04_WEB_RING</a>
-			<a href="#handshake">// 05_CONTACT</a>
+			<a href="#transmission">// 03_TX_SITE_LOG</a>
+			<a href="#exhibit">// 04_EXHIBIT_LOG</a>
+			<a href="#network">// 05_WEB_RING</a>
+			<a href="#handshake">// 06_CONTACT</a>
 		</nav>
 	</header>
 
@@ -885,7 +977,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				<div class="module-body">
 					<p>An open-source interactive mapping project designed to visualise the historical shifts in the United Kingdom's railway network. Utilising React and deck.gl, the map features a timeline scroller allowing users to view the exact state of the infrastructure at specific points in time.</p>
 					<p>Currently focusing on the Lancashire region, including detailed archival data for closed regional branch lines such as the Glasson Dock branch. The architecture leverages OpenStreetMap and Wikipedia data to increase the quality and precision of available historical railway maps.</p>
-					<p>Very much a work in progress.<p/>
+					<p>Very much a work in progress.</p>
 				</div>
 			</article>
 
@@ -916,12 +1008,42 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 					<p>It is a legacy Dell Optiplex running a Proxmox hypervisor, an Ubuntu VM manages containerised Docker applications and a Samba file storage system to safely back up heavy university computer science coursework and important documents.</p>
 				</div>
 			</article>
+		</div>
+	</section>
 
+	<section id="transmission">
+		<h2>03_TX_SITE_LOG</h2>
+		<p class="mono">Transmission site log and hardware specification for the 95.3 Bailrigg FM VHF broadcast.</p>
+
+		<div style="position: relative; margin-top: 6.5rem;">
+		<pre class="tx-mast" style="position: absolute; bottom: 100%; right: 2rem; margin: 0; margin-bottom: -1px; font-family: monospace; font-size: 0.85rem; line-height: 1.1; color: var(--blueprint-blue); font-weight: bold; text-align: left; z-index: 10;">
+    <span class="tx-waves">(((R F)))</span>
+      _|_|_
+<span class="tx-wave-left w1" style="top: 2.2em; left: 0;">(((</span>    &gt;-|___|-&lt; <span class="tx-element tx-element-1">[E_01]</span>
+        |
+<span class="tx-wave-left w2" style="top: 4.4em; left: 0;">(((</span>    &gt;-|___|-&lt; <span class="tx-element tx-element-2">[E_02]</span>
+        |
+    	|</pre>
+
+			<fieldset class="mono" style="padding: 1.5rem; border: 1px dotted var(--blueprint-blue); background: light-dark(rgba(0, 51, 204, 0.02), rgba(51, 102, 255, 0.05)); box-shadow: inset 2px 2px 0 light-dark(rgba(0, 51, 204, 0.05), rgba(51, 102, 255, 0.1));">
+				<legend>REGULATOR_LICENSE_DATA // [TX_ACTIVE]</legend>
+
+				<div class="tx-data-grid">
+					<strong style="color: var(--blueprint-blue);">&gt; SITE:</strong> <span>LRSL</span>
+					<strong style="color: var(--blueprint-blue);">&gt; AREA:</strong> <span>Lancaster</span>
+					<strong style="color: var(--blueprint-blue);">&gt; POWER:</strong> <span>2 W</span>
+					<strong style="color: var(--blueprint-blue);">&gt; POLARISATION:</strong> <span>V</span>
+					<strong style="color: var(--blueprint-blue);">&gt; AERIAL_HT:</strong> <span>10 m</span>
+					<strong style="color: var(--blueprint-blue);">&gt; HT_AMSL:</strong> <span>67 m</span>
+					<strong style="color: var(--blueprint-blue);">&gt; RDS_PI:</strong> <span>CD88</span>
+					<strong style="color: var(--blueprint-blue);">&gt; TX_SITES:</strong> <span>1</span>
+				</div>
+			</fieldset>
 		</div>
 	</section>
 
 	<section id="exhibit">
-		<h2>03_VISUAL_EXHIBIT_LOG</h2>
+		<h2>04_VISUAL_EXHIBIT_LOG</h2>
 		<p class="mono">Analog capture extraction ledger. Themes include architecture, railways, and infrastructure.</p>
 
 		<div class="photo-grid-wrapper">
@@ -953,7 +1075,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	</section>
 
 	<section id="network">
-		<h2>04_WEB_RING</h2>
+		<h2>05_WEB_RING</h2>
 		<p class="mono">External network nodes and corners of the old web.</p>
 
 		<fieldset class="mono">
@@ -990,7 +1112,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	</section>
 
 	<section id="handshake">
-		<h2>05_INITIATE_HANDSHAKE</h2>
+		<h2>06_INITIATE_HANDSHAKE</h2>
 		<p class="mono">Direct data gratefully transfers accepted via standard protocols.</p>
 
 		<fieldset class="mono">

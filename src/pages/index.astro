@@ -49,7 +49,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			--text-light: #111111;
 			--grid-light: #e0e6ed;
 			--card-bg-light: #ffffff;
-			--hover-bg-light: #e0e6ed;
+			--hover-bg-light: #ffedd5;
 			--link-light: #0033cc;
 
 			/* DARK MODE PALETTE */
@@ -57,7 +57,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			--text-dark: #e0eaf5;
 			--grid-dark: #1c2e4a;
 			--card-bg-dark: #112240;
-			--hover-bg-dark: #1d3557;
+			--hover-bg-dark: #4a2c11;
 			--link-dark: #50c8ff;
 
 			--bg-color: light-dark(var(--bg-light), var(--bg-dark));
@@ -532,8 +532,41 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			font-family: "Courier New", Courier, monospace;
 		}
 
-		.status-online { color: var(--radar-green); }
-		.status-offline { color: light-dark(#888, #666); }
+		.date-box {
+			display: inline-block;
+			border: 1px solid var(--blueprint-blue);
+			background: light-dark(rgba(0, 51, 204, 0.04), rgba(51, 102, 255, 0.08));
+			padding: 0.25rem 0.6rem;
+			font-size: 0.8rem;
+			color: var(--blueprint-blue);
+			white-space: nowrap;
+		}
+
+		.btn-deploy {
+			display: inline-block;
+			margin-top: 0.5rem;
+			padding: 0.4rem 0.8rem;
+			border: 1px dashed var(--blueprint-blue);
+			background: light-dark(rgba(0, 51, 204, 0.05), rgba(51, 102, 255, 0.1));
+			color: var(--blueprint-blue);
+			text-decoration: none;
+			font-family: monospace;
+			font-weight: bold;
+			font-size: 0.85rem;
+			transition: all 0.2s ease;
+			text-transform: uppercase;
+		}
+
+		.btn-deploy:hover {
+			background: var(--blueprint-blue);
+			color: var(--bg-color);
+			border-style: solid;
+		}
+
+		.btn-deploy::before {
+			content: "> LAUNCH: ";
+			opacity: 0.7;
+		}
 
 		/* Mobile adjustment for dossiers */
 		@media (max-width: 600px) {
@@ -852,6 +885,54 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				gap: 1rem;
 			}
 		}
+		/* --- SECTION: System Capabilities (Skills) --- */
+		.skills-table {
+			display: grid;
+			grid-template-columns: 150px 1fr;
+			gap: 1rem;
+			line-height: 1.6;
+			align-items: start;
+		}
+
+		.skill-label {
+			color: var(--blueprint-blue);
+			font-weight: bold;
+			text-align: right;
+		}
+
+		.skill-chips {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.4rem;
+			align-items: flex-start;
+		}
+
+		.skill-chip {
+			border: 1px dotted var(--blueprint-blue);
+			background: light-dark(rgba(0, 51, 204, 0.04), rgba(51, 102, 255, 0.08));
+			padding: 0 0.5rem;
+			font-size: 0.85rem;
+			color: var(--text-color);
+			transition: background 0.2s ease, color 0.2s ease;
+		}
+
+		.skill-chip:hover {
+			background: var(--blueprint-blue);
+			color: var(--bg-color);
+			border-style: solid;
+			cursor: crosshair;
+		}
+
+		@media (max-width: 600px) {
+			.skills-table {
+				grid-template-columns: 1fr;
+				gap: 0.25rem;
+			}
+			.skill-label {
+				text-align: left;
+				margin-top: 0.75rem;
+			}
+		}
 	</style>
 </head>
 <body>
@@ -892,20 +973,54 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			<p>
 				Hi! I'm Alfie, a Computer Science student at Lancaster University. My technical foundation is built on Python, Java, and C/C++, and personally, I like to focus specifically on software engineering.</p>
 			I try to be an active contributor to open-source software. I enjoy contributing to the software I enjoy using, and apply what I learn in order to write maintainable, well-documented code.<br>
-			I contribute to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, closed regional branch line network.<br>
-			I am currently developing a web-based open-source interactive map of the UK rail network, starting in Lancashire, using React and deck.gl, exploring how best to visualise the network, and to use the incredible resource of OpenStreetMap to increase the quality of available railway maps.<br>
-			I am currently the Engineering Manager for the student radio station at Lancaster: <a href="https://www.bailriggfm.co.uk" target="_blank">95.3 Bailrigg FM</a>. I manage, maintain, and upgrade the servers and technical equipment that the station uses to operate, and help out where I can.
+			For the past couple of years I have been contributing to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, closed regional branch line network.<br>
+			I am currently developing a web-based open-source interactive map of the UK rail network, which I started in May. I've decided to build this out starting in Lancashire, using React and deck.gl, exploring how best to visualise the network, and to use the incredible resource of OpenStreetMap to increase the quality of available railway maps.<br>
+			As of June 2026, I am the Engineering Manager for the student radio station at Lancaster: <a href="https://www.bailriggfm.co.uk" target="_blank">95.3 Bailrigg FM</a>. I manage, maintain, and upgrade the servers and technical equipment that the station uses to operate, and help out where I can.
 			<p>
 				I believe in the sheer utility and benefit of open information. Whether it's through open source code or Wikipedia articles, I aim to build and expand the tools and documentation that support and propagate this tenet.</p>
 		</fieldset>
 		<fieldset class="mono">
-			<legend>> tail -f /var/log/now</legend>
-			<div style="line-height: 1.8;">
-				<span style="color: var(--blueprint-blue);">{dynamicTimestamp}</span><br>
-				> <strong>[LOAD]</strong> Revising for end-of-year CS exams.<br>
-				> <strong>[BUILD]</strong> Compiling this zero-JS Astro portfolio.<br>
-				> <strong>[READ]</strong> <i>The Great Dune Trilogy</i> by Frank Herbert.<br>
-				> <strong>[GEAR]</strong> An old Dell Optiplex system for use as a personal server.
+			<legend>CORE_PROCESSES.bin</legend>
+
+			<div class="skills-table">
+				<div class="skill-label">&gt; LANGUAGES:</div>
+				<div class="skill-chips">
+					<span class="skill-chip">Python</span>
+					<span class="skill-chip">Java</span>
+					<span class="skill-chip">C/C++</span>
+					<span class="skill-chip">Bash</span>
+					<span class="skill-chip">HTML/CSS</span>
+					<span class="skill-chip">SQL</span>
+				</div>
+
+				<div class="skill-label">&gt; FRAMEWORKS:</div>
+				<div class="skill-chips">
+					<span class="skill-chip">React</span>
+					<span class="skill-chip">Astro</span>
+					<span class="skill-chip">deck.gl</span>
+				</div>
+
+				<div class="skill-label">&gt; INFRASTRUCTURE:</div>
+				<div class="skill-chips">
+					<span class="skill-chip">Linux/Ubuntu</span>
+					<span class="skill-chip">Proxmox VE</span>
+					<span class="skill-chip">Docker/Portainer</span>
+					<span class="skill-chip">Pi-hole</span>
+				</div>
+
+				<div class="skill-label">&gt; HARDWARE_&_RF:</div>
+				<div class="skill-chips">
+					<span class="skill-chip">Raspberry Pi</span>
+					<span class="skill-chip">Server Maintenance</span>
+					<span class="skill-chip">VHF Transmission</span>
+				</div>
+
+				<div class="skill-label">&gt; PROTOCOLS_MISC:</div>
+				<div class="skill-chips">
+					<span class="skill-chip">Git/GitHub</span>
+					<span class="skill-chip">OpenStreetMap Data</span>
+					<span class="skill-chip">Realtime APIs</span>
+				</div>
 			</div>
 		</fieldset>
 	</section>
@@ -956,13 +1071,14 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				<header class="module-header mono">
 					<div class="module-title-row">
 						<h3><a href="https://github.com/Alfie-Sci/portfolio-website">[ADDR_0x00]: PORTFOLIO_V2</a></h3>
-						<span class="status-indicator status-online">[ONLINE]</span>
+						<span class="status-indicator date-box">UPDATED: [22/06/2026]</span>
 					</div>
 					<div class="module-tech">STACK // Astro, CSS Variables, System Light-Dark Mode</div>
 				</header>
 				<div class="module-body">
-					<p>This is my portfolio website that I use to track my projects and to teach myself HTML and CSS.</p>
-					<p>It uses a stark, blueprint-esque aesthetic. This personal portfolio is built entirely with semantic HTML and CSS. It avoids client-side JavaScript to ensure immediate load times and backwards compatibility.</p>
+					<p>This is my portfolio website that I use to track my projects and to teach myself HTML and CSS. You're looking at it now!</p>
+					<p>It uses a stark, blueprint-esque aesthetic semi-inspired by the old web revival movement, with random elements of things that I am passionate about featured in sections (see the CIS display above). This personal portfolio is built entirely with semantic HTML and CSS, and deployed using cloudflare pages. It avoids client-side JavaScript to ensure immediate load times and backwards compatibility, and to provide a challenge to myself when developing and writing it.</p>
+					<a href="https://alfieralls.com" class="btn-deploy" target="_blank" rel="noopener noreferrer">alfieralls.com</a>
 				</div>
 			</article>
 
@@ -970,14 +1086,16 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				<header class="module-header mono">
 					<div class="module-title-row">
 						<h3><a href="https://github.com/Alfie-Sci/RailGraph">[ADDR_0x10]: RAILGRAPH_UK</a></h3>
-						<span class="status-indicator status-online">[ONLINE]</span>
+						<span class="status-indicator date-box">UPDATED: [01/06/2026]</span>
 					</div>
 					<div class="module-tech">STACK // React, deck.gl, OpenStreetMap, Git</div>
 				</header>
 				<div class="module-body">
 					<p>An open-source interactive mapping project designed to visualise the historical shifts in the United Kingdom's railway network. Utilising React and deck.gl, the map features a timeline scroller allowing users to view the exact state of the infrastructure at specific points in time.</p>
 					<p>Currently focusing on the Lancashire region, including detailed archival data for closed regional branch lines such as the Glasson Dock branch. The architecture leverages OpenStreetMap and Wikipedia data to increase the quality and precision of available historical railway maps.</p>
+					<p>The backend for this project required me to write scripts to deal with messy data from Overpass Turbo and consolidate it into large .json files, which then required manual review to add names and opening and closure dates for every station and line present on the map. It took a while, but the result is undeniable. Compared to that, the frontend was relatively easy, being an individual working on this though - it did take a while!</p>
 					<p>Very much a work in progress.</p>
+					<a href="https://railgraph.co.uk" class="btn-deploy" target="_blank" rel="noopener noreferrer">railgraph.co.uk</a>
 				</div>
 			</article>
 
@@ -985,7 +1103,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				<header class="module-header mono">
 					<div class="module-title-row">
 						<h3>[ADDR_0x20]: PI_DEPARTURE_BOARD</h3>
-						<span class="status-indicator status-offline">[HARDWARE_PROTOTYPE]</span>
+						<span class="status-indicator date-box">UPDATED: [N/A]</span>
 					</div>
 					<div class="module-tech">STACK // Raspberry Pi Zero W, Python, Bash, Realtime Trains API</div>
 				</header>
@@ -999,13 +1117,14 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				<header class="module-header mono">
 					<div class="module-title-row">
 						<h3>[ADDR_0x30]: OPTIPLEX_HOMELAB</h3>
-						<span class="status-indicator status-online">[ONLINE]</span>
+						<span class="status-indicator date-box">UPDATED: [22/06/2026]</span>
 					</div>
 					<div class="module-tech">STACK // Proxmox VE, Samba, Docker</div>
 				</header>
 				<div class="module-body">
-					<p>My homelab serves as a personal storage space using Nextcloud for files and Immich for my photos.</p>
+					<p>My homelab serves as a personal storage space and home network manager using Nextcloud for files, Immich for my photos, and Pi-hole for DNS and ad-blocking.</p>
 					<p>It is a legacy Dell Optiplex running a Proxmox hypervisor, an Ubuntu VM manages containerised Docker applications and a Samba file storage system to safely back up heavy university computer science coursework and important documents.</p>
+					<p>I use Portainer and Uptime Kuma together with Nfty notifications to maintain uptime and to stay informed when things start going wrong</p>
 				</div>
 			</article>
 		</div>
@@ -1120,7 +1239,8 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			<div style="line-height: 1.8;">
 				> ENDPOINT: <a href="mailto:scroll_cosy_2v@icloud.com">scroll_cosy_2v@icloud.com</a><br>
 				> GITHUB: <a href="https://github.com/Alfie-Sci">github.com/Alfie-Sci</a><br>
-				> LINKEDIN: <a href="https://www.linkedin.com/in/alfie-ralls-7b80ab386/">https://www.linkedin.com/in/alfie-ralls/</a>
+				> LINKEDIN: <a href="https://www.linkedin.com/in/alfie-ralls-7b80ab386/">https://www.linkedin.com/in/alfie-ralls/</a><br>
+				> WIKIPEDIA: <a href="https://en.wikipedia.org/wiki/Special:Contributions/MelonLost">https://en.wikipedia.org/wiki/Special:Contributions/MelonLost</a><br>
 			</div>
 		</fieldset>
 	</section>

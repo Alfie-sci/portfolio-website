@@ -142,18 +142,45 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 		nav {
 			font-family: monospace;
-			font-size: 0.9rem;
 			margin: 1rem 0 0 0;
-			padding: 0.5rem 0;
+			padding: 0.5rem 0; /* Tighter top and bottom padding */
 			border-top: 1px dashed var(--blueprint-blue);
+			font-size: 0.9rem; /* Dramatically decreased font size */
+			display: flex;
+			flex-wrap: wrap;
+			gap: 0.25rem 1rem; /* 0.25rem vertical spacing, 1rem horizontal spacing */
 		}
 
 		nav a {
-			margin-right: 0.8rem;
 			text-decoration: none;
 			font-weight: bold;
-			white-space: nowrap;
+			color: var(--blueprint-blue);
+			padding: 0.1rem 0.2rem; /* Tighter hitbox padding */
+			position: relative;
+			transition: background-color 0.2s ease;
+			line-height: 1.2; /* Forces lines to sit close together when wrapping */
 		}
+
+		/* The targeting brackets */
+		nav a::before, nav a::after {
+			color: light-dark(rgba(0, 51, 204, 0.3), rgba(51, 102, 255, 0.3));
+			transition: all 0.2s ease;
+		}
+		nav a::before { content: "[ "; margin-right: 0.1rem; }
+		nav a::after { content: " ]"; margin-left: 0.1rem; }
+
+		nav a:hover, nav a:focus-visible {
+			background: light-dark(rgba(0, 51, 204, 0.08), rgba(51, 102, 255, 0.12));
+			outline: none;
+		}
+
+		/* Brackets turn solid and snap inward slightly on hover */
+		nav a:hover::before, nav a:hover::after,
+		nav a:focus-visible::before, nav a:focus-visible::after {
+			color: var(--blueprint-blue);
+		}
+		nav a:hover::before { margin-right: 0px; }
+		nav a:hover::after { margin-left: 0px; }
 
 		section {
 			margin-bottom: 2rem;
@@ -822,14 +849,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			fieldset {
 				padding: 1rem;
 			}
-			nav {
-				display: flex;
-				flex-wrap: wrap;
-				gap: 0.75rem;
-			}
-			nav a {
-				margin-right: 0;
-			}
 			.title-block { grid-template-columns: 1fr; }
 			.tb-section { border-right: none; border-bottom: 2px solid var(--blueprint-blue); padding: 1rem; }
 			.tb-section:last-child { border-bottom: none; }
@@ -979,13 +998,11 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		<fieldset>
 			<legend>OPERATOR_MANIFEST.md</legend>
 			<p>
-				Hi! I'm Alfie, a Computer Science student at Lancaster University. My technical foundation is built on Python, Java, and C/C++, and personally, I like to focus specifically on software engineering.</p>
-			I try to be an active contributor to open-source software. I enjoy contributing to the software I enjoy using, and apply what I learn in order to write maintainable, well-documented code.<br>
-			For the past couple of years I have been contributing to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, closed regional branch line network.<br>
-			I am currently developing a web-based open-source interactive map of the UK rail network, which I started in May. I've decided to build this out starting in Lancashire, using React and deck.gl, exploring how best to visualise the network, and to use the incredible resource of OpenStreetMap to increase the quality of available railway maps.<br>
-			As of June 2026, I am the Engineering Manager for the student radio station at Lancaster: <a href="https://www.bailriggfm.co.uk" target="_blank">95.3 Bailrigg FM</a>. I manage, maintain, and upgrade the servers and technical equipment that the station uses to operate, and help out where I can.
-			<p>
-				I believe in the sheer utility and benefit of open information. Whether it's through open source code or Wikipedia articles, I aim to build and expand the tools and documentation that support and propagate this tenet.</p>
+				Hi! I'm Alfie, Computer Science student at Lancaster University. Welcome to my website :)<br></p>
+			First and foremost, I try to be an active contributor to open-source software. I enjoy contributing to the software I enjoy using, and apply what I learn in order to write maintainable, well-documented code.<br>
+			Similarly, for the past couple of years I have been contributing to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, disused regional branch line network. A particular favourite at the moment is the <a href="https://en.wikipedia.org/wiki/Glasson_Dock_branch_line" target="_blank">Glasson Dock branch line</a>, which I have been researching recently.<br>
+			I am currently developing a web-based open-source interactive map of the UK rail network, which I started in May. I've decided to build this out starting in Lancashire, using React and deck.gl, exploring how best to use the incredible resource of OpenStreetMap to provide a new way of visualising the railway.  will continue to build this out over the next few months<br>
+			As of June 2026, I have been elected as the Engineering Manager for the student radio station at Lancaster: <a href="https://www.bailriggfm.co.uk" target="_blank">95.3 Bailrigg FM</a>. I manage, maintain, and upgrade the servers and technical equipment that the station uses to operate, and help out elsewhere, where I can.
 			<div class="mono" style="color: var(--blueprint-blue); text-align: right; font-size: 0.8rem; margin-top: 1rem;">
 				> LAST_MODIFIED: 26/06/2026
 			</div>
@@ -1031,6 +1048,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 					<span class="skill-chip">Git/GitHub</span>
 					<span class="skill-chip">OpenStreetMap Data</span>
 					<span class="skill-chip">Realtime APIs</span>
+					<span class="skill-chip">Jetbrains IDEs</span>
 				</div>
 			</div>
 		</fieldset>
@@ -1143,7 +1161,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 	<section id="transmission">
 		<h2>03_TX_SITE_LOG</h2>
-		<p class="mono">Transmission site log and hardware specification for the 95.3 Bailrigg FM VHF broadcast.</p>
+		<p class="mono">Transmission site log and (not actual) hardware specification for the 95.3 Bailrigg FM VHF broadcast.</p>
 
 		<div style="position: relative; margin-top: 6.5rem;">
 		<pre class="tx-mast" style="position: absolute; bottom: 100%; right: 2rem; margin: 0; margin-bottom: -1px; font-family: monospace; font-size: 0.85rem; line-height: 1.1; color: var(--blueprint-blue); font-weight: bold; text-align: left; z-index: 10;">
@@ -1155,7 +1173,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
         |
     	|</pre>
 
-			<fieldset class="mono" style="padding: 1.5rem; border: 1px dotted var(--blueprint-blue); background: light-dark(rgba(0, 51, 204, 0.02), rgba(51, 102, 255, 0.05)); box-shadow: inset 2px 2px 0 light-dark(rgba(0, 51, 204, 0.05), rgba(51, 102, 255, 0.1));">
+			<fieldset class="mono">
 				<legend>REGULATOR_LICENSE_DATA // [TX_ACTIVE]</legend>
 
 				<div class="tx-data-grid">

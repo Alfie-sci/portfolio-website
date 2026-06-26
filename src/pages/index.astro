@@ -971,10 +971,10 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	<div class="crosshair ch-br"></div>
 
 	<header>
-		<h1 style="margin: 0;">SYSTEM_SPECIFICATION_v2.0</h1>
+		<h1 style="margin: 0;">PORTFOLIO_WEBSITE_v2.0</h1>
 		<div class="mono" style="color: var(--blueprint-blue);">
 			NAME: ALFIE_RALLS // HOST: LANCASTER_UNI_SCC //
-			<span class="coord-trigger" title="POWER_USER: Click and hold to activate radar scan">
+			<span class="coord-trigger" title="Click and hold...">
 			COORD: 54.0104° N, 2.7877° W
 				<span class="blip blip-1"></span>
 				<span class="blip blip-2"></span>
@@ -1122,7 +1122,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				<div class="module-body">
 					<p>An open-source interactive mapping project designed to visualise the historical shifts in the United Kingdom's railway network. Utilising React and deck.gl, the map features a timeline scroller allowing users to view the exact state of the infrastructure at specific points in time.</p>
 					<p>Currently focusing on the Lancashire region, including detailed archival data for closed regional branch lines such as the Glasson Dock branch. The architecture leverages OpenStreetMap and Wikipedia data to increase the quality and precision of available historical railway maps.</p>
-					<p>The backend for this project required me to write scripts to deal with messy data from Overpass Turbo and consolidate it into large .json files, which then required manual review to add names and opening and closure dates for every station and line present on the map. It took a while, but the result is undeniable. Compared to that, the frontend was relatively easy, being an individual working on this though - it did take a while!</p>
+					<p>The backend for this project required me to write scripts to deal with messy data from Overpass Turbo and consolidate it into large .json files, which then required manual review to add names and opening and closure dates for every station and line present on the map. It took a while, but the result is undeniable. Compared to that, the frontend was relatively easy. Being an individual working on this though - it did take a while!</p>
 					<p>Very much a work in progress.</p>
 					<a href="https://railgraph.co.uk" class="btn-deploy" target="_blank" rel="noopener noreferrer">railgraph.co.uk</a>
 				</div>
@@ -1139,6 +1139,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				<div class="module-body">
 					<p>A physical hardware monitor running a custom Linux environment configured to fetch live train movements from the network. It pings the Realtime Trains API for trains passing a specific geographic coordinate on the British rail network and outputs those exact details directly to a dedicated screen.</p>
 					<p>The logic handles edge-cases in data fetching via Python, utilising cron scheduling and bash scripts to keep the continuous display running autonomously on lightweight breadboard hardware.</p>
+					<p>Waiting for hardware prices to decrease before I purchase the necessary compute for this one.</p>
 				</div>
 			</article>
 

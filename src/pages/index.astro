@@ -933,6 +933,12 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				margin-top: 0.75rem;
 			}
 		}
+		/* Fix for long URLs in terminal blocks */
+		.endpoints-list {
+			line-height: 1.8;
+			overflow-wrap: break-word;
+			word-break: break-all; /* Forces long links to wrap on mobile */
+		}
 	</style>
 </head>
 <body>
@@ -1236,7 +1242,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 		<fieldset class="mono">
 			<legend>NETWORK_ENDPOINTS.cfg</legend>
-			<div style="line-height: 1.8;">
+			<div class="endpoints-list">
 				> ENDPOINT: <a href="mailto:scroll_cosy_2v@icloud.com">scroll_cosy_2v@icloud.com</a><br>
 				> GITHUB: <a href="https://github.com/Alfie-Sci">github.com/Alfie-Sci</a><br>
 				> LINKEDIN: <a href="https://www.linkedin.com/in/alfie-ralls-7b80ab386/">https://www.linkedin.com/in/alfie-ralls/</a><br>

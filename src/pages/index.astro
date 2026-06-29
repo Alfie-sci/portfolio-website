@@ -399,7 +399,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			backdrop-filter: blur(4px);
 			border: 1px solid light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.1));
 			z-index: 20;
-			transition: transform 0.2s ease-out;
+			//transition: transform 0.2s ease-out;
 		}
 
 		.photo-card:hover::before {
@@ -984,12 +984,12 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 		<nav>
 			<a href="#manifest">// 01_MANIFEST</a>
-			<a href="#status-board">// 01.5_CIS_DISPLAY</a>
-			<a href="#projects">// 02_ENGINEERING_LOGS</a>
-			<a href="#transmission">// 03_TX_SITE_LOG</a>
-			<a href="#exhibit">// 04_EXHIBIT_LOG</a>
-			<a href="#network">// 05_WEB_RING</a>
-			<a href="#handshake">// 06_CONTACT</a>
+			<a href="#projects">// 02_PROJECTS</a>
+			<a href="#exhibit">// 03_EXHIBIT_LOG</a>
+			<a href="#status-board">// 04_CIS_DISPLAY</a>
+			<a href="#transmission">// 05_TX_SITE_LOG</a>
+			<a href="#network">// 06_WEB_RING</a>
+			<a href="#handshake">// 07_CONTACT</a>
 		</nav>
 	</header>
 
@@ -1054,44 +1054,8 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		</fieldset>
 	</section>
 
-	<section id="status-board">
-		<h2>01.5_CIS_DISPLAY</h2>
-		<p class="mono">Do not use for actual train times.</p>
-		<div class="cis-board">
-			<div class="cis-row">
-				<span class="cis-rank">1st</span>
-				<span class="cis-time">11<span class="cis-colon">:</span>16</span>
-				<span class="cis-plat">4</span>
-				<span class="cis-dest">BSc Computer Science</span>
-				<span class="cis-status cis-blink cis-on-time">On time</span>
-			</div>
-
-			<div class="cis-scroll-row">
-				<span class="cis-calling-label">Calling at</span>
-				<div class="cis-scroll-container">
-					<span class="cis-scroll-text" style="animation-duration: 30s;">Software Development, Fundamentals of Computer Science, Digital Systems, Professionalism in Practice, Group Projects, Internet Applications, Data Engineering, Networks and Systems, HCI: Designing for People, Sustainable Computing, Secure Data and Systems, and Applied Security Methods</span>
-				</div>
-			</div>
-
-			<div class="cis-row">
-				<span class="cis-rank">2nd</span>
-				<span class="cis-time">O6<span class="cis-colon">:</span>OO</span>
-				<span class="cis-plat">1</span>
-				<span class="cis-dest">Cairngorms Nat. Park</span>
-				<span class="cis-status">Expected</span>
-			</div>
-
-			<div class="cis-scroll-row">
-				<span class="cis-calling-label">Calling at</span>
-				<div class="cis-scroll-container">
-					<span class="cis-scroll-text" style="animation-duration: 18s;">65L Backpack, OS Maps, Jetboil, Phoxx II V2, Sleeping Bag, Lantern, Hiking Poles, Raincoat, Walking Boots, Dry Socks, Water, and Food Packets</span>
-				</div>
-			</div>
-		</div>
-	</section>
-
 	<section id="projects">
-		<h2>02_ENGINEERING_LOGS</h2>
+		<h2>02_PROJECTS</h2>
 		<p class="mono">Project dossiers.</p>
 
 		<div class="project-dossier-list">
@@ -1102,7 +1066,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 						<h3><a href="https://github.com/Alfie-Sci/portfolio-website">[ADDR_0x00]: PORTFOLIO_V2</a></h3>
 						<span class="status-indicator date-box">UPDATED: [22/06/2026]</span>
 					</div>
-					<div class="module-tech">STACK // Astro, CSS Variables, System Light-Dark Mode</div>
+					<div class="module-tech">STACK // Astro, CSS Variables, Web dev and deployment</div>
 				</header>
 				<div class="module-body">
 					<p>This is my portfolio website that I use to track my projects and to teach myself HTML and CSS. You're looking at it now!</p>
@@ -1160,39 +1124,8 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		</div>
 	</section>
 
-	<section id="transmission">
-		<h2>03_TX_SITE_LOG</h2>
-		<p class="mono">Transmission site log and (not actual) hardware specification for the 95.3 Bailrigg FM VHF broadcast.</p>
-
-		<div style="position: relative; margin-top: 6.5rem;">
-		<pre class="tx-mast" style="position: absolute; bottom: 100%; right: 2rem; margin: 0; margin-bottom: -1px; font-family: monospace; font-size: 0.85rem; line-height: 1.1; color: var(--blueprint-blue); font-weight: bold; text-align: left; z-index: 10;">
-    <span class="tx-waves">(((R F)))</span>
-      _|_|_
-<span class="tx-wave-left w1" style="top: 2.2em; left: 0;">(((</span>    &gt;-|___|-&lt; <span class="tx-element tx-element-1">[E_01]</span>
-        |
-<span class="tx-wave-left w2" style="top: 4.4em; left: 0;">(((</span>    &gt;-|___|-&lt; <span class="tx-element tx-element-2">[E_02]</span>
-        |
-    	|</pre>
-
-			<fieldset class="mono">
-				<legend>REGULATOR_LICENSE_DATA // [TX_ACTIVE]</legend>
-
-				<div class="tx-data-grid">
-					<strong style="color: var(--blueprint-blue);">&gt; SITE:</strong> <span>LRSL</span>
-					<strong style="color: var(--blueprint-blue);">&gt; AREA:</strong> <span>Lancaster</span>
-					<strong style="color: var(--blueprint-blue);">&gt; POWER:</strong> <span>2 W</span>
-					<strong style="color: var(--blueprint-blue);">&gt; POLARISATION:</strong> <span>V</span>
-					<strong style="color: var(--blueprint-blue);">&gt; AERIAL_HT:</strong> <span>10 m</span>
-					<strong style="color: var(--blueprint-blue);">&gt; HT_AMSL:</strong> <span>67 m</span>
-					<strong style="color: var(--blueprint-blue);">&gt; RDS_PI:</strong> <span>CD88</span>
-					<strong style="color: var(--blueprint-blue);">&gt; TX_SITES:</strong> <span>1</span>
-				</div>
-			</fieldset>
-		</div>
-	</section>
-
 	<section id="exhibit">
-		<h2>04_EXHIBIT_LOG</h2>
+		<h2>03_EXHIBIT_LOG</h2>
 		<p class="mono">Analog capture extraction ledger. Themes include architecture, railways, and infrastructure.</p>
 
 		<div class="photo-grid-wrapper">
@@ -1223,8 +1156,75 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		</div>
 	</section>
 
+	<section id="status-board">
+		<h2>04_CIS_DISPLAY</h2>
+		<p class="mono">Do not use for actual train times.</p>
+		<div class="cis-board">
+			<div class="cis-row">
+				<span class="cis-rank">1st</span>
+				<span class="cis-time">11<span class="cis-colon">:</span>16</span>
+				<span class="cis-plat">4</span>
+				<span class="cis-dest">BSc Computer Science</span>
+				<span class="cis-status cis-blink cis-on-time">On time</span>
+			</div>
+
+			<div class="cis-scroll-row">
+				<span class="cis-calling-label">Calling at</span>
+				<div class="cis-scroll-container">
+					<span class="cis-scroll-text" style="animation-duration: 30s;">Software Development, Fundamentals of Computer Science, Digital Systems, Professionalism in Practice, Group Projects, Internet Applications, Data Engineering, Networks and Systems, HCI: Designing for People, Sustainable Computing, Secure Data and Systems, and Applied Security Methods</span>
+				</div>
+			</div>
+
+			<div class="cis-row">
+				<span class="cis-rank">2nd</span>
+				<span class="cis-time">O6<span class="cis-colon">:</span>OO</span>
+				<span class="cis-plat">1</span>
+				<span class="cis-dest">Cairngorms Nat. Park</span>
+				<span class="cis-status">Expected</span>
+			</div>
+
+			<div class="cis-scroll-row">
+				<span class="cis-calling-label">Calling at</span>
+				<div class="cis-scroll-container">
+					<span class="cis-scroll-text" style="animation-duration: 18s;">65L Backpack, OS Maps, Jetboil, Phoxx II V2, Sleeping Bag, Lantern, Hiking Poles, Raincoat, Walking Boots, Dry Socks, Water, and Food Packets</span>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section id="transmission">
+		<h2>05_TX_SITE_LOG</h2>
+		<p class="mono">Transmission site log and hardware specification for the 95.3 Bailrigg FM VHF broadcast.</p>
+
+		<div style="position: relative; margin-top: 6.5rem;">
+		<pre class="tx-mast" style="position: absolute; bottom: 100%; right: 2rem; margin: 0; margin-bottom: -1px; font-family: monospace; font-size: 0.85rem; line-height: 1.1; color: var(--blueprint-blue); font-weight: bold; text-align: left; z-index: 10;">
+    <span class="tx-waves">(((R F)))</span>
+      _|_|_
+<span class="tx-wave-left w1" style="top: 2.2em; left: 0;">(((</span>    &gt;-|___|-&lt; <span class="tx-element tx-element-1">[E_01]</span>
+        |
+<span class="tx-wave-left w2" style="top: 4.4em; left: 0;">(((</span>    &gt;-|___|-&lt; <span class="tx-element tx-element-2">[E_02]</span>
+        |
+    	|</pre>
+
+			<fieldset class="mono">
+				<legend>REGULATOR_LICENSE_DATA // [TX_ACTIVE]</legend>
+
+				<div class="tx-data-grid">
+					<strong style="color: var(--blueprint-blue);">&gt; SITE:</strong> <span>LRSL</span>
+					<strong style="color: var(--blueprint-blue);">&gt; AREA:</strong> <span>Lancaster</span>
+					<strong style="color: var(--blueprint-blue);">&gt; POWER:</strong> <span>2 W</span>
+					<strong style="color: var(--blueprint-blue);">&gt; POLARISATION:</strong> <span>V</span>
+					<strong style="color: var(--blueprint-blue);">&gt; AERIAL_HT:</strong> <span>10 m</span>
+					<strong style="color: var(--blueprint-blue);">&gt; HT_AMSL:</strong> <span>67 m</span>
+					<strong style="color: var(--blueprint-blue);">&gt; RDS_PI:</strong> <span>CD88</span>
+					<strong style="color: var(--blueprint-blue);">&gt; TX_SITES:</strong> <span>1</span>
+				</div>
+			</fieldset>
+		</div>
+	</section>
+
 	<section id="network">
-		<h2>05_WEB_RING</h2>
+		<h2>06_WEB_RING</h2>
 		<p class="mono">External network nodes and corners of the old web.</p>
 
 		<fieldset class="mono">
@@ -1261,7 +1261,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	</section>
 
 	<section id="handshake">
-		<h2>06_CONTACT</h2>
+		<h2>07_CONTACT</h2>
 		<p class="mono">Direct data transfers gratefully accepted via standard protocols.</p>
 
 		<fieldset class="mono">
@@ -1270,7 +1270,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				> ENDPOINT: <a href="mailto:scroll_cosy_2v@icloud.com">scroll_cosy_2v@icloud.com</a><br>
 				> GITHUB: <a href="https://github.com/Alfie-Sci">github.com/Alfie-Sci</a><br>
 				> LINKEDIN: <a href="https://www.linkedin.com/in/alfie-ralls-7b80ab386/">https://www.linkedin.com/in/alfie-ralls/</a><br>
-				> WIKIPEDIA: <a href="https://en.wikipedia.org/wiki/Special:Contributions/MelonLost">https://en.wikipedia.org/wiki/Special:Contributions/MelonLost</a><br>
 			</div>
 		</fieldset>
 	</section>

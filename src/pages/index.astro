@@ -100,7 +100,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 		body {
 			background-color: var(--bg-color);
-			/* Minor grid (20px), Major grid (100px) */
 			background-image:
 				linear-gradient(var(--grid-color) 1px, transparent 1px),
 				linear-gradient(90deg, var(--grid-color) 1px, transparent 1px),
@@ -233,15 +232,15 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		}
 		section::after {
 			position: absolute;
-			top: -30px;          /* Pulls it up slightly off the top edge */
-			right: -10px;        /* Pushes it slightly off the right edge */
+			top: -30px;
+			right: -10px;
 			font-family: monospace;
-			font-size: 15rem;    /* Makes it absolutely massive */
+			font-size: 15rem;
 			font-weight: bold;
 			color: var(--blueprint-blue);
-			opacity: 0.04;       /* Makes it barely visible (adjust between 0.02 and 0.08 to your liking) */
+			opacity: 0.04;
 			line-height: 1;
-			pointer-events: none; /* CRUCIAL: Stops the giant text from blocking mouse clicks! */
+			pointer-events: none;
 			z-index: 0;
 			padding: 0.8rem 0.8rem;
 		}
@@ -265,7 +264,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 		legend {
 			font-family: monospace;
-			color: var(--blueprint-blue); /* Swapped from blue to purple for structure */
+			color: var(--blueprint-blue);
 			font-weight: bold;
 			padding: 0 0.5rem;
 		}
@@ -289,7 +288,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		}
 
 		a:active {
-			background: var(--markup-color); /* Swapped to dynamic markup red */
+			background: var(--markup-color);
 			color: #ffffff;
 		}
 
@@ -460,10 +459,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		.photo-card:hover::after { background-position: 0 0; transition: background-position 0.2s ease-out; }
 
 		.photo-card:hover {
-			/* Reduced the lift and the rotation for a more subtle pop */
 			transform: translateY(-2px) rotate(-0.2deg) translateZ(0);
-
-			/* Reduced shadow offset to match the 2px lift (base shadow is 4px) */
 			box-shadow: 6px 6px 0 var(--accent-orange);
 			border-color: var(--accent-orange);
 			z-index: 10;
@@ -581,7 +577,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 		.date-box {
 			display: inline-block;
-			border: 1px solid var(--accent-green); /* Green accent for technical statuses */
+			border: 1px solid var(--accent-green);
 			background: light-dark(rgba(0, 128, 43, 0.05), rgba(77, 255, 136, 0.1));
 			padding: 0.25rem 0.6rem;
 			font-size: 0.8rem;
@@ -711,7 +707,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		}
 
 		.skill-chip:hover {
-			background: var(--accent-orange); /* Swapped to green to simulate "online" status */
+			background: var(--accent-orange);
 			color: var(--bg-color);
 			border-color: var(--accent-orange);
 			border-style: solid;
@@ -921,7 +917,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 	<section id="exhibit">
 		<h2>03_EXHIBIT_LOG</h2>
-		<p class="mono">Analog capture extraction ledger. Themes include architecture, railways, and infrastructure.</p>
+		<p class="mono">Analog capture extraction ledger. Themes include architecture, railways, and infrastructure. All photos taken with my iPhone 17.</p>
 
 		<div class="photo-grid-wrapper">
 			<div class="crop-mark cm-tl"></div>

@@ -8,14 +8,21 @@ import photo3 from '../assets/gallery/photo3.jpeg';
 import photo4 from '../assets/gallery/photo4.jpeg';
 import photo5 from '../assets/gallery/photo5.jpeg';
 import photo6 from '../assets/gallery/photo6.jpeg';
+import photo7 from '../assets/gallery/photo7.jpeg';
+import photo8 from '../assets/gallery/photo8.jpeg';
+import photo9 from '../assets/gallery/photo9.jpeg';
 
 const contactSheetPhotos = [
-	{ ref: "ENGINEERING_ONE.JPG", spec: "26mm // ISO 400 // f/1.8", asset: photo1 },
+	{ ref: "ENGINEERING_TWO.JPG", spec: "26mm // ISO 400 // f/1.8", asset: photo1 },
 	{ ref: "AUTO_TRAIN.JPG", spec: "26mm // ISO 400 // f/1.8", asset: photo2 },
 	{ ref: "GLASSON_DOCK_9.JPG", spec: "26mm // ISO 40 // f/1.6", asset: photo3 },
 	{ ref: "EVENING_STAR_92220.JPG", spec: "26mm // ISO 160 // f/1.8", asset: photo4 },
 	{ ref: "TURBINE_01.JPG", spec: "26mm // ISO 50 // f/1.6", asset: photo5 },
 	{ ref: "COLOUR_SIGNALS_08.JPG", spec: "26mm // ISO 100 // f/1.6", asset: photo6 },
+	{ ref: "PICADILLY_67.JPG", spec: "52mm // ISO 400 // f/1.6", asset: photo7 },
+	{ ref: "TRAFFIC_LIGHT.JPG", spec: "26mm // ISO 32 // f/1.6", asset: photo8 },
+	{ ref: "LANE_3.JPG", spec: "26mm // ISO 125 // f/1.6", asset: photo9 },
+
 ];
 
 // Generate a timestamp at build time
@@ -163,14 +170,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		.mono {
 			font-family: monospace;
 			font-size: 0.9rem;
-		}
-
-		.highlight-block {
-			display: inline-block;
-			background-color: var(--blueprint-blue);
-			color: var(--bg-color); /* Inverts the text color */
-			padding: 0.1rem 0.5rem;
-			box-shadow: 2px 2px 0 var(--accent-orange); /* Tiny offset shadow for pop */
 		}
 
 		/* --- Structural Components --- */
@@ -443,8 +442,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			z-index: 20;
 		}
 
-		.photo-card:hover::before { transform: translateY(2px) rotate(-32deg) scaleX(1.05); }
-
 		.photo-card::after {
 			content: "";
 			position: absolute;
@@ -463,8 +460,11 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		.photo-card:hover::after { background-position: 0 0; transition: background-position 0.2s ease-out; }
 
 		.photo-card:hover {
-			transform: translateY(-5px) rotate(-0.5deg) translateZ(0);
-			box-shadow: 10px 10px 0 var(--accent-orange); /* Added markup color pop */
+			/* Reduced the lift and the rotation for a more subtle pop */
+			transform: translateY(-2px) rotate(-0.2deg) translateZ(0);
+
+			/* Reduced shadow offset to match the 2px lift (base shadow is 4px) */
+			box-shadow: 6px 6px 0 var(--accent-orange);
 			border-color: var(--accent-orange);
 			z-index: 10;
 		}

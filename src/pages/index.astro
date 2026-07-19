@@ -65,7 +65,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			--accent-purple: light-dark(var(--purple-light), var(--purple-dark));
 
 			/* LIGHT MODE PALETTE */
-			--bg-light: #ffffff;
+			--bg-light: #faf8f5;
 			--text-light: #111111;
 			--grid-light: #e0e6ed;
 			--card-bg-light: #ffffff;
@@ -112,6 +112,22 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			line-height: 1.6;
 			margin: 0;
 			padding: 2rem 1rem;
+		}
+
+		/* Adds vertical marginalia along the right side of the browser window */
+		body::after {
+			content: "DWG. REF: LRSL-2026-V2 // LANCASTER // SHEET 1 OF 1";
+			position: fixed;
+			bottom: 20px;
+			right: 10px;
+			font-family: monospace;
+			font-size: 0.65rem;
+			color: var(--blueprint-blue);
+			opacity: 0.4;
+			writing-mode: vertical-rl;
+			transform: rotate(180deg);
+			pointer-events: none;
+			z-index: 100;
 		}
 
 		.spec-container {
@@ -256,17 +272,38 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			border: 1px solid var(--blueprint-blue);
 			padding: 0.9rem 1.5rem 1.5rem 1.5rem;
 			margin-bottom: 2rem;
+
+			position: relative;
+			overflow: hidden;
+
+			/* NEW: Applies pure white in light mode, deep blue in dark mode */
+			background-color: var(--card-bg);
 		}
 
 		fieldset > legend + * {
 			margin-top: 0;
 		}
 
+		#manifest fieldset:first-of-type::after {
+			content: "[DO NOT SCALE FROM DRAWING]";
+			position: absolute;
+			bottom: 20px;
+			left: 10px;
+			font-family: monospace;
+			font-size: 1.1rem;
+			font-weight: bold;
+			color: var(--markup-color);
+			opacity: 0.15;
+			transform: rotate(5deg);
+			pointer-events: none;
+			z-index: 0;
+		}
+
 		legend {
 			font-family: monospace;
 			color: var(--blueprint-blue);
 			font-weight: bold;
-			padding: 0 0.5rem;
+			padding: 0.1rem 0.6rem;
 		}
 
 		/* --- Interactive Links --- */
@@ -864,11 +901,11 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		<fieldset>
 			<legend>OPERATOR_MANIFEST.md</legend>
 			<p>
-				Hi! I'm Alfie, a Computer Science student at Lancaster University. Welcome to my website :)<br></p>
-			First and foremost, I try to be an active contributor to open-source software. I enjoy contributing to the software I enjoy using, and apply what I learn in order to write maintainable, well-documented code.<br>
-			Similarly, for the past couple of years I have been contributing to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, disused regional branch line network. A particular favourite at the moment is the <a href="https://en.wikipedia.org/wiki/Glasson_Dock_branch_line" target="_blank">Glasson Dock branch line</a>, which I have been researching recently.<br>
+				Hi! I'm Alfie, a Computer Science student at Lancaster University. See below for information about me and my projects. Welcome to my website :)<br></p>
+			I am currently on the second year of my course, thoroughly appreciating it, and really enjoying all that the uni has to offer.<br>
+			For the past couple of years I have been contributing to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, disused regional branch line network. A particular favourite at the moment is the <a href="https://en.wikipedia.org/wiki/Glasson_Dock_branch_line" target="_blank">Glasson Dock branch line</a>, which I have been researching recently.<br>
 			I am currently developing a web-based open-source interactive map of the UK rail network, which I started in May. I've decided to build this out starting in Lancashire, using React and deck.gl, exploring how best to use the incredible resource of OpenStreetMap to provide a new way of visualising the railway. I will continue to build this out over the next few months.<br>
-			As of June 2026, I have been elected as the Engineering Manager for the student radio station at Lancaster: <a href="https://www.bailriggfm.co.uk" target="_blank">95.3 Bailrigg FM</a>. I manage, maintain, and upgrade the servers and technical equipment that the station uses to operate, and help out elsewhere, where I can.
+			As of June 2026, I have been elected as the Engineering Manager for the student radio station at Lancaster: <a href="https://www.bailriggfm.co.uk" target="_blank">95.3 Bailrigg FM</a>. I manage, maintain, and upgrade the servers and technical equipment that the station uses to operate, and help out elsewhere, where I can. It's a lot of responsibility, but very rewarding.
 			<div class="mono" style="background-color: var(--blueprint-blue); color: var(--bg-color); width: fit-content; margin-left: auto; font-size: 0.8rem; margin-top: 1rem; padding: 0.1rem 0.4rem; font-weight: bold;">
 				> LAST_MODIFIED: {buildDate}
 			</div>
@@ -935,8 +972,8 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 					<div class="module-tech">STACK // Astro, CSS Variables, Web dev and deployment</div>
 				</header>
 				<div class="module-body">
-					<p>This is my portfolio website that I use to track my projects and to teach myself HTML and CSS. You're looking at it now!</p>
-					<p>It uses a stark, blueprint-esque aesthetic semi-inspired by the old web revival movement, with random elements of things that I am passionate about featured in sections (see the CIS display above). This personal portfolio is built entirely with semantic HTML and CSS, and deployed using cloudflare pages. It avoids client-side JavaScript to ensure immediate load times and backwards compatibility, and to provide a challenge to myself when developing and writing it.</p>
+					<p>This is my personal portfolio website that I use to track my projects and to teach myself HTML and CSS. I mess with various ideas on here and update it frequently. You're looking at it now!</p>
+					<p>It uses a stark, blueprint-esque aesthetic using an off-white background to emulate paper, semi-inspired by the old web revival movement, with random elements of things that I am passionate about featured in sections (see the CIS display below). This personal portfolio is built entirely with semantic HTML and CSS, and deployed using cloudflare pages. It avoids client-side JavaScript to ensure immediate load times and backwards compatibility, and to provide a challenge to myself when developing and writing it.</p>
 					<a href="https://alfieralls.com" class="btn-deploy" target="_blank" rel="noopener noreferrer">alfieralls.com</a>
 				</div>
 			</article>
@@ -1124,19 +1161,16 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				<ul class="web-ring-list">
 					<li>
 						<strong>> <a href="http://disused-stations.org.uk/" target="_blank">DisusedStations.org</a></strong>
-						<span class="web-ring-desc">// A brilliant archive of photographs and information about (you guessed it) disused stations.</span>
 					</li>
 					<li>
 						<strong>> <a href="https://www.railmaponline.com" target="_blank">RailMapOnline</a></strong>
-						<span class="web-ring-desc">// A collection of maps of railways in the UK, the foundation for my RailGraph project.</span>
+						<span class="web-ring-desc">// A collection of maps of railways in the UK.</span>
 					</li>
 					<li>
 						<strong>> <a href="https://maps.nls.uk/os/" target="_blank">NLS Historic Maps</a></strong>
-						<span class="web-ring-desc">// The gold standard for viewing old maps.</span>
 					</li>
 					<li>
 						<strong>> <a href="https://www.shadertoy.com/" target="_blank">ShaderToy</a></strong>
-						<span class="web-ring-desc">// A really cool way to learn about how shaders work, and to test displays.</span>
 					</li>
 					<li>
 						<strong>> <a href="https://www.makingsoftware.com/" target="_blank">Making Software</a></strong>

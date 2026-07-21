@@ -334,7 +334,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			position: relative;
 			display: inline-block;
 			padding: 0 4px;
-			cursor: crosshair;
 			transition: background 0.2s ease-out, color 0.2s ease-out;
 		}
 
@@ -562,7 +561,9 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			background: var(--card-bg);
 			border: 2px solid var(--blueprint-blue);
 			box-shadow: 6px 6px 0 var(--blueprint-blue);
-			transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+			transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+			box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+			border-color 0.2s ease;
 		}
 
 		.project-module:hover {
@@ -709,7 +710,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		.web-ring-list li:last-child { margin-bottom: 0; }
 		.web-ring-desc { color: var(--text-color); }
 
-		/* --- System Capabilities (Skills) --- */
 		.skills-table { display: grid; grid-template-columns: 150px 1fr; gap: 1rem; line-height: 1.6; align-items: start; }
 		.skill-label { color: var(--blueprint-blue); font-weight: bold; text-align: right; }
 		.skill-chips { display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: flex-start; }
@@ -727,7 +727,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			color: var(--bg-color);
 			border-color: var(--accent-orange);
 			border-style: solid;
-			cursor: crosshair;
 		}
 
 		.endpoints-list { line-height: 1.8; overflow-wrap: break-word; word-break: break-all; }
@@ -816,7 +815,160 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			50% { opacity: 0; }
 		}
 
-		/* Mobile adjustment for homelab */
+		/* --- SECTION: Gom Jabbar Fieldset Crucible --- */
+		.crucible-fieldset {
+			border: 2px solid var(--blueprint-blue);
+			background-color: var(--card-bg);
+			padding: 0.5rem 1.5rem 1.5rem 1.5rem;
+			box-shadow: 6px 6px 0 var(--blueprint-blue);
+		}
+
+		.crucible-fieldset legend {
+			font-weight: bold;
+			padding: 0.2rem 0.8rem;
+			background-color: var(--card-bg);
+			border: 1px solid var(--blueprint-blue);
+		}
+
+		.console-header {
+			display: flex;
+			justify-content: space-between;
+			flex-wrap: wrap;
+			gap: 0.5rem;
+			border-bottom: 1px dashed var(--blueprint-blue);
+			padding: 0.5rem 0 0.8rem 0;
+			margin-bottom: 1.25rem;
+			font-size: 0.8rem;
+			color: var(--blueprint-blue);
+		}
+
+		.test-area { display: flex; flex-direction: column; gap: 1rem; }
+
+		.pain-box {
+			border: 2px dashed var(--accent-orange);
+			background: light-dark(rgba(230, 92, 0, 0.05), rgba(230, 92, 0, 0.1));
+			padding: 2.5rem 1rem 2rem 1rem;
+			text-align: center;
+			transition: background 0.3s ease, border-color 0.3s ease, transform 0.1s ease;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			gap: 0.6rem;
+			position: relative;
+
+			-webkit-touch-callout: none;
+			-webkit-user-select: none;
+			user-select: none;
+			touch-action: manipulation;
+			outline: none;
+		}
+
+		.box-label { font-size: 1.1rem; font-weight: bold; color: var(--accent-orange); transition: color 0.3s; }
+		.box-sub { font-size: 0.8rem; color: #777; transition: color 0.3s; }
+		.nerve-bar-container { width: 90%; max-width: 340px; height: 16px; background: #000; border: 1px solid black; margin-top: 0.5rem; overflow: hidden; position: relative; }
+		.nerve-bar { width: 0%; height: 100%; background: var(--accent-orange); transition: width 0s; }
+
+		.stage-display { display: grid; grid-template-columns: 1fr; margin-top: 0.5rem; width: 100%; }
+		.stage-indicator { grid-area: 1 / 1; font-size: 0.75rem; font-weight: bold; padding: 0.2rem 0.5rem; transition: opacity 0.3s; }
+		.stage-1 { opacity: 1; color: #777; }
+		.stage-2 { opacity: 0; color: #ffffff; background: #ff0000; box-shadow: 0 0 10px #ff0000; }
+		.stage-3 { opacity: 0; color: #ffffff; background: var(--accent-green); box-shadow: 0 0 15px var(--accent-green); }
+
+		.pain-box:hover, .pain-box:active, .pain-box:focus-visible {
+			animation: intense-burn 10s linear forwards;
+			border-style: solid;
+		}
+
+		.pain-box:hover .nerve-bar, .pain-box:active .nerve-bar, .pain-box:focus-visible .nerve-bar {
+			width: 100%;
+			transition: width 10s linear;
+			animation: bar-burn 10s linear forwards;
+		}
+
+		.pain-box:hover .box-label, .pain-box:active .box-label, .pain-box:focus-visible .box-label {
+			animation: label-burn 10s linear forwards;
+		}
+
+		.pain-box:hover .stage-1, .pain-box:active .stage-1, .pain-box:focus-visible .stage-1 {
+			animation: stage1-fade 10s linear forwards;
+		}
+		.pain-box:hover .stage-2, .pain-box:active .stage-2, .pain-box:focus-visible .stage-2 {
+			animation: stage2-fade 10s linear forwards;
+		}
+		.pain-box:hover .stage-3, .pain-box:active .stage-3, .pain-box:focus-visible .stage-3 {
+			animation: stage3-fade 10s linear forwards;
+		}
+
+		@keyframes stage1-fade {
+			0%, 49% { opacity: 1; }
+			50%, 100% { opacity: 0; }
+		}
+
+		@keyframes stage2-fade {
+			0%, 49% { opacity: 0; transform: scale(0.95); }
+			50% { opacity: 1; transform: scale(1.05); }
+			55%, 98% { opacity: 1; transform: scale(1); }
+			99%, 100% { opacity: 0; }
+		}
+
+		@keyframes stage3-fade {
+			0%, 98% { opacity: 0; transform: scale(0.95); }
+			99%, 100% { opacity: 1; transform: scale(1); }
+		}
+
+		@keyframes label-burn {
+			0%, 45% { color: var(--accent-orange); text-shadow: none; }
+			50%, 98% { color: #ff0000; text-shadow: 0 0 8px rgba(255, 0, 0, 0.8); }
+			99%, 100% { color: var(--accent-green); text-shadow: 0 0 10px var(--accent-green); }
+		}
+
+		@keyframes intense-burn {
+			0% { background: light-dark(rgba(230, 92, 0, 0.08), rgba(230, 92, 0, 0.12)); border-color: var(--accent-orange); transform: translate(0, 0); }
+			45% { background: light-dark(rgba(230, 92, 0, 0.15), rgba(230, 92, 0, 0.22)); border-color: var(--accent-orange); box-shadow: 0 0 10px rgba(230, 92, 0, 0.2); transform: translate(0, 0); }
+
+			50% { background: light-dark(rgba(217, 48, 37, 0.25), rgba(217, 48, 37, 0.35)); border-color: var(--markup-color); box-shadow: 0 0 20px rgba(217, 48, 37, 0.6); transform: translate(-1px, 1px); }
+			70% { background: light-dark(rgba(255, 0, 0, 0.35), rgba(255, 0, 0, 0.5)); border-color: #ff0000; box-shadow: 0 0 30px rgba(255, 0, 0, 0.8), inset 0 0 20px rgba(255, 0, 0, 0.5); transform: translate(2px, -2px); }
+			85% { transform: translate(-3px, 2px); }
+			95% { transform: translate(3px, -1px); }
+			98% { background: light-dark(rgba(255, 50, 0, 0.5), rgba(255, 0, 0, 0.7)); border-color: #ffffff; box-shadow: 0 0 45px #ff0000, 0 0 20px #ffffff, inset 0 0 30px #ff0000; transform: translate(-2px, 2px); }
+
+			99%, 100% {
+				background: light-dark(rgba(0, 255, 65, 0.1), rgba(0, 255, 65, 0.15));
+				border-color: var(--accent-green);
+				box-shadow: 0 0 25px var(--accent-green), inset 0 0 15px rgba(0, 255, 65, 0.3);
+				transform: translate(0, 0);
+			}
+		}
+
+		@keyframes bar-burn {
+			0%   { background: var(--accent-orange); box-shadow: none; }
+			49%  { background: var(--accent-orange); box-shadow: 0 0 8px var(--accent-orange); }
+			50%  { background: var(--markup-color); box-shadow: 0 0 12px var(--markup-color); }
+			80%  { background: #ff3300; box-shadow: 0 0 20px #ff0000; }
+			98%  { background: #ffffff; box-shadow: 0 0 20px #ffffff, 0 0 35px #ff0000; }
+			99%, 100% { background: var(--accent-green); box-shadow: 0 0 15px var(--accent-green); }
+		}
+
+		.test-result {
+			max-height: 0;
+			opacity: 0;
+			overflow: hidden;
+			border-left: 3px solid var(--accent-green);
+			padding-left: 1rem;
+			transition: opacity 0.5s ease 10s, max-height 0.5s ease 10s;
+		}
+
+		.pain-box:hover ~ .test-result, .pain-box:active ~ .test-result, .pain-box:focus-visible ~ .test-result {
+			max-height: 350px;
+			opacity: 1;
+		}
+
+		@media (max-width: 600px) {
+			.crucible-fieldset { padding: 0.5rem 1rem 1rem 1rem; }
+			.pain-box { padding: 1.5rem 0.5rem; }
+			.box-label { font-size: 0.95rem; }
+		}
+
 		@media (max-width: 600px) {
 			.telemetry-grid {
 				grid-template-columns: repeat(2, 1fr);
@@ -828,7 +980,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			}
 		}
 
-		/* --- Media Queries & Print --- */
 		@media print {
 			body { background-color: #ffffff !important; color: #000000 !important; background-image: linear-gradient(#eaeaea 1px, transparent 1px), linear-gradient(90deg, #eaeaea 1px, transparent 1px) !important; }
 			.spec-container { border: 1px solid #000000 !important; box-shadow: none !important; padding: 0 !important; max-width: 100% !important; }
@@ -849,6 +1000,9 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			.tx-data-grid { grid-template-columns: auto 1fr; }
 		}
 		@media (max-width: 600px) {
+			html {
+				font-size: 16px;
+			}
 			body { font-size: 0.95rem; line-height: 1.5; }
 			h1 { font-size: 1.3rem !important; }
 			h2 { font-size: 1.2rem; }
@@ -891,8 +1045,9 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			<a href="#exhibit">// 03_EXHIBIT_LOG</a>
 			<a href="#status-board">// 04_CIS_DISPLAY</a>
 			<a href="#homelab-status">// 05_HOMELAB_SYS</a>
-			<a href="#network">// 06_WEB_RING</a>
-			<a href="#handshake">// 07_CONTACT</a>
+			<a href="#gom-jabbar">// 06_GOM_JABBAR</a>
+			<a href="#network">// 07_WEB_RING</a>
+			<a href="#handshake">// 08_CONTACT</a>
 		</nav>
 	</header>
 
@@ -1151,8 +1306,54 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		</fieldset>
 	</section>
 
+	<section id="gom-jabbar">
+		<h2>06_GOM_JABBAR</h2>
+		<p class="mono">"The test is simple. Remove your hand from the box, and you die." <br> "What's in the box?" <br> "Pain."</p>
+
+		<!-- WRAPPED IN A FORMAL DRAFTING FIELDSET -->
+		<fieldset class="mono crucible-fieldset" style="margin-top: 1.5rem;">
+			<legend>CRUCIBLE_CONTAINMENT // [GOM_JABBAR_V4]</legend>
+
+			<div class="console-header">
+				<span>> PROTOCOL: BENE_GESSERIT_TESTING_ARRAY</span>
+			</div>
+
+			<div class="test-area">
+				<!-- Mobile-compatible label with touch-resets -->
+				<label tabindex="0" class="pain-box mono">
+					<span class="box-label">[PLACE RIGHT HAND IN THE BOX]</span>
+					<span class="box-sub">Press and hold without flinching for 10000ms</span>
+
+					<div class="nerve-bar-container">
+						<div class="nerve-bar"></div>
+					</div>
+
+					<!-- 3-Stage Grid stacking all indicators in the exact same cell -->
+					<div class="stage-display mono">
+						<span class="stage-indicator stage-1">STAGE 01 // THERMAL INDUCTION: WARMTH</span>
+						<span class="stage-indicator stage-2">STAGE 02 // NERVE OVERLOAD: WHITE HOT PAIN</span>
+						<span class="stage-indicator stage-3">STAGE 03 // CRUCIBLE SURVIVED: HUMANITY VERIFIED</span>
+					</div>
+				</label>
+
+				<!-- Hidden clearance output (Unlocks at 10 seconds) -->
+				<div class="test-result mono">
+					<div class="result-success">
+						<span style="color: var(--accent-green); font-weight: bold; font-size: 1.1rem;">[STATUS: HUMAN CONSCIOUSNESS VERIFIED]</span>
+						<p style="color: var(--text-color); margin-top: 0.5rem; font-family: 'Georgia', serif; font-style: italic; line-height: 1.6;">
+							"You dare suggest a Bene Gesserit would raise her hand against a human? We only test for humans. An animal caught in a trap will gnaw off its own leg to escape. A human will remain in the trap, endure the pain... that he might kill the trapper."
+						</p>
+						<div style="margin-top: 0.8rem; padding-top: 0.5rem; border-top: 1px dashed var(--blueprint-blue); color: var(--accent-orange); font-size: 0.8rem;">
+							> GOM_JABBAR WITHDRAWN // ACCESS CLEARANCE GRANTED // TIME: 10.00s
+						</div>
+					</div>
+				</div>
+			</div>
+		</fieldset>
+	</section>
+
 	<section id="network">
-		<h2>06_WEB_RING</h2>
+		<h2>07_WEB_RING</h2>
 		<p class="mono">External network nodes and corners of the old web.</p>
 
 		<fieldset class="mono">
@@ -1186,7 +1387,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	</section>
 
 	<section id="handshake">
-		<h2>07_CONTACT</h2>
+		<h2>08_CONTACT</h2>
 		<p class="mono">Direct data transfers gratefully accepted via standard protocols.</p>
 
 		<fieldset class="mono">

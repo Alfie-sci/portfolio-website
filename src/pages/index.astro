@@ -11,6 +11,7 @@ import photo6 from '../assets/gallery/photo6.jpeg';
 import photo7 from '../assets/gallery/photo7.jpeg';
 import photo8 from '../assets/gallery/photo8.jpeg';
 import photo9 from '../assets/gallery/photo9.jpeg';
+import networkraillogo from '../assets/logos/network-rail-logo.svg';
 
 const contactSheetPhotos = [
 	{ ref: "ENGINEERING_TWO.JPG", spec: "26mm // ISO 400 // f/1.8", asset: photo1 },
@@ -264,9 +265,8 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		#projects::after { content: "02"; }
 		#exhibit::after { content: "03"; }
 		#status-board::after { content: "04"; }
-		#homelab-status::after { content: "05"; }
-		#network::after { content: "06"; }
-		#handshake::after { content: "07"; }
+		#network::after { content: "05"; }
+		#handshake::after { content: "06"; }
 
 		fieldset {
 			border: 1px solid var(--blueprint-blue);
@@ -731,101 +731,6 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 		.endpoints-list { line-height: 1.8; overflow-wrap: break-word; word-break: break-all; }
 
-		/* --- SECTION: Homelab Dashboard --- */
-		.telemetry-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-			gap: 1.5rem 1rem;
-		}
-
-		.telemetry-stat {
-			display: flex;
-			flex-direction: column;
-		}
-
-		.telemetry-label {
-			font-size: 0.75rem;
-			color: var(--blueprint-blue);
-			letter-spacing: 1px;
-			margin-bottom: 0.2rem;
-		}
-
-		.telemetry-value {
-			font-size: 1.1rem;
-			font-weight: bold;
-			color: var(--text-color);
-		}
-
-		/* Hardware Status LEDs */
-		.status-led {
-			display: inline-block;
-			width: 8px;
-			height: 8px;
-			border-radius: 50%;
-			margin-right: 4px;
-			margin-bottom: 1px;
-		}
-
-		.led-green {
-			background-color: var(--accent-green);
-			box-shadow: 0 0 5px var(--accent-green);
-			animation: pulse-led 2.5s infinite;
-			margin-bottom: 2px;
-		}
-
-		@keyframes pulse-led {
-			0%, 100% { opacity: 1; }
-			50% { opacity: 0.4; }
-		}
-
-		.terminal-log {
-			margin-top: 1.5rem;
-			background-color: #050505;
-			border: 2px solid #1a1a1a;
-			padding: 1rem;
-			font-family: 'Doto', "Courier New", monospace;
-			font-size: 0.85rem;
-			line-height: 1.6;
-			color: #cccccc;
-			box-shadow: inset 0 0 10px rgba(0,0,0,0.8);
-		}
-
-		.log-line {
-			margin-bottom: 0.4rem;
-			word-break: break-all;
-		}
-
-		.log-time { color: #666666; }
-		.log-info { color: var(--link-dark); font-weight: bold; } /* Cyan */
-		.log-warn { color: #ffaa00; font-weight: bold; } /* Yellow/Orange */
-
-		.log-cursor {
-			margin-top: 1rem;
-			color: var(--radar-green);
-		}
-
-		.cursor-blink {
-			display: inline-block;
-			width: 8px;
-			animation: blink-cursor 1s step-end infinite;
-		}
-
-		@keyframes blink-cursor {
-			0%, 100% { opacity: 1; }
-			50% { opacity: 0; }
-		}
-
-		@media (max-width: 600px) {
-			.telemetry-grid {
-				grid-template-columns: repeat(2, 1fr);
-				gap: 1rem;
-			}
-			.terminal-log {
-				font-size: 0.75rem;
-				padding: 0.75rem;
-			}
-		}
-
 		@media print {
 			body { background-color: #ffffff !important; color: #000000 !important; background-image: linear-gradient(#eaeaea 1px, transparent 1px), linear-gradient(90deg, #eaeaea 1px, transparent 1px) !important; }
 			.spec-container { border: 1px solid #000000 !important; box-shadow: none !important; padding: 0 !important; max-width: 100% !important; }
@@ -863,6 +768,84 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			.skills-table { grid-template-columns: 1fr; gap: 0.25rem; }
 			.skill-label { text-align: left; margin-top: 0.75rem; }
 		}
+
+		/* --- SECTION: Dynamic Status Box --- */
+		.dynamic-status-box {
+			/* Uses the inline HTML color, defaults to blue if missing */
+			border: 2px solid var(--activity-color, var(--blueprint-blue));
+			box-shadow: 4px 4px 0 var(--activity-color, var(--blueprint-blue));
+			padding: 0rem 1.5rem 1.5rem 1.5rem;
+			background: var(--card-bg);
+		}
+
+		.dynamic-status-box legend {
+			color: var(--activity-color, var(--blueprint-blue));
+			font-weight: bold;
+			padding: 0 0.5rem;
+		}
+
+		.status-highlight {
+			color: var(--activity-color, var(--blueprint-blue));
+		}
+
+		.status-content {
+			font-family: "Georgia", serif;
+			font-size: 1rem;
+			line-height: 1.6;
+			color: var(--text-color);
+
+
+		}
+
+		.status-content p {
+			margin-bottom: 1rem;
+		}
+
+		.status-content p:last-of-type {
+			margin-bottom: 0;
+		}
+		/* 1. Tighten up the footer container */
+		.status-footer {
+			margin-top: 1rem;
+			padding-top: 1rem;
+			border-top: 1px dashed light-dark(rgba(0,0,0,0.1), rgba(255,255,255,0.2));
+			display: flex;
+			justify-content: space-between;
+			align-items: flex-start;
+
+			gap: 2rem;
+		}
+
+		/* The Legal Fine Print */
+		.liability-clause {
+			font-size: 0.65rem; /* Keeps it small and unobtrusive */
+			line-height: 1.5;
+			max-width: 75%; /* Prevents it from stretching all the way across */
+		}
+
+		.activity-logo {
+			height: 140px;
+			width: auto;
+			opacity: 0.9;
+			max-width: 100%;
+			margin: -45px 0px -30px 0;
+			flex-shrink: 0; /* Prevents the logo from shrinking if the text gets long */
+		}
+
+		/* On mobile, stack the text on top of the logo */
+		@media (max-width: 600px) {
+			.status-footer {
+				flex-direction: column;
+				align-items: flex-start;
+				gap: 1rem;
+			}
+			.liability-clause {
+				max-width: 100%;
+			}
+			.activity-logo {
+				margin: -20px 0 -20px -10px; /* Adjust mobile negative margins if needed */
+			}
+		}
 	</style>
 </head>
 <body>
@@ -890,9 +873,8 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			<a href="#projects">// 02_PROJECTS</a>
 			<a href="#exhibit">// 03_EXHIBIT_LOG</a>
 			<a href="#status-board">// 04_CIS_DISPLAY</a>
-			<a href="#homelab-status">// 05_HOMELAB_SYS</a>
-			<a href="#network">// 06_WEB_RING</a>
-			<a href="#handshake">// 07_CONTACT</a>
+			<a href="#network">// 05_WEB_RING</a>
+			<a href="#handshake">// 06_CONTACT</a>
 		</nav>
 	</header>
 
@@ -905,11 +887,13 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			I am currently on the second year of my course, thoroughly appreciating it, and really enjoying all that the uni has to offer.<br>
 			For the past couple of years I have been contributing to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, disused regional branch line network. A particular favourite at the moment is the <a href="https://en.wikipedia.org/wiki/Glasson_Dock_branch_line" target="_blank">Glasson Dock branch line</a>, which I have been researching recently.<br>
 			I am currently developing a web-based open-source interactive map of the UK rail network, which I started in May. I've decided to build this out starting in Lancashire, using React and deck.gl, exploring how best to use the incredible resource of OpenStreetMap to provide a new way of visualising the railway. I will continue to build this out over the next few months.<br>
-			As of June 2026, I have been elected as the Engineering Manager for the student radio station at Lancaster: <a href="https://www.bailriggfm.co.uk" target="_blank">95.3 Bailrigg FM</a>. I manage, maintain, and upgrade the servers and technical equipment that the station uses to operate, and help out elsewhere, where I can. It's a lot of responsibility, but very rewarding.
+			I have been elected as the Engineering Manager for the student radio station at Lancaster: <a href="https://www.bailriggfm.co.uk" target="_blank">95.3 Bailrigg FM</a>. I manage, maintain, and upgrade the servers and technical equipment that the station uses to operate, and help out elsewhere, where I can. It's a lot of responsibility, but very rewarding.<br>
+			Over the summer, I enjoyed a placement with <strong>Network Rail</strong>. I worked with the Engineering and Asset Management team in the Scotland region, but often the meetings I attended were far beyond that scope (a particular highlight being a meeting between NR and their contractors discussing an electrification project. This gave me an appropriately broad insight into the management, maintenance, and upgrade of the UK's railways.
 			<div class="mono" style="background-color: var(--blueprint-blue); color: var(--bg-color); width: fit-content; margin-left: auto; font-size: 0.8rem; margin-top: 1rem; padding: 0.1rem 0.4rem; font-weight: bold;">
 				> LAST_MODIFIED: {buildDate}
 			</div>
 		</fieldset>
+
 		<fieldset class="mono">
 			<legend>CORE_PROCESSES.bin</legend>
 
@@ -957,6 +941,30 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		</fieldset>
 	</section>
 
+	<section id="current-operations">
+		<h2>02_CURRENT_OPERATIONS</h2>
+		<p class="mono">Live operator telemetry.</p>
+
+		<!-- Change the --activity-color hex code here whenever your status changes! -->
+		<!-- Network Rail Orange: #F47320 | Lancaster Red: #B5121B -->
+		<fieldset class="mono dynamic-status-box" style="--activity-color: #F47320; margin-top: 1.5rem;">
+			<legend>NOW.html</legend>
+			<div class="status-content">
+				<p>I am currently undertaking a summer placement with <strong class="status-highlight">Network Rail</strong>, working within the <strong class="status-highlight">Engineering and Asset Management</strong> team in the Scotland region.</p>
+				<p>This role provides a fantastic opportunity to bridge the gap between theoretical computer science and the railways with which I have been interested for so long. I am spending my time shadowing colleagues, attending extremely varied meetings, and peeking behind the curtain to learn how a large national infrastructure management firm operates.</p>
+				<p>Learning about routes into careers with NR is also incredibly valuable, as they provide a very tempting range of graduate schemes, and this placement provides a great opportunity to learn more about them.</p>
+				<!-- NEW: The Logo Footer -->
+				<div class="status-footer">
+   <span class="liability-clause mono">
+      > COMPLIANCE_NOTICE // The opinions, code, and architectural views expressed on this website are solely those of the operator and do not represent the official views, policies, or endorsements of Network Rail.
+   </span>
+
+					<Image src={networkraillogo} alt="Network Rail Logo" class="activity-logo" />
+				</div>
+			</div>
+		</fieldset>
+	</section>
+
 	<section id="projects">
 		<h2>02_PROJECTS</h2>
 		<p class="mono">Project dossiers.</p>
@@ -988,7 +996,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 				</header>
 				<div class="module-body">
 					<p>An open-source interactive mapping project designed to visualise the historical shifts in the United Kingdom's railway network. Utilising React and deck.gl, the map features a timeline scroller allowing users to view the exact state of the infrastructure at specific points in time.</p>
-					<p>Currently focusing on the Lancashire region, including detailed archival data for closed regional branch lines such as the Glasson Dock branch. The architecture leverages OpenStreetMap and Wikipedia data to increase the quality and precision of available historical railway maps.</p>
+					<p>Currently focusing on Yorkshire, parsing detailed archival data for closed regional branch lines takes lots and lots and lots of time. The architecture leverages OpenStreetMap and Wikipedia data to increase the quality and precision of available historical railway maps.</p>
 					<p>The backend for this project required me to write scripts to deal with messy data from Overpass Turbo and consolidate it into large .json files, which then required manual review to add names and opening and closure dates for every station and line present on the map. It took a while, but the result is undeniable. Compared to that, the frontend was relatively easy. Being an individual working on this though - it did take a while!</p>
 					<p>Very much a work in progress, it requires a lot of manually processing data.</p>
 					<a href="https://railgraph.co.uk" class="btn-deploy" target="_blank" rel="noopener noreferrer">railgraph.co.uk</a>
@@ -1095,64 +1103,8 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		</div>
 	</section>
 
-	<section id="homelab-status">
-		<h2>05_HOMELAB_SYS</h2>
-		<p class="mono">(Not so) live telemetry from the local Dell Optiplex hypervisor.</p>
-
-		<fieldset class="mono" style="margin-top: 1.5rem;">
-			<legend>PROXMOX_VE // [NODE: PVE-OPTIPLEX]</legend>
-
-			<div class="telemetry-grid">
-				<div class="telemetry-stat">
-					<span class="telemetry-label">STATUS</span>
-					<span class="telemetry-value"><span class="status-led led-green"></span> CONNECTED</span>
-				</div>
-				<div class="telemetry-stat">
-					<span class="telemetry-label">UPTIME</span>
-					<span class="telemetry-value">42d 14h 08m</span>
-				</div>
-				<div class="telemetry-stat">
-					<span class="telemetry-label">CPU_LOAD</span>
-					<span class="telemetry-value">14.2%</span>
-				</div>
-				<div class="telemetry-stat">
-					<span class="telemetry-label">MEM_USAGE</span>
-					<span class="telemetry-value">6.3GB / 8GB</span>
-				</div>
-				<div class="telemetry-stat">
-					<span class="telemetry-label">SAMBA_POOL</span>
-					<span class="telemetry-value">146GB / 1.0TB</span>
-				</div>
-				<div class="telemetry-stat">
-					<span class="telemetry-label">CORE_TEMP</span>
-					<span class="telemetry-value" style="color: var(--accent-orange);">44°C</span>
-				</div>
-			</div>
-
-			<div class="container-matrix" style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px dashed var(--blueprint-blue);">
-				<strong style="color: var(--blueprint-blue); display: block; margin-bottom: 0.8rem;">> UBUNTU_VM // CONTAINER_HEALTH:</strong>
-				<div class="skill-chips">
-					<span class="skill-chip"><span class="status-led led-green"></span> pihole_dns</span>
-					<span class="skill-chip"><span class="status-led led-green"></span> nextcloud_app</span>
-					<span class="skill-chip"><span class="status-led led-green"></span> immich_server</span>
-					<span class="skill-chip"><span class="status-led led-green"></span> immich_machine_learning</span>
-					<span class="skill-chip"><span class="status-led led-green"></span> portainer_ce</span>
-					<span class="skill-chip"><span class="status-led led-green"></span> uptime_kuma</span>
-				</div>
-			</div>
-
-			<div class="terminal-log">
-				<div class="log-line"><span class="log-time">[14:02:45]</span> <span class="log-info">INFO:</span> Nextcloud routine backup completed successfully.</div>
-				<div class="log-line"><span class="log-time">[10:15:12]</span> <span class="log-warn">WARN:</span> High memory usage detected in container [immich_machine_learning].</div>
-				<div class="log-line"><span class="log-time">[08:00:00]</span> <span class="log-info">INFO:</span> Pi-hole gravity updated. 1,420,051 domains blocked.</div>
-				<div class="log-line"><span class="log-time">[04:30:22]</span> <span class="log-info">INFO:</span> Uptime Kuma pinged external gateway [OK].</div>
-				<div class="log-cursor">root@pve-optiplex:~# <span class="cursor-blink">_</span></div>
-			</div>
-		</fieldset>
-	</section>
-
 	<section id="network">
-		<h2>06_WEB_RING</h2>
+		<h2>05_WEB_RING</h2>
 		<p class="mono">External network nodes and corners of the old web.</p>
 
 		<fieldset class="mono">
@@ -1186,7 +1138,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	</section>
 
 	<section id="handshake">
-		<h2>07_CONTACT</h2>
+		<h2>06_CONTACT</h2>
 		<p class="mono">Direct data transfers gratefully accepted via standard protocols.</p>
 
 		<fieldset class="mono">

@@ -262,11 +262,12 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			padding: 0.8rem 0.8rem;
 		}
 		#manifest::after { content: "01"; }
-		#projects::after { content: "02"; }
-		#exhibit::after { content: "03"; }
-		#status-board::after { content: "04"; }
-		#network::after { content: "05"; }
-		#handshake::after { content: "06"; }
+		#current-operations::after { content: "02"; }
+		#projects::after { content: "03"; }
+		#exhibit::after { content: "04"; }
+		#status-board::after { content: "05"; }
+		#network::after { content: "06"; }
+		#handshake::after { content: "07"; }
 
 		fieldset {
 			border: 1px solid var(--blueprint-blue);
@@ -870,11 +871,12 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 
 		<nav>
 			<a href="#manifest">// 01_MANIFEST</a>
-			<a href="#projects">// 02_PROJECTS</a>
-			<a href="#exhibit">// 03_EXHIBIT_LOG</a>
-			<a href="#status-board">// 04_CIS_DISPLAY</a>
-			<a href="#network">// 05_WEB_RING</a>
-			<a href="#handshake">// 06_CONTACT</a>
+			<a href="#current-operations">// 02_CURRENT_OPERATIONS</a>
+			<a href="#projects">// 03_PROJECTS</a>
+			<a href="#exhibit">// 04_EXHIBIT_LOG</a>
+			<a href="#status-board">// 05_CIS_DISPLAY</a>
+			<a href="#network">// 06_WEB_RING</a>
+			<a href="#handshake">// 07_CONTACT</a>
 		</nav>
 	</header>
 
@@ -966,7 +968,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	</section>
 
 	<section id="projects">
-		<h2>02_PROJECTS</h2>
+		<h2>03_PROJECTS</h2>
 		<p class="mono">Project dossiers.</p>
 
 		<div class="project-dossier-list">
@@ -1036,7 +1038,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	</section>
 
 	<section id="exhibit">
-		<h2>03_EXHIBIT_LOG</h2>
+		<h2>04_EXHIBIT_LOG</h2>
 		<p class="mono">Analog capture extraction ledger. Themes include architecture, railways, and infrastructure. All photos taken with my iPhone 17.</p>
 
 		<div class="photo-grid-wrapper">
@@ -1068,7 +1070,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	</section>
 
 	<section id="status-board">
-		<h2>04_CIS_DISPLAY</h2>
+		<h2>05_CIS_DISPLAY</h2>
 		<p class="mono">Do not use for actual train times.</p>
 		<div class="cis-board">
 			<div class="cis-row">
@@ -1104,7 +1106,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	</section>
 
 	<section id="network">
-		<h2>05_WEB_RING</h2>
+		<h2>06_WEB_RING</h2>
 		<p class="mono">External network nodes and corners of the old web.</p>
 
 		<fieldset class="mono">
@@ -1138,7 +1140,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 	</section>
 
 	<section id="handshake">
-		<h2>06_CONTACT</h2>
+		<h2>07_CONTACT</h2>
 		<p class="mono">Direct data transfers gratefully accepted via standard protocols.</p>
 
 		<fieldset class="mono">

@@ -12,6 +12,7 @@ import photo7 from '../assets/gallery/photo7.jpeg';
 import photo8 from '../assets/gallery/photo8.jpeg';
 import photo9 from '../assets/gallery/photo9.jpeg';
 import networkraillogo from '../assets/logos/network-rail-logo.svg';
+import lancslogo from '../assets/logos/lancs-logo.png';
 
 const contactSheetPhotos = [
 	{ ref: "ENGINEERING_TWO.JPG", spec: "26mm // ISO 400 // f/1.8", asset: photo1 },
@@ -825,11 +826,11 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		}
 
 		.activity-logo {
-			height: 140px;
+			height: 50px;
 			width: auto;
 			opacity: 0.9;
 			max-width: 100%;
-			margin: -45px 0px -30px 0;
+			margin: 0px 0px -10px 0;
 			flex-shrink: 0; /* Prevents the logo from shrinking if the text gets long */
 		}
 
@@ -890,7 +891,7 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 			For the past couple of years I have been contributing to Wikipedia by creating and refining articles about the British railway network, with a focus on the sometimes forgotten, and often poorly documented, disused regional branch line network. A particular favourite at the moment is the <a href="https://en.wikipedia.org/wiki/Glasson_Dock_branch_line" target="_blank">Glasson Dock branch line</a>, which I have been researching recently.<br>
 			I am currently developing a web-based open-source interactive map of the UK rail network, which I started in May. I've decided to build this out starting in Lancashire, using React and deck.gl, exploring how best to use the incredible resource of OpenStreetMap to provide a new way of visualising the railway. I will continue to build this out over the next few months.<br>
 			I have been elected as the Engineering Manager for the student radio station at Lancaster: <a href="https://www.bailriggfm.co.uk" target="_blank">95.3 Bailrigg FM</a>. I manage, maintain, and upgrade the servers and technical equipment that the station uses to operate, and help out elsewhere, where I can. It's a lot of responsibility, but very rewarding.<br>
-			Over the summer, I enjoyed a placement with <strong>Network Rail</strong>. I worked with the Engineering and Asset Management team in the Scotland region, but often the meetings I attended were far beyond that scope (a particular highlight being a meeting between NR and their contractors discussing an electrification project. This gave me an appropriately broad insight into the management, maintenance, and upgrade of the UK's railways.
+			Over the summer, I enjoyed a placement with <strong>Network Rail</strong>. I worked with the Engineering and Asset Management team in the Scotland region, but often the meetings I attended were far beyond that scope (a particular highlight being a meeting between NR and their contractors discussing an electrification project). This gave me an appropriately broad insight into the management, maintenance, and upgrade of the UK's railways.
 			<div class="mono" style="background-color: var(--blueprint-blue); color: var(--bg-color); width: fit-content; margin-left: auto; font-size: 0.8rem; margin-top: 1rem; padding: 0.1rem 0.4rem; font-weight: bold;">
 				> LAST_MODIFIED: {buildDate}
 			</div>
@@ -947,21 +948,14 @@ const dynamicTimestamp = `[TIMESTAMP: ${buildDate} // ${buildTime}]`;
 		<h2>02_CURRENT_OPERATIONS</h2>
 		<p class="mono">Live operator telemetry.</p>
 
-		<!-- Change the --activity-color hex code here whenever your status changes! -->
-		<!-- Network Rail Orange: #F47320 | Lancaster Red: #B5121B -->
-		<fieldset class="mono dynamic-status-box" style="--activity-color: #F47320; margin-top: 1.5rem;">
+		<!-- Change the --activity-color hex code here whenever my status changes -->
+		<fieldset class="mono dynamic-status-box" style="--activity-color: #B5121B; margin-top: 1.5rem;">
 			<legend>NOW.html</legend>
 			<div class="status-content">
-				<p>I am currently undertaking a summer placement with <strong class="status-highlight">Network Rail</strong>, working within the <strong class="status-highlight">Engineering and Asset Management</strong> team in the Scotland region.</p>
-				<p>This role provides a fantastic opportunity to bridge the gap between theoretical computer science and the railways with which I have been interested for so long. I am spending my time shadowing colleagues, attending extremely varied meetings, and peeking behind the curtain to learn how a large national infrastructure management firm operates.</p>
-				<p>Learning about routes into careers with NR is also incredibly valuable, as they provide a very tempting range of graduate schemes, and this placement provides a great opportunity to learn more about them.</p>
-				<!-- NEW: The Logo Footer -->
+				<p>I am now continuting with my Computer Science degree at Lancaster! As of writing I am yet to start my second year, but all optional modules have been chosen and my timetable is out.</p>
+				<p>I am really enjoying my studies and am really looking forward to going back. On the side, I am working on this website, BailriggFM, and other projects.</p>
 				<div class="status-footer">
-   <span class="liability-clause mono">
-      > COMPLIANCE_NOTICE // The opinions, code, and architectural views expressed on this website are solely those of the operator and do not represent the official views, policies, or endorsements of Network Rail.
-   </span>
-
-					<Image src={networkraillogo} alt="Network Rail Logo" class="activity-logo" />
+					<Image src={lancslogo} alt="Lancaster University Logo" class="activity-logo" />
 				</div>
 			</div>
 		</fieldset>
